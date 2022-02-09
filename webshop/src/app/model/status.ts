@@ -1,5 +1,5 @@
 export enum Status {
     new, 
-    shipped, 
-    paid
+    paid,
+    shipped
 }
