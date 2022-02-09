@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
+import { BaseListComponent } from './common/base-list/base-list.component';
+import { KeysPipe } from './pipe/keys.pipe';
+import { ProductsComponent } from './page/products/products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    BaseListComponent,
+    KeysPipe,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
