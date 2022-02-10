@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
+import { CustomerService } from 'src/app/service/customer.service';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-products',
@@ -33,17 +35,30 @@ export class ProductsComponent implements OnInit {
   public testOutput: string = '';
 
   constructor(
-    private CategorySericeTest: CategoryService
+    private CategoryServiceTest: CategoryService,
+    private ProductServiceTest: ProductService,
+    private CustomerServiceTest: CustomerService
   ) {}
 
   ngOnInit(): void {}
 
   getAllCategoryTest(): void {
-    this.CategorySericeTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+    this.CategoryServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
   }
   getOneCategoryTest(): void {
-    this.CategorySericeTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+    this.CategoryServiceTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
   }
-
+  getOneProductTest(): void {
+    this.ProductServiceTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+  getAllProductTest(): void {
+    this.ProductServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+  getOneCustomerTest(): void {
+    this.CustomerServiceTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+  getAllCustomerTest(): void {
+    this.CustomerServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
 
 }
