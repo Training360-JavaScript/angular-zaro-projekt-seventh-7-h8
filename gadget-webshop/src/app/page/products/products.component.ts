@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/service/category.service';
 
 @Component({
   selector: 'app-products',
@@ -29,7 +30,20 @@ export class ProductsComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  public testOutput: string = '';
+
+  constructor(
+    private CategorySericeTest: CategoryService
+  ) {}
 
   ngOnInit(): void {}
+
+  getAllCategoryTest(): void {
+    this.CategorySericeTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+  getOneCategoryTest(): void {
+    this.CategorySericeTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+
+
 }

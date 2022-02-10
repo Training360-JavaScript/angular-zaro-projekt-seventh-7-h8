@@ -1,1 +1,21 @@
 <app-base-list [entities]="products"></app-base-list>
+<!-- teszt-->
+<div class="row">
+  <div class="col">
+      <button mat-raised-button class="btn btn-default" (click)="getAllCategoryTest()">Category (all)</button>
+      <button mat-raised-button class="btn btn-default" (click)="getOneCategoryTest()">Category (one)</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+          <h4 class="card-title">Output</h4>
+      </div>
+      <div class="card-body">
+          <pre>{{testOutput}}</pre>
+      </div>
+  </div>
+  </div>
+</div>
+
