@@ -15,4 +15,12 @@ export class BaseListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onEdit(entity:Entity){
+    //TODO navigate to edit page
+  }
+
+  onDelete(entity:Entity){
+    //TODO call service
+  }
+
 }

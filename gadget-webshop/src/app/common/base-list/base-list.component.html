@@ -9,7 +9,16 @@
     <tbody>
       <tr *ngFor="let entity of entities">
         <td *ngFor="let propertyKey of entity | keys">{{entity[propertyKey]}}</td>
+        <div class="btn-group">
+          <button (click)="onEdit(entity)" class="btn btn-success">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button (click)="onDelete(entity)" class="btn btn-danger">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
       </tr>
+
     </tbody>
   </table>
 </div>
