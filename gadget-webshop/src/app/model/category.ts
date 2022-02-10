@@ -1,6 +1,5 @@
-export class Category {
-    [key: string]: any;
-    id: number = 0;
+import { Entity } from "./entity";
+export class Category extends Entity{
     name: string = '';
-    description: string = '';    
+    description: string = '';
 }

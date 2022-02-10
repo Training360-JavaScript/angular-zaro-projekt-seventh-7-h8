@@ -1,6 +1,5 @@
-export class Product {
-    [key: string]: any;
-    id: number = 0;
+import { Entity } from "./entity";
+export class Product extends Entity{
     name: string = '';
     type: string = '';
     catID: number = 0;
