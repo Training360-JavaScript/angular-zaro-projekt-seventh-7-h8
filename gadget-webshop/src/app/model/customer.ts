@@ -1,8 +1,8 @@
+import { Entity } from 'src/app/model/entity';
 import { Address } from "./address";
 
-export class Customer {
+export class Customer extends Entity {
     [key: string]: any;
-    id: number = 0;
     firstName: string = '';
     lastName: string = '';
     email: string = '';
