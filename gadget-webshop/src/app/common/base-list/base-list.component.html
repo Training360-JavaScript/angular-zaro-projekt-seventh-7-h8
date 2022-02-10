@@ -1,0 +1,15 @@
+<div class="table-responsive">
+  <table class="table table-sm table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th *ngFor=" let entity of entities[0] | keys">{{entity}}</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entity of entities">
+        <td *ngFor="let propertyKey of entity | keys">{{entity[propertyKey]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
