@@ -1,6 +1,6 @@
-export class Category {
+import { Entity } from 'src/app/model/entity';
+export class Category extends Entity {
     [key: string]: any;
-    id: number = 0;
     name: string = '';
-    description: string = '';    
+    description: string = '';
 }
