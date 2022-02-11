@@ -7,10 +7,10 @@ import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductListComponent implements OnInit {
   products: any[] = [
     {
       id: 1,

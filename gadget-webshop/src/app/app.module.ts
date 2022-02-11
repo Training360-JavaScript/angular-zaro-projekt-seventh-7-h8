@@ -9,7 +9,14 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
 import { BaseListComponent } from './common/base-list/base-list.component';
 import { KeysPipe } from './pipe/keys.pipe';
-import { ProductsComponent } from './page/products/products.component';
+import { ProductListComponent } from './page/product-list/product-list.component';
+import { CustomerListComponent } from './page/customer-list/customer-list.component';
+import { OrderListComponent } from './page/order-list/order-list.component';
+import { BillListComponent } from './page/bill-list/bill-list.component';
+import { EditBillComponent } from './page/edit-bill/edit-bill.component';
+import { EditCustomerComponent } from './page/edit-customer/edit-customer.component';
+import { EditOrderComponent } from './page/edit-order/edit-order.component';
+import { EditProductComponent } from './page/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +26,14 @@ import { ProductsComponent } from './page/products/products.component';
     HeaderComponent,
     BaseListComponent,
     KeysPipe,
-    ProductsComponent
+    ProductListComponent,
+    CustomerListComponent,
+    OrderListComponent,
+    BillListComponent,
+    EditBillComponent,
+    EditCustomerComponent,
+    EditOrderComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
