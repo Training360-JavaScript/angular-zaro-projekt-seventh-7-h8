@@ -24,12 +24,38 @@ const appRoutes: Routes = [
     path: '',
     component: HomeComponent
   },
-  /*
   {
-    path: 'product',
-    component: ProductsComponent
+    path: 'bill-list',
+    component: BillListComponent
   },
-  */
+  {
+    path: 'bill-edit',
+    component: EditBillComponent
+  },
+  {
+    path: 'costumerlist',
+    component: CustomerListComponent
+  },
+  {
+    path: 'editcustomer',
+    component: EditCustomerComponent
+  },
+  {
+    path: 'editorder',
+    component: EditOrderComponent
+  },
+  {
+    path: 'orderlist',
+    component: OrderListComponent
+  },
+  {
+    path: 'editproduct',
+    component: EditProductComponent
+  },
+  {
+    path: 'productlist',
+    component: ProductListComponent
+  },
   {
     path: '**',
     component: HomeComponent
