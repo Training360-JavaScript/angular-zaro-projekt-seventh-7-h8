@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
 import { CustomerService } from 'src/app/service/customer.service';
+import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -37,7 +38,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private CategoryServiceTest: CategoryService,
     private ProductServiceTest: ProductService,
-    private CustomerServiceTest: CustomerService
+    private CustomerServiceTest: CustomerService,
+    private OrderServiceTest: OrderService
   ) {}
 
   ngOnInit(): void {}
@@ -60,5 +62,10 @@ export class ProductsComponent implements OnInit {
   getAllCustomerTest(): void {
     this.CustomerServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
   }
-
+  getOneOrderTest(): void {
+    this.OrderServiceTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
+  getAllOrderTest(): void {
+    this.OrderServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+  }
 }
