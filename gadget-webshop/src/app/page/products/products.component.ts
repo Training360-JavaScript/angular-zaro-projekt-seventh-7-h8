@@ -77,6 +77,4 @@ export class ProductsComponent implements OnInit {
     this.BillServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
   }
 
-
-
 }

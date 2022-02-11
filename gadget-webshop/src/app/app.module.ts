@@ -9,7 +9,6 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
 import { BaseListComponent } from './common/base-list/base-list.component';
 import { KeysPipe } from './pipe/keys.pipe';
-
 import { ProductsComponent } from './page/products/products.component';
 
 @NgModule({
@@ -26,6 +25,7 @@ import { ProductsComponent } from './page/products/products.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

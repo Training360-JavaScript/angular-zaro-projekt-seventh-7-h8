@@ -1,5 +1,6 @@
 import { Address } from "./address";
 import { Entity } from "./entity";
+
 export class Customer extends Entity{
     firstName: string = '';
     lastName: string = '';
