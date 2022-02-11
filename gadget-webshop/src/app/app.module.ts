@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,22 @@ import { EditCustomerComponent } from './page/customer/edit-customer/edit-custom
 import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  /*
+  {
+    path: 'product',
+    component: ProductsComponent
+  },
+  */
+  {
+    path: '**',
+    component: HomeComponent
+  },
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +56,8 @@ import { EditProductComponent } from './page/product/edit-product/edit-product.c
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
