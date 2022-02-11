@@ -1,9 +1,11 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { BillService } from 'src/app/service/bill.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
+import { Product } from 'src/app/model/product';
 
 @Component({
   selector: 'app-products',
@@ -11,29 +13,9 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products: any[] = [
-    {
-      id: 1,
-      name: 'Sprouts - Corn',
-      type: 'Masonry',
-      catID: 4,
-      description: 'Dilation of Ascending Colon, Percutaneous Approach',
-      price: 72,
-      featured: false,
-      active: true,
-    },
-    {
-      id: 2,
-      name: 'Wonton Wrappers',
-      type: 'Waterproofing & Caulking',
-      catID: 2,
-      description: 'Insert Intralum Dev in Inf Mesent Vein, Perc Endo',
-      price: 35,
-      featured: true,
-      active: false,
-    },
-  ];
 
+  products$:Observable<Product[]>= this.ProductServiceTest.getAll();
+  
   public testOutput: string = '';
 
   constructor(

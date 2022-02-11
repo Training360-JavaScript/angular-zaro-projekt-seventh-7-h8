@@ -6,9 +6,9 @@ import { Entity } from 'src/app/model/entity';
   templateUrl: './base-list.component.html',
   styleUrls: ['./base-list.component.scss']
 })
-export class BaseListComponent implements OnInit {
+export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
-  @Input() entities:Entity[] =[];
+  @Input() entities:GenericEntity[] | null =[];
 
   constructor() { }
 
@@ -19,11 +19,11 @@ export class BaseListComponent implements OnInit {
     //TODO navigate to edit page with id=0 parameter
   }
 
-  onEdit(entity:Entity){
+  onEdit(entity:GenericEntity){
     //TODO navigate to edit page with :id parameter
   }
 
-  onDelete(entity:Entity){
+  onDelete(entity:GenericEntity){
     //TODO call service
   }
 
