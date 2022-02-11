@@ -9,14 +9,14 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
 import { BaseListComponent } from './common/base-list/base-list.component';
 import { KeysPipe } from './pipe/keys.pipe';
-import { ProductListComponent } from './page/product-list/product-list.component';
-import { CustomerListComponent } from './page/customer-list/customer-list.component';
-import { OrderListComponent } from './page/order-list/order-list.component';
-import { BillListComponent } from './page/bill-list/bill-list.component';
-import { EditBillComponent } from './page/edit-bill/edit-bill.component';
-import { EditCustomerComponent } from './page/edit-customer/edit-customer.component';
-import { EditOrderComponent } from './page/edit-order/edit-order.component';
-import { EditProductComponent } from './page/edit-product/edit-product.component';
+import { ProductListComponent } from './page/product/product-list/product-list.component';
+import { CustomerListComponent } from './page/customer/customer-list/customer-list.component';
+import { OrderListComponent } from './page/order/order-list/order-list.component';
+import { BillListComponent } from './page/bill/bill-list/bill-list.component';
+import { EditBillComponent } from './page/bill/edit-bill/edit-bill.component';
+import { EditCustomerComponent } from './page/customer/edit-customer/edit-customer.component';
+import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
+import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
