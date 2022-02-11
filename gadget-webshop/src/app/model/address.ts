@@ -1,6 +1,6 @@
-import { Entity } from 'src/app/model/entity';
+import { Entity } from "./entity";
+
 export class Address extends Entity {
-    [key: string]: any;
     zip: number = 0;
     country: string = '';
     city: string = '';
