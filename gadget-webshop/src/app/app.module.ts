@@ -24,7 +24,7 @@ import { ProductsComponent } from './page/products/products.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
