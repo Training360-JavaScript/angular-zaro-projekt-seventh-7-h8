@@ -8,7 +8,6 @@ import { Status } from 'src/app/model/status';
   styleUrls: ['./bill-list.component.scss'],
 })
 export class BillListComponent implements OnInit {
-  //ez biztos, hogy nem any. Valószínűbb, hogy kell lennie egy bill típisnak
   bills: Bill[] = [
     { id: 1, orderID: 598, amount: 904, status: Status.new },
     { id: 2, orderID: 485, amount: 256, status: Status.new },
