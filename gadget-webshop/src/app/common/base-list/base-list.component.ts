@@ -31,6 +31,10 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
     //TODO navigate to edit page with id=0 parameter
   }
 
+  onGoToDetailPage(entitiy: GenericEntity){
+    //TODO navigate to detail page
+  }
+
   onEdit(entity:GenericEntity){
     const entityid: number = entity.id;
     this.router.navigate([`/${this.routeBase}`, entityid]);

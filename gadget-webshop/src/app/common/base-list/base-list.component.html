@@ -31,14 +31,23 @@
               </ng-container>
           </td>
           <td class="text-right">
-            <div class="btn-group">
-              <button (click)="onEdit(entity)" class="btn btn-success btn-sm">
-                <i class="fa fa-pencil"></i>
-              </button>
-              <button (click)="onDelete(entity)" class="btn btn-danger btn-sm">
-                <i class="fa fa-trash"></i>
-              </button>
-            </div>
+
+            <span class="dropup">
+              <button href="#" class="dropdown-toggle btn btn-sm btn-secondary btn-round" data-toggle="dropdown">Actions <b class="caret"></b></button>
+              <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
+                  <li class="dropdown-header">Select an action</li>
+                  <li><a (click)="onGoToDetailPage(entity)" href=""><i class="fa fa-info-circle text-info" aria-hidden="true"></i>&nbsp;Details</a></li>
+                  <li><a (click)="onEdit(entity)" href=""><i class="fa fa-pencil text-prinary" aria-hidden="true"></i>&nbsp;Edit</a></li>
+                  <li><a (click)="onDelete(entity)" href=""><i class="fa fa-info-trash text-danger" aria-hidden="true"></i>&nbsp;Remove</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">One more separated link</a></li>
+              </ul>
+          </span>
+            <!-- <div class="btn-group">
+              <button (click)="onGoToDetailPage(entity)" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
+              <button (click)="onEdit(entity)" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>
+              <button (click)="onDelete(entity)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+            </div> -->
           </td>
         </tr>
       </tbody>
