@@ -8,6 +8,10 @@ import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { Alignment } from 'src/app/model/alignment';
+import { ButtonDefinition } from 'src/app/model/button-definition';
+import { CustomButtonEvent } from 'src/app/model/custom-button-event';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +23,7 @@ export class ProductListComponent implements OnInit {
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
 
   public testOutput: string = '';
+
   public columnDefinition: ColumnDefinition[] = [
     new ColumnDefinition({
       title: 'ID',
@@ -52,15 +57,34 @@ export class ProductListComponent implements OnInit {
     }),
   ];
 
+  public extraButtons: ButtonDefinition[] = [
+    {
+      title: 'Place order',
+      icon: 'fa-cart-plus',
+      eventId: 'NEWORDER',
+    }
+  ];
+
   constructor(
     private CategoryServiceTest: CategoryService,
     private ProductServiceTest: ProductService,
     private CustomerServiceTest: CustomerService,
     private OrderServiceTest: OrderService,
-    private BillServiceTest: BillService
+    private BillServiceTest: BillService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
+
+  onCustomButtonClicked(evt: CustomButtonEvent) {
+    console.log(evt);
+    this.ProductServiceTest.get(evt.entityID).forEach(product => {
+      this.toastr.success(`Got event ${evt.eventID} for product ${product.name}`, 'This is a message', {
+        positionClass: 'toast-bottom-right'
+      });
+    })
+
+  }
 
   //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.
   getAllCategoryTest(): void {
