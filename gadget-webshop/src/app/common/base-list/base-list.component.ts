@@ -6,9 +6,27 @@ import { Entity } from 'src/app/model/entity';
   templateUrl: './base-list.component.html',
   styleUrls: ['./base-list.component.scss']
 })
+
+// interface ColumnDefinition {
+//   [key: string]: any;
+//   title: string;
+//   column: string;  
+// };
+
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Input() entities:GenericEntity[] | null =[];
+
+/*   public columnDef: ColumnDefinition[] = [
+    {
+      title: 'ID',
+      column: 'id',
+    },
+    {
+      title: 'name',
+      column: 'name'
+    }
+  ]; */
 
   constructor() { }
 
