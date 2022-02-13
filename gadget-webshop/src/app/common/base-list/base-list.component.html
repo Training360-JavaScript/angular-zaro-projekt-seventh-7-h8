@@ -9,16 +9,22 @@
 
   <div class="card-content table-full-width table-responsive" *ngIf="entities">
     <table class="table">
-      <thead class="text-danger">
-        <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th>
+      <thead class="text-danger"  style="position: sticky;top: 0">
+        <!-- <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th> -->
+        <th *ngFor="let column of columnDefinition"
+          [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">{{column.title}}</th>
         <th>&nbsp;</th>
       </thead>
       <tbody>
         <tr *ngFor="let entity of entities">
-          <td *ngFor="let propertyKey of entity | keys">
+          <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
+          </td> -->
+          <td *ngFor="let column of columnDefinition" 
+              [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
+            {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
           </td>
-          <td>
+          <td class="text-right">
             <div class="btn-group">
               <button (click)="onEdit(entity)" class="btn btn-success">
                 <i class="fa fa-pencil"></i>

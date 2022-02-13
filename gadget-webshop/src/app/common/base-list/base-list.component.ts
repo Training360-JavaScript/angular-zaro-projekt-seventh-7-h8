@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ColumnDefinition } from 'src/app/model/column-definition';
 import { Entity } from 'src/app/model/entity';
 
 @Component({
@@ -7,38 +8,21 @@ import { Entity } from 'src/app/model/entity';
   styleUrls: ['./base-list.component.scss']
 })
 
-// interface ColumnDefinition {
-//   [key: string]: any;
-//   title: string;
-//   column: string;  
-// };
-
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Input() entities:GenericEntity[] | null =[];
-
-/*   public columnDef: ColumnDefinition[] = [
-    {
-      title: 'ID',
-      column: 'id',
-    },
-    {
-      title: 'name',
-      column: 'name'
-    }
-  ]; */
+  @Input() columnDefinition: ColumnDefinition[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onCreate(){
     //TODO navigate to edit page with id=0 parameter
   }
 
   onEdit(entity:GenericEntity){
-    //TODO navigate to edit page with :id parameter
+ 
   }
 
   onDelete(entity:GenericEntity){

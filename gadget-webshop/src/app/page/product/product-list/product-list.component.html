@@ -1,5 +1,7 @@
 
-<app-base-list [entities]="products$ | async"></app-base-list>
+<app-base-list 
+    [entities]="products$ | async"
+    [columnDefinition]="columnDefinition"></app-base-list>
 <!-- teszt-->
 <div class="row">
   <div class="col">
