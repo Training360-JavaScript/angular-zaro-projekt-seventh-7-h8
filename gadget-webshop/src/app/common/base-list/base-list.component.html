@@ -22,7 +22,13 @@
           </td> -->
           <td *ngFor="let column of columnDefinition" 
               [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
-            {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
+              <ng-container *ngIf=" !column.subcolumn ? isBooleanColumn(entity[column.column]) :  isBooleanColumn(entity[column.column][column.subcolumn])">
+                <i class="fa fa-check-circle text-success" *ngIf="!column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn]"></i>
+                <i class="fa fa-ban text-danger" *ngIf="!column.subcolumn ? !entity[column.column] : !entity[column.column][column.subcolumn]"></i>
+              </ng-container>
+              <ng-container *ngIf=" !column.subcolumn ? !isBooleanColumn(entity[column.column]) :  !isBooleanColumn(entity[column.column][column.subcolumn])">
+                {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
+              </ng-container>
           </td>
           <td class="text-right">
             <div class="btn-group">

@@ -17,6 +17,10 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   ngOnInit(): void { }
 
+  isBooleanColumn(entity: any) {
+    return typeof entity === 'boolean';
+  }
+
   onCreate(){
     //TODO navigate to edit page with id=0 parameter
   }
