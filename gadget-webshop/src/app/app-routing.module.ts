@@ -25,11 +25,11 @@ const routes: Routes = [
     component: EditBillComponent
   },
   {
-    path: 'costumerlist',
+    path: 'customerlist',
     component: CustomerListComponent
   },
   {
-    path: 'costumerlist/edit/:id',
+    path: 'customerlist/edit/:id',
     component: EditCustomerComponent
   },
   {
@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'orderlist/edit/:id',
     component: EditOrderComponent
   },
+  {
+    path: 'orderlist/edit/:id',
+    component: EditOrderComponent
+  }
   {
     path: 'productlist',
     component: ProductListComponent

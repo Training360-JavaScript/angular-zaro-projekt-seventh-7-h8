@@ -60,7 +60,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   onEdit(entity:GenericEntity){
     const entityid: number = entity.id;
-    this.router.navigate([`/${this.routeBase}`, entityid]);
+    this.router.navigate([`/${this.routeBase}/edit`, entityid]);
   }
 
   onDelete(entity:GenericEntity){

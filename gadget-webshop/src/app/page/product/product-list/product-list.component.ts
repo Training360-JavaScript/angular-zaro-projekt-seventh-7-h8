@@ -83,7 +83,6 @@ export class ProductListComponent implements OnInit {
         positionClass: 'toast-bottom-right'
       });
     })
-
   }
 
   //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.
