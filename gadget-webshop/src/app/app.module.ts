@@ -29,7 +29,7 @@ const appRoutes: Routes = [
     component: BillListComponent
   },
   {
-    path: 'bill-edit',
+    path: 'bill-list/:id',
     component: EditBillComponent
   },
   {
@@ -37,24 +37,24 @@ const appRoutes: Routes = [
     component: CustomerListComponent
   },
   {
-    path: 'editcustomer',
+    path: 'costumerlist/:id',
     component: EditCustomerComponent
-  },
-  {
-    path: 'editorder',
-    component: EditOrderComponent
   },
   {
     path: 'orderlist',
     component: OrderListComponent
   },
   {
-    path: 'editproduct',
-    component: EditProductComponent
+    path: 'orderlist/:id',
+    component: EditOrderComponent
   },
   {
     path: 'productlist',
     component: ProductListComponent
+  },
+  {
+    path: 'productlist/:id',
+    component: EditProductComponent
   },
   {
     path: '**',
