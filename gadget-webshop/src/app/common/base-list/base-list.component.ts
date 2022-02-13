@@ -5,6 +5,7 @@ import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
 
+let dataTemp: any;
 @Component({
   selector: 'app-base-list',
   templateUrl: './base-list.component.html',
@@ -13,7 +14,10 @@ import { Entity } from 'src/app/model/entity';
 
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
-  @Input() entities:GenericEntity[] | null =[];
+  sortKey: string = '';
+  direction: string = '';
+
+  @Input() entities: GenericEntity[] | null = [];
   @Input() columnDefinition: ColumnDefinition[] = [];
   @Input() extraButtons: ButtonDefinition[] = [];
   @Input() title!: string;
@@ -23,10 +27,24 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
   constructor(
-    private router: Router 
+    private router: Router
   ) { }
 
   ngOnInit(): void { }
+
+  onClickSort(data: string): void {
+    console.log(`onClickSort, data = ${data}`)
+    console.log(this.entities)
+    if (dataTemp != data) {
+      dataTemp = data;
+      this.sortKey = data
+      this.direction = "A...Z";
+    } else {
+      dataTemp = null;
+      this.sortKey = data
+      this.direction = "Z...A";
+    }
+  }
 
   isBooleanColumn(entity: any) {
     return typeof entity === 'boolean';
@@ -42,7 +60,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   onEdit(entity:GenericEntity){
     const entityid: number = entity.id;
-    this.router.navigate([`/${this.routeBase}`, entityid]);
+    this.router.navigate([`/${this.routeBase}/edit`, entityid]);
   }
 
   onDelete(entity:GenericEntity){

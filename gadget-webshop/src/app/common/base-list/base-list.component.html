@@ -1,6 +1,6 @@
-<div class="col-2 text-right">
+<!-- <div class="col-2 text-right">
   <button (click)="onCreate()" class="btn btn-success mb-3">CREATE</button>
-</div>
+</div> -->
 <div class="card">
   <div class="card-header card-header-danger">
     <h4 class="card-title" *ngIf="title">{{title}}</h4>
@@ -12,15 +12,24 @@
       <thead class="text-danger"  style="position: sticky;top: 0">
         <!-- <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th> -->
         <th *ngFor="let column of columnDefinition"
-          [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">{{column.title}}</th>
-        <th>&nbsp;</th>
+          [ngClass]="{'text-right': column.alignment === 'right',
+          'text-center': column.alignment === 'center'}">
+          {{column.title}}
+          <button *ngIf="column.sortable" class="btn btn-outline-dark btn-sm" (click)="onClickSort(column.column)">
+            <i class="fa fa-sort"></i>
+          </button>
+        </th>
+        <th>
+          &nbsp;
+          <button (click)="onCreate()" class="btn btn-success btn-sm pull-right">CREATE</button>
+        </th>
       </thead>
       <tbody>
-        <tr *ngFor="let entity of entities">
+        <tr *ngFor="let entity of (entities | sort:sortKey : direction)">
           <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
           </td> -->
-          <td *ngFor="let column of columnDefinition" 
+          <td *ngFor="let column of columnDefinition"
               [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
               <ng-container *ngIf=" !column.subcolumn ? isBooleanColumn(entity[column.column]) :  isBooleanColumn(entity[column.column][column.subcolumn])">
                 <i class="fa fa-check-circle text-success" *ngIf="!column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn]"></i>
