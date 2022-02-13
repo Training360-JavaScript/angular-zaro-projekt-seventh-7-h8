@@ -8,6 +8,8 @@ import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { Alignment } from 'src/app/model/alignment';
+import { ButtonDefinition } from 'src/app/model/button-definition';
+import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +21,7 @@ export class ProductListComponent implements OnInit {
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
   
   public testOutput: string = '';
+
   public columnDefinition: ColumnDefinition[] = [
     new ColumnDefinition({
       title: 'ID',
@@ -51,6 +54,14 @@ export class ProductListComponent implements OnInit {
     }),
   ];
 
+  public extraButtons: ButtonDefinition[] = [
+    {
+      title: 'Place order',
+      icon: 'fa-cart-plus',
+      eventId: 'NEWORDER',
+    }
+  ];
+
   constructor(
     private CategoryServiceTest: CategoryService,
     private ProductServiceTest: ProductService,
@@ -60,6 +71,10 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  onCustomButtonClicked(evt: CustomButtonEvent) {
+    console.log(evt);
+  }
 
   //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.
   getAllCategoryTest(): void {

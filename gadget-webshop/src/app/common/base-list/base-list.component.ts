@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
+import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
 
 @Component({
@@ -13,9 +15,12 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Input() entities:GenericEntity[] | null =[];
   @Input() columnDefinition: ColumnDefinition[] = [];
+  @Input() extraButtons: ButtonDefinition[] = [];
   @Input() title!: string;
   @Input() subTitle!: string;
   @Input() routeBase: string = '';
+
+  @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
   constructor(
     private router: Router 
@@ -44,5 +49,12 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
     //TODO call service
   }
 
+  onCustomButtonClicked(icomingEventID: string, entity: GenericEntity): void {
+    const eventData: CustomButtonEvent = {
+      eventID: icomingEventID,
+      entityID: entity.id
+    };
+    this.customButtonClicked.emit(eventData);
+  }
 
 }

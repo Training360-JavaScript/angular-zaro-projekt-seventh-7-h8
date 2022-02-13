@@ -36,11 +36,11 @@
               <button href="#" class="dropdown-toggle btn btn-sm btn-secondary btn-round" data-toggle="dropdown">Actions <b class="caret"></b></button>
               <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
                   <li class="dropdown-header">Select an action</li>
-                  <li><a (click)="onGoToDetailPage(entity)" href=""><i class="fa fa-info-circle text-info" aria-hidden="true"></i>&nbsp;Details</a></li>
-                  <li><a (click)="onEdit(entity)" href=""><i class="fa fa-pencil text-prinary" aria-hidden="true"></i>&nbsp;Edit</a></li>
-                  <li><a (click)="onDelete(entity)" href=""><i class="fa fa-info-trash text-danger" aria-hidden="true"></i>&nbsp;Remove</a></li>
+                  <li><a (click)="onGoToDetailPage(entity)" [routerLink]=""><i class="fa fa-info-circle text-info" aria-hidden="true"></i>&nbsp;Details</a></li>
+                  <li><a (click)="onEdit(entity)" [routerLink]=""><i class="fa fa-pencil text-primary" aria-hidden="true"></i>&nbsp;Edit</a></li>
+                  <li><a (click)="onDelete(entity)" [routerLink]=""><i class="fa fa-trash text-danger" aria-hidden="true"></i>&nbsp;Remove</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li *ngFor="let button of extraButtons"><a [routerLink]="" (click)="onCustomButtonClicked(button.eventId, entity)"><ng-container *ngIf="button.icon"><i class="fa {{button.icon}}" aria-hidden="true"></i>&nbsp;</ng-container>{{button.title}}</a></li>
               </ul>
           </span>
             <!-- <div class="btn-group">
