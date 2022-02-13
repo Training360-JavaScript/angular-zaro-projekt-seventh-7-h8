@@ -6,6 +6,8 @@ import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product';
+import { ColumnDefinition } from 'src/app/model/column-definition';
+import { Alignment } from 'src/app/model/alignment';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +19,37 @@ export class ProductListComponent implements OnInit {
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
   
   public testOutput: string = '';
+  public columnDefinition: ColumnDefinition[] = [
+    new ColumnDefinition({
+      title: 'ID',
+      column: 'id',
+    }),
+    new ColumnDefinition({
+      title: 'Name',
+      column: 'name',
+    }),
+    new ColumnDefinition({
+      title: 'Category',
+      column: 'category',
+      subcolumn: 'name',
+      alignment: Alignment.center
+    }),
+    new ColumnDefinition({
+      title: 'Price',
+      column: 'price',
+      alignment: Alignment.right
+    }),
+    new ColumnDefinition({
+      title: 'Active',
+      column: 'active',
+      alignment: Alignment.center
+    }),
+    new ColumnDefinition({
+      title: 'Featured',
+      column: 'featured',
+      alignment: Alignment.center
+    }),
+  ];
 
   constructor(
     private CategoryServiceTest: CategoryService,
@@ -28,6 +61,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.
   getAllCategoryTest(): void {
     this.CategoryServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
   }

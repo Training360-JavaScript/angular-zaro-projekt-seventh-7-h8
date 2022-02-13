@@ -3,27 +3,39 @@
 </div>
 <div class="card">
   <div class="card-header card-header-danger">
-    <h4 class="card-title"></h4>
-    <p class="card-category">Here is a subtitle for this table</p>
+    <h4 class="card-title" *ngIf="title">{{title}}</h4>
+    <p class="card-category" *ngIf="subTitle">{{subTitle}}</p>
   </div>
 
   <div class="card-content table-full-width table-responsive" *ngIf="entities">
-    <table class="table">
-      <thead class="text-danger">
-        <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th>
+    <table class="table table-hover table-condensed">
+      <thead class="text-danger"  style="position: sticky;top: 0">
+        <!-- <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th> -->
+        <th *ngFor="let column of columnDefinition"
+          [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">{{column.title}}</th>
         <th>&nbsp;</th>
       </thead>
       <tbody>
         <tr *ngFor="let entity of entities">
-          <td *ngFor="let propertyKey of entity | keys">
+          <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
+          </td> -->
+          <td *ngFor="let column of columnDefinition" 
+              [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
+              <ng-container *ngIf=" !column.subcolumn ? isBooleanColumn(entity[column.column]) :  isBooleanColumn(entity[column.column][column.subcolumn])">
+                <i class="fa fa-check-circle text-success" *ngIf="!column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn]"></i>
+                <i class="fa fa-ban text-danger" *ngIf="!column.subcolumn ? !entity[column.column] : !entity[column.column][column.subcolumn]"></i>
+              </ng-container>
+              <ng-container *ngIf=" !column.subcolumn ? !isBooleanColumn(entity[column.column]) :  !isBooleanColumn(entity[column.column][column.subcolumn])">
+                {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
+              </ng-container>
           </td>
-          <td>
+          <td class="text-right">
             <div class="btn-group">
-              <button (click)="onEdit(entity)" class="btn btn-success">
+              <button (click)="onEdit(entity)" class="btn btn-success btn-sm">
                 <i class="fa fa-pencil"></i>
               </button>
-              <button (click)="onDelete(entity)" class="btn btn-danger">
+              <button (click)="onDelete(entity)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </button>
             </div>
