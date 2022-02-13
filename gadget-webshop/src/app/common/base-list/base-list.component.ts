@@ -12,6 +12,8 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Input() entities:GenericEntity[] | null =[];
   @Input() columnDefinition: ColumnDefinition[] = [];
+  @Input() title!: string;
+  @Input() subTitle!: string;
 
   constructor() { }
 
