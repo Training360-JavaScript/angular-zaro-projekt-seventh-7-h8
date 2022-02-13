@@ -23,6 +23,7 @@ import { EditCustomerComponent } from './page/customer/edit-customer/edit-custom
 import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 import { SortPipe } from './pipe/sort.pipe';
+import { ViewOrderComponent } from './page/order/view-order/view-order.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SortPipe } from './pipe/sort.pipe';
     EditCustomerComponent,
     EditOrderComponent,
     EditProductComponent,
-    SortPipe
+    SortPipe,
+    ViewOrderComponent
   ],
   imports: [
     BrowserModule,
