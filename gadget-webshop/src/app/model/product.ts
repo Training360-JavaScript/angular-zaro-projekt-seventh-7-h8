@@ -1,6 +1,6 @@
-export class Product {
-    [key: string]: any;
-    id: number = 0;
+import { Category } from "./category";
+import { Entity } from "./entity";
+export class Product extends Entity{
     name: string = '';
     type: string = '';
     catID: number = 0;
@@ -8,4 +8,5 @@ export class Product {
     price: number = 0;
     featured: boolean = true;
     active: boolean = true;
+    category?: Category = new Category();
 }

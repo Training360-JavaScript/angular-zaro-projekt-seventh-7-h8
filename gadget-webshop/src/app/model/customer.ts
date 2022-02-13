@@ -1,8 +1,7 @@
 import { Address } from "./address";
+import { Entity } from "./entity";
 
-export class Customer {
-    [key: string]: any;
-    id: number = 0;
+export class Customer extends Entity{
     firstName: string = '';
     lastName: string = '';
     email: string = '';
