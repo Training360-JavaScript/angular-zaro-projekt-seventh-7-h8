@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { Entity } from 'src/app/model/entity';
 
@@ -14,8 +15,11 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   @Input() columnDefinition: ColumnDefinition[] = [];
   @Input() title!: string;
   @Input() subTitle!: string;
+  @Input() routeBase: string = '';
 
-  constructor() { }
+  constructor(
+    private router: Router 
+  ) { }
 
   ngOnInit(): void { }
 
@@ -28,7 +32,8 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   }
 
   onEdit(entity:GenericEntity){
- 
+    const entityid: number = entity.id;
+    this.router.navigate([`/${this.routeBase}`, entityid]);
   }
 
   onDelete(entity:GenericEntity){
