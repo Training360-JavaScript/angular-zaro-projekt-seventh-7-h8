@@ -2,9 +2,12 @@
 <app-base-list 
     [entities]="products$ | async"
     [columnDefinition]="columnDefinition"
+    [extraButtons]="extraButtons"
     [title]="'Product list'"
     [subTitle]="'here you can manage all of your products'"
-    [routeBase]="'productlist'"></app-base-list>
+    [routeBase]="'productlist'"
+    (customButtonClicked)="onCustomButtonClicked($event)"
+    ></app-base-list>
 <!-- teszt-->
 <div class="row">
   <div class="col">
