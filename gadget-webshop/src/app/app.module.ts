@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router'
 
@@ -19,48 +19,7 @@ import { EditCustomerComponent } from './page/customer/edit-customer/edit-custom
 import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 
-const appRoutes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
-  {
-    path: 'bill-list',
-    component: BillListComponent
-  },
-  {
-    path: 'bill-list/:id',
-    component: EditBillComponent
-  },
-  {
-    path: 'costumerlist',
-    component: CustomerListComponent
-  },
-  {
-    path: 'costumerlist/:id',
-    component: EditCustomerComponent
-  },
-  {
-    path: 'orderlist',
-    component: OrderListComponent
-  },
-  {
-    path: 'orderlist/:id',
-    component: EditOrderComponent
-  },
-  {
-    path: 'productlist',
-    component: ProductListComponent
-  },
-  {
-    path: 'productlist/:id',
-    component: EditProductComponent
-  },
-  {
-    path: '**',
-    component: HomeComponent
-  },
-]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,9 +40,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
