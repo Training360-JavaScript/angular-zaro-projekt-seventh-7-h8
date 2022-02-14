@@ -1,3 +1,4 @@
+import { ProductFilterPipe } from './pipe/productFilter.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http';
@@ -21,6 +22,7 @@ import { EditBillComponent } from './page/bill/edit-bill/edit-bill.component';
 import { EditCustomerComponent } from './page/customer/edit-customer/edit-customer.component';
 import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -38,13 +40,15 @@ import { EditProductComponent } from './page/product/edit-product/edit-product.c
     EditBillComponent,
     EditCustomerComponent,
     EditOrderComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductFilterPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
     ToastrModule.forRoot()
   ],
   providers: [],

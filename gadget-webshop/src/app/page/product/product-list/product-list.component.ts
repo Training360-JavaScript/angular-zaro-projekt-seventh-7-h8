@@ -1,3 +1,4 @@
+import { ProductFilterPipe } from './../../../pipe/productFilter.pipe';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { BillService } from 'src/app/service/bill.service';
@@ -21,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductListComponent implements OnInit {
 
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
-  
+
   public testOutput: string = '';
 
   public columnDefinition: ColumnDefinition[] = [
