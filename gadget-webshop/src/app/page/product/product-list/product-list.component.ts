@@ -38,7 +38,8 @@ export class ProductListComponent implements OnInit {
       title: 'Category',
       column: 'category',
       subcolumn: 'name',
-      alignment: Alignment.center
+      alignment: Alignment.center,
+      sortable: false
     }),
     new ColumnDefinition({
       title: 'Price',
@@ -83,7 +84,6 @@ export class ProductListComponent implements OnInit {
         positionClass: 'toast-bottom-right'
       });
     })
-
   }
 
   //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.

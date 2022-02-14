@@ -2,6 +2,7 @@ import { ProductFilterPipe } from './pipe/productFilter.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http';
+
 import { RouterModule, Routes } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +24,8 @@ import { EditCustomerComponent } from './page/customer/edit-customer/edit-custom
 import { EditOrderComponent } from './page/order/edit-order/edit-order.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 import { FormsModule } from '@angular/forms';
+import { SortPipe } from './pipe/sort.pipe';
+import { ViewOrderComponent } from './page/order/view-order/view-order.component';
 
 
 @NgModule({
@@ -41,7 +44,9 @@ import { FormsModule } from '@angular/forms';
     EditCustomerComponent,
     EditOrderComponent,
     EditProductComponent,
-    ProductFilterPipe
+    ProductFilterPipe,
+    SortPipe,
+    ViewOrderComponent
   ],
   imports: [
     BrowserModule,

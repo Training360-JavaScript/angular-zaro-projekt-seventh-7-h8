@@ -1,6 +1,6 @@
-<div class="col-2 text-right">
+<!-- <div class="col-2 text-right">
   <button (click)="onCreate()" class="btn btn-success mb-3">CREATE</button>
-</div>
+</div> -->
 
 <div class="col-md-3 col-sm-4 col-xs-12">
   <div class="form-group">
@@ -25,11 +25,22 @@
       <thead class="text-danger"  style="position: sticky;top: 0">
         <!-- <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th> -->
         <th *ngFor="let column of columnDefinition"
-          [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">{{column.title}}</th>
-        <th>&nbsp;</th>
+          [ngClass]="{'text-right': column.alignment === 'right',
+          'text-center': column.alignment === 'center'}">
+          {{column.title}}
+          <button *ngIf="column.sortable" class="btn btn-outline-dark btn-sm" (click)="onClickSort(column.column)">
+            <i class="fa fa-sort"></i>
+          </button>
+        </th>
+        <th>
+          &nbsp;
+          <button (click)="onCreate()" class="btn btn-success btn-sm pull-right">CREATE</button>
+        </th>
       </thead>
       <tbody>
-        <tr *ngFor="let entity of entities | filterPipe:phrase">
+
+        <tr *ngFor="let entity of entities | sort:sortKey : direction | filterPipe:phrase">
+
           <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
           </td> -->
