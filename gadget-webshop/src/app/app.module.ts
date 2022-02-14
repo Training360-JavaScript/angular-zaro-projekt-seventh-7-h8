@@ -1,4 +1,4 @@
-import { ProductFilterPipe } from './pipe/productFilter.pipe';
+import { FilterPipe } from './pipe/filter.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http';
@@ -44,7 +44,7 @@ import { ViewOrderComponent } from './page/order/view-order/view-order.component
     EditCustomerComponent,
     EditOrderComponent,
     EditProductComponent,
-    ProductFilterPipe,
+    FilterPipe,
     SortPipe,
     ViewOrderComponent
   ],
