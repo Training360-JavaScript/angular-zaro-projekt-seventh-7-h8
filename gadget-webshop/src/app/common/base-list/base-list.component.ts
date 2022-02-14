@@ -5,7 +5,6 @@ import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
 
-let dataTemp: any;
 @Component({
   selector: 'app-base-list',
   templateUrl: './base-list.component.html',
@@ -14,8 +13,9 @@ let dataTemp: any;
 
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
-  sortKey: string = '';
-  direction: string = '';
+  dataTemp: any = 'id';
+  sortKey: string = 'id';
+  direction: string = 'A...Z';
 
   @Input() entities: GenericEntity[] | null = [];
   @Input() columnDefinition: ColumnDefinition[] = [];
@@ -33,14 +33,13 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   ngOnInit(): void { }
 
   onClickSort(data: string): void {
-    console.log(`onClickSort, data = ${data}`)
-    console.log(this.entities)
-    if (dataTemp != data) {
-      dataTemp = data;
+    console.log(`onClickSort, data = ${data}`);
+    if (this.dataTemp != data) {
+      this.dataTemp = data;
       this.sortKey = data
       this.direction = "A...Z";
     } else {
-      dataTemp = null;
+      this.dataTemp = null;
       this.sortKey = data
       this.direction = "Z...A";
     }
