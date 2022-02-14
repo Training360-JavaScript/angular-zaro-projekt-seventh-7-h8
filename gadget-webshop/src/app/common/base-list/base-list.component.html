@@ -1,6 +1,19 @@
 <!-- <div class="col-2 text-right">
   <button (click)="onCreate()" class="btn btn-success mb-3">CREATE</button>
 </div> -->
+
+<div class="col-md-3 col-sm-4 col-xs-12">
+  <div class="form-group">
+    <span class="fa fa-search form-control-icn"></span>
+    <input
+      type="text"
+      [(ngModel)]="phrase"
+      class="form-control"
+      placeholder="Filter products..."
+    />
+  </div>
+</div>
+
 <div class="card">
   <div class="card-header card-header-danger">
     <h4 class="card-title" *ngIf="title">{{title}}</h4>
@@ -29,7 +42,9 @@
         </th>
       </thead>
       <tbody>
-        <tr *ngFor="let entity of (entities | sort:sortKey : direction)">
+
+        <tr *ngFor="let entity of entities | sort:sortKey : direction | filter: phrase">
+
           <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
           </td> -->
