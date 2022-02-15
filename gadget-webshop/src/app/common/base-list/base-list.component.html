@@ -42,7 +42,7 @@
       </thead>
       <tbody>
 
-        <tr *ngFor="let entity of entities | sort:sortKey : direction | filter: phrase">
+        <tr *ngFor="let entity of entities  | filter: phrase | sort:sortKey : direction">
 
           <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
