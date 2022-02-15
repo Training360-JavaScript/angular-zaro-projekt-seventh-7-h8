@@ -15,21 +15,7 @@ export class CustomerListComponent implements OnInit {
 
   customers$: Observable<Customer[]> = this.customerService.getAll()
 
-  /* {
-    "id": 1,
-    "firstName": "Ilka",
-    "lastName": "Perschke",
-    "email": "iperschke0@slideshare.net",
-    "address": {
-      "id": 0,
-      "zip": 3136,
-      "country": "",
-      "city": "",
-      "street": "Pepper Wood Hill",
-      "notes": ""
-    },
-    "active": true
-  } */
+
 
   public columnDefinition: ColumnDefinition[] = [
     new ColumnDefinition({
@@ -51,14 +37,12 @@ export class CustomerListComponent implements OnInit {
 
     new ColumnDefinition({
       title: 'ZIP',
-      column: 'address',
-      subcolumn: 'zip',
+      column: 'address.zip',
       sortable: false
     }),
     new ColumnDefinition({
       title: 'Street',
-      column: 'address',
-      subcolumn: 'street',
+      column: 'address.street',
       sortable: false
     }),
 
