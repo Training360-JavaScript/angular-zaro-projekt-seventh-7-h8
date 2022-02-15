@@ -27,6 +27,9 @@ export class EditProductComponent implements OnInit {
         this.product.id = 0;
       } else {
         this.productService.get(id).subscribe((product)=>{
+          if (!product) {
+            product = new Product();
+          }
           this.product = product;
         });
       }

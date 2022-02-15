@@ -1,6 +1,6 @@
 
-<form #newForm="ngForm" (submit)="onSaveNewProduct(product)">
-  <h2>Create new product</h2>
+<form #newForm="ngForm" (submit)="onSaveNewProduct(product)" *ngIf="product">
+  <h2>{{product.id===0 ? 'Create new' : 'Update'}} product</h2>
   <div class="form-group">
       <label for="newname">Product name</label>
       <input type="email" class="form-control" id="newname" placeholder="Enter product name" name="name"
@@ -50,7 +50,7 @@
       </label>
   </div>
 
-  <button type="submit" [disabled]="!newForm.form.valid" class="btn btn-primary">Save new product</button>
+  <button type="submit" class="btn btn-primary">Save {{product.id===0 ? 'new' : ''}} product</button>
 
   <button type="button" class="btn btn-warning pull-right" (click)="onCloseWithOutSaving()">close without saving</button>
 </form>
