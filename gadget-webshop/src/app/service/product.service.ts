@@ -42,9 +42,9 @@ export class ProductService extends BaseNetworkService<Product> {
   override get(id: number): Observable<Product> {
     return super.get(id).pipe(
       switchMap(productData => {
-        return this.getCategoryByProduct(productData.id).pipe(
+        return this.getCategoryByProduct(productData?.id).pipe(
           map(category => {
-            productData.category = category;
+            if (category) productData.category = category;
             return this.flattenResponse(productData);
           })
         )

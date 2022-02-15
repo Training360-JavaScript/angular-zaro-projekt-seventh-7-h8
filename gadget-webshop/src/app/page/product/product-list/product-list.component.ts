@@ -1,4 +1,4 @@
-import { FilterPipe } from './../../../pipe/filter.pipe';
+
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { BillService } from 'src/app/service/bill.service';
