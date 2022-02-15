@@ -1,1 +1,9 @@
-<app-base-list [entities]="orders"></app-base-list>
+<app-base-list
+    [entities]="order$ | async"
+    [columnDefinition]="columnDefinition"
+    [filterPipe]="'productFilter'"
+    [title]="'Orders'"
+    [subTitle]="'here you can manage all of your orders'"
+    [routeBase]="'orderlist'"
+    (customButtonClicked)="onCustomButtonClicked($event)"
+    ></app-base-list>
