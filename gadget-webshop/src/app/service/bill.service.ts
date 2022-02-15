@@ -29,9 +29,10 @@ export class BillService extends BaseNetworkService<Bill>{
 
     return forkJoin([allBills$, allOrders$]).pipe(
       map(responses => {
-        responses[0].forEach(bill => {
+        responses[0].forEach((bill, id) => {
           const order = responses[1].find(orderItem => orderItem.id === bill.orderID) || new Order();
           bill.order = order;
+          responses[0][id] = this.flattenResponse(bill);
         })
         return responses[0];
       })
@@ -44,7 +45,7 @@ export class BillService extends BaseNetworkService<Bill>{
         return this.getOrderByBillId(BillData.id).pipe(
           map(order => {
             BillData.order = order;
-            return BillData;
+            return this.flattenResponse(BillData);
           })
         )
       })
