@@ -52,7 +52,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   }
 
   onCreate(){
-    //TODO navigate to edit page with id=0 parameter
+    this.router.navigate([`/${this.routeBase}/edit`, 0]);
   }
 
   onGoToDetailPage(entitiy: GenericEntity){
