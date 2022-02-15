@@ -26,7 +26,7 @@ export class ProductService extends BaseNetworkService<Product> {
   override getAll(): Observable<Product[]> {
     const allProduct$ = super.getAll();
     const allCategories$ = this.categoryService.getAll();
- 
+
     return forkJoin([allProduct$, allCategories$]).pipe(
       map(responses => {
         responses[0].forEach(product => {
@@ -41,13 +41,15 @@ export class ProductService extends BaseNetworkService<Product> {
   override get(id: number): Observable<Product> {
     return super.get(id).pipe(
       switchMap(productData => {
-        return this.getCategoryByProduct(productData.id).pipe(
+        return this.getCategoryByProduct(productData?.id).pipe(
           map(category => {
-            productData.category = category;
+            if (category) {
+              productData.category = category;
+            }
             return productData;
           })
         )
-      }) 
+      })
     );
   }
 
