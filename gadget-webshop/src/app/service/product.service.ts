@@ -26,12 +26,13 @@ export class ProductService extends BaseNetworkService<Product> {
   override getAll(): Observable<Product[]> {
     const allProduct$ = super.getAll();
     const allCategories$ = this.categoryService.getAll();
- 
+
     return forkJoin([allProduct$, allCategories$]).pipe(
       map(responses => {
-        responses[0].forEach(product => {
+        responses[0].forEach((product, id) => {
           const category = responses[1].find(cat => cat.id === product.catID) || new Category();
           product.category = category;
+          responses[0][id] = this.flattenResponse(product);
         })
         return responses[0];
       })
@@ -41,13 +42,13 @@ export class ProductService extends BaseNetworkService<Product> {
   override get(id: number): Observable<Product> {
     return super.get(id).pipe(
       switchMap(productData => {
-        return this.getCategoryByProduct(productData.id).pipe(
+        return this.getCategoryByProduct(productData?.id).pipe(
           map(category => {
-            productData.category = category;
-            return productData;
+            if (category) productData.category = category;
+            return this.flattenResponse(productData);
           })
         )
-      }) 
+      })
     );
   }
 

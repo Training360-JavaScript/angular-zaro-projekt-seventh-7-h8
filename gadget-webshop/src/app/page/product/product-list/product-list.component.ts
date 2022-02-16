@@ -1,4 +1,4 @@
-import { FilterPipe } from './../../../pipe/filter.pipe';
+
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { BillService } from 'src/app/service/bill.service';
@@ -36,8 +36,7 @@ export class ProductListComponent implements OnInit {
     }),
     new ColumnDefinition({
       title: 'Category',
-      column: 'category',
-      subcolumn: 'name',
+      column: 'category.name',
       alignment: Alignment.center,
       sortable: false
     }),
