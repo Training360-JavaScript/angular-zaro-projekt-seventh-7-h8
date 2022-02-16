@@ -19,15 +19,15 @@
   <div class="card-content table-full-width table-responsive" *ngIf="entities">
     <table class="table table-hover table-condensed">
       <thead class="text-danger" style="position: sticky;top: 0">
-        <th style="cursor: pointer"
+        <th class="table-header"
           (click)="onClickSort(column.column)"
           *ngFor="let column of columnDefinition"
           [ngClass]="{'text-right': column.alignment === 'right',
           'text-center': column.alignment === 'center'}">
           {{column.title}}
-          <ng-container *ngIf="sortKey==column.column">
-            <i *ngIf="direction == 'Z...A'" class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-            <i *ngIf="direction == 'A...Z'" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+          <ng-container *ngIf="sortKey===column.column">
+            <i *ngIf="direction === 'Z...A'" class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+            <i *ngIf="direction === 'A...Z'" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
           </ng-container>
           &nbsp;
         </th>
