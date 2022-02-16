@@ -29,9 +29,10 @@ export class ProductService extends BaseNetworkService<Product> {
 
     return forkJoin([allProduct$, allCategories$]).pipe(
       map(responses => {
-        responses[0].forEach(product => {
+        responses[0].forEach((product, id) => {
           const category = responses[1].find(cat => cat.id === product.catID) || new Category();
           product.category = category;
+          responses[0][id] = this.flattenResponse(product);
         })
         return responses[0];
       })
@@ -43,10 +44,8 @@ export class ProductService extends BaseNetworkService<Product> {
       switchMap(productData => {
         return this.getCategoryByProduct(productData?.id).pipe(
           map(category => {
-            if (category) {
-              productData.category = category;
-            }
-            return productData;
+            if (category) productData.category = category;
+            return this.flattenResponse(productData);
           })
         )
       })

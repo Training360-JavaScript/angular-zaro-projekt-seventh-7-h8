@@ -37,11 +37,12 @@ export class OrderService extends BaseNetworkService<Order> {
 
     return forkJoin([allOrder$, allCustomer$, allProduct$]).pipe(
       map(responses => {
-        responses[0].forEach(order => {
+        responses[0].forEach((order, id) => {
           const customer = responses[1].find(customer => customer.id === order.customerID) || new Customer();
           const product = responses[2].find(product => product.id === order.productID) || new Product();
           order.customer = customer;
           order.product = product;
+          responses[0][id] = this.flattenResponse(order);
         })
         return responses[0];
       })
@@ -62,7 +63,7 @@ export class OrderService extends BaseNetworkService<Order> {
         return this.getProductByOrder(OrderData.id).pipe(
           map(prod => {
             OrderData.product = prod;
-            return OrderData;
+            return this.flattenResponse(OrderData);
           })
         )
       })

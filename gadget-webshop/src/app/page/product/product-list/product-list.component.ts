@@ -36,8 +36,7 @@ export class ProductListComponent implements OnInit {
     }),
     new ColumnDefinition({
       title: 'Category',
-      column: 'category',
-      subcolumn: 'name',
+      column: 'category.name',
       alignment: Alignment.center,
       sortable: false
     }),

@@ -1,1 +1,8 @@
-<app-base-list [entities]="bills"></app-base-list>
+<app-base-list
+    [entities]="billList$ | async"
+    [columnDefinition]="columnDefinition"
+    [title]="'Billing'"
+    [subTitle]="'here you can manage all of your bills'"
+    [routeBase]="'bill-list'"
+    (customButtonClicked)="onCustomButtonClicked($event)"
+    ></app-base-list>
