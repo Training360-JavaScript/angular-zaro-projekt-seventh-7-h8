@@ -24,12 +24,10 @@
           *ngFor="let column of columnDefinition"
           [ngClass]="{'text-right': column.alignment === 'right',
           'text-center': column.alignment === 'center'}">
-          {{column.title}}
-          <ng-container *ngIf="sortKey===column.column">
-            <i *ngIf="direction === 'Z...A'" class="fa fa-sort-amount-desc" aria-hidden="true"></i>
-            <i *ngIf="direction === 'A...Z'" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-          </ng-container>
-          &nbsp;
+          {{column.title}}&nbsp;<i *ngIf="sortKey===column.column"
+          class="fa"
+          [ngClass]="{'fa-sort-amount-desc': direction === 'Z...A', 'fa-sort-amount-asc': direction === 'A...Z' }"
+          aria-hidden="true"></i>
         </th>
         <th>
           &nbsp;
