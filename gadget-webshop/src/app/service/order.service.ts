@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, Observable, map, forkJoin } from 'rxjs';
+import { switchMap, Observable, map, forkJoin, of } from 'rxjs';
 import { Customer } from '../model/customer';
 import { Order } from '../model/order';
 import { Product } from '../model/product';
@@ -52,6 +52,7 @@ export class OrderService extends BaseNetworkService<Order> {
   override get(id: number): Observable<Order> {
     return super.get(id).pipe(
       switchMap(OrderData => {
+        if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
         return this.getCustomerByOrder(OrderData.id).pipe(
           map(cust => {
             OrderData.customer = cust;
@@ -60,6 +61,7 @@ export class OrderService extends BaseNetworkService<Order> {
         )
       }),
       switchMap(OrderData => {
+        if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
         return this.getProductByOrder(OrderData.id).pipe(
           map(prod => {
             OrderData.product = prod;
