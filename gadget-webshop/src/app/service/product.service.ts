@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { Category } from '../model/category';
 import { Product } from '../model/product';
 import { BaseNetworkService } from './base-network.service';
@@ -42,6 +42,7 @@ export class ProductService extends BaseNetworkService<Product> {
   override get(id: number): Observable<Product> {
     return super.get(id).pipe(
       switchMap(productData => {
+        if (productData === null) return of(productData) as unknown as Observable<Product>;
         return this.getCategoryByProduct(productData?.id).pipe(
           map(category => {
             if (category) productData.category = category;
