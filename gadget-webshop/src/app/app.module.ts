@@ -14,7 +14,6 @@ import { HeaderComponent } from './common/header/header.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
 import { BaseListComponent } from './common/base-list/base-list.component';
-import { KeysPipe } from './pipe/keys.pipe';
 import { ProductListComponent } from './page/product/product-list/product-list.component';
 import { CustomerListComponent } from './page/customer/customer-list/customer-list.component';
 import { OrderListComponent } from './page/order/order-list/order-list.component';
@@ -36,7 +35,6 @@ import { EditProductFormComponent } from './common/edit-product-form/edit-produc
     HomeComponent,
     HeaderComponent,
     BaseListComponent,
-    KeysPipe,
     ProductListComponent,
     CustomerListComponent,
     OrderListComponent,
