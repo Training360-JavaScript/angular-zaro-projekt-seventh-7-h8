@@ -2,36 +2,8 @@
 <app-base-list
     [entities]="products$ | async"
     [columnDefinition]="columnDefinition"
-    [extraButtons]="extraButtons"
+    [actionButtons]="actionButtons"
     [title]="'Product list'"
     [subTitle]="'here you can manage all of your products'"
-    [routeBase]="'productlist'"
     (customButtonClicked)="onCustomButtonClicked($event)"
     ></app-base-list>
-<!-- teszt-->
-<div class="row">
-  <div class="col">
-      <button mat-raised-button class="btn btn-default" (click)="getAllCategoryTest()">Category (all)</button>
-      <button mat-raised-button class="btn btn-default" (click)="getOneCategoryTest()">Category (one)</button>
-      <button mat-raised-button class="btn btn-primary" (click)="getAllProductTest()">Product (all)</button>
-      <button mat-raised-button class="btn btn-primary" (click)="getOneProductTest()">Product (one)</button>
-      <button mat-raised-button class="btn btn-info" (click)="getAllCustomerTest()">Customer (all)</button>
-      <button mat-raised-button class="btn btn-info" (click)="getOneCustomerTest()">Customer (one)</button>
-      <button mat-raised-button class="btn btn-success" (click)="getAllOrderTest()">Order (all)</button>
-      <button mat-raised-button class="btn btn-success" (click)="getOneOrderTest()">Order (one)</button>
-      <button mat-raised-button class="btn btn-warning" (click)="getAllBillTest()">Bill (all)</button>
-      <button mat-raised-button class="btn btn-warning" (click)="getOneBillTest()">Bill (one)</button>
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-header">
-          <h4 class="card-title">Output</h4>
-      </div>
-      <div class="card-body">
-          <pre>{{testOutput}}</pre>
-      </div>
-  </div>
-  </div>
-</div>
