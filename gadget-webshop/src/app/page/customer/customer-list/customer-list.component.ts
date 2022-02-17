@@ -95,6 +95,7 @@ export class CustomerListComponent implements OnInit {
         this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
         break;
       case 'DELETE':
+        this.customerService.delete(evt.entityID);
         this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
           positionClass: 'toast-bottom-right'
         });
