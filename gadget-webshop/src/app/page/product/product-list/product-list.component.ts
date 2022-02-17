@@ -9,6 +9,7 @@ import { ButtonDefinition } from 'src/app/model/button-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -16,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
+
+  private routeBase: string = 'productlist';
 
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
 
@@ -52,7 +55,22 @@ export class ProductListComponent implements OnInit {
     }),
   ];
 
-  public extraButtons: ButtonDefinition[] = [
+  public actionButtons: ButtonDefinition[] = [
+    {
+      title: 'Details',
+      icon: 'fa-info-circle text-info',
+      eventId: 'DETAILS',
+    },
+    {
+      title: 'Edit',
+      icon: 'fa-pencil text-primary',
+      eventId: 'EDIT',
+    },
+    {
+      title: 'Remove',
+      icon: ' fa-trash text-danger',
+      eventId: 'DELETE',
+    },
     {
       title: 'Place order',
       icon: 'fa-cart-plus',
@@ -62,18 +80,32 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private ProductServiceTest: ProductService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
 
-  onCustomButtonClicked(evt: CustomButtonEvent) {
-    console.log(evt);
-    this.ProductServiceTest.get(evt.entityID).forEach(product => {
-      this.toastr.success(`Got event ${evt.eventID} for product ${product.name}`, 'This is a message', {
-        positionClass: 'toast-bottom-right'
-      });
-    })
+  onCustomButtonClicked(evt: CustomButtonEvent):void {
+    switch(evt.eventID) {
+      case 'DETAILS':
+        this.toastr.success(`Got event ${evt.eventID} for product ${evt.eventID}`, 'This is a message', {
+          positionClass: 'toast-bottom-right'
+        });
+        break;
+      case 'EDIT':
+      case 'CREATE':
+        this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
+        break;
+      case 'DELETE':
+        this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
+          positionClass: 'toast-bottom-right'
+        });
+        break;
+      default:
+        this.toastr.warning(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Unknown event received', {
+          positionClass: 'toast-bottom-right'
+        });
+    }
   }
-
 }
