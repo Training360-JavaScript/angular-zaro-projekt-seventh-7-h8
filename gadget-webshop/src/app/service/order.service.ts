@@ -72,4 +72,10 @@ export class OrderService extends BaseNetworkService<Order> {
     );
   }
 
+  getOrdersByProductId(productId: number): Observable<Order[]> {
+    return super.getAll().pipe(
+      map(orders => orders.filter(order => order.productID === productId))
+    );
+  }
+
 }
