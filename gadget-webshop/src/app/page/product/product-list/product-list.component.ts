@@ -1,7 +1,7 @@
 import { ProductService } from './../../../service/product.service';
 import { BaseNetworkService } from './../../../service/base-network.service';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/model/product';
 import { ColumnDefinition } from 'src/app/model/column-definition';
@@ -11,6 +11,7 @@ import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { OrderService } from 'src/app/service/order.service';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +22,8 @@ export class ProductListComponent implements OnInit {
 
   private routeBase: string = 'productlist';
 
-  products$:Observable<Product[]>= this.productService.getAll();
+  products$?: Observable<Product[]>;
+  refreshProduct$ = new BehaviorSubject<boolean>(true);
 
 
   public columnDefinition: ColumnDefinition[] = [
@@ -81,11 +83,14 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private orderService: OrderService, //we need orderservice tho check weather if a product is a part of an order or not
     private toastr: ToastrService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.products$ = this.refreshProduct$.pipe(switchMap(_ => this.productService.getAll()));
+  }
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {
     switch(evt.eventID) {
@@ -99,10 +104,7 @@ export class ProductListComponent implements OnInit {
         this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
         break;
       case 'DELETE':
-        this.productService.delete(evt.entityID);
-        this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
-          positionClass: 'toast-bottom-right'
-        });
+       this.onDeleteProduct(evt);
         break;
       default:
         this.toastr.warning(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Unknown event received', {
@@ -110,4 +112,30 @@ export class ProductListComponent implements OnInit {
         });
     }
   }
+
+  onDeleteProduct(evt: CustomButtonEvent):void {
+    //Warning: first we shold check if there is any Order with this product...
+    this.orderService.getOrdersByProductId(evt.entityID).forEach(orders => {
+      if (Array.isArray(orders) && orders.length > 0) {
+        console.log(orders);
+        this.toastr.warning('You cannot delete this product because this is part of one or more order. Please delete them first.', 'Can\'t delete product.', {
+          positionClass: 'toast-bottom-right'
+        });
+      } else {
+        this.doDeleteProduct(evt.entityID);
+      }
+    });
+  }
+  doDeleteProduct(productID: number):void {
+    this.productService.delete(productID).forEach(_ => {
+      console.log(_);
+      //The response looks like this: {success: true, removed: '232'}
+      //TODO: Create a message model, assign it to delete method return type, check and handle success message here.
+      this.toastr.success('Product successfully deleted.', 'Done', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.refreshProduct$.next(true);
+    })
+  }
+
 }

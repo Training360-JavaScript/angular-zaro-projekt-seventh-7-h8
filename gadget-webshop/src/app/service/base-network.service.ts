@@ -33,8 +33,8 @@ export class BaseNetworkService<GenericEntity extends Entity> {
     return this.http.patch<GenericEntity>(`${this.backendURL}${this.endpoint}/${entity.id}`, entity);
   }
 
-  delete(id: number): Observable<GenericEntity> {
-    return this.http.delete<GenericEntity>(`${this.backendURL}${this.endpoint}/${id}`);
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.backendURL}${this.endpoint}/${id}`);
   }
 
   flattenResponse(entity: GenericEntity, prefix: string = ''): GenericEntity {
