@@ -1,7 +1,8 @@
+import { ProductService } from './../../../service/product.service';
+import { BaseNetworkService } from './../../../service/base-network.service';
 
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { Alignment } from 'src/app/model/alignment';
@@ -20,7 +21,7 @@ export class ProductListComponent implements OnInit {
 
   private routeBase: string = 'productlist';
 
-  products$:Observable<Product[]>= this.ProductServiceTest.getAll();
+  products$:Observable<Product[]>= this.productService.getAll();
 
 
   public columnDefinition: ColumnDefinition[] = [
@@ -79,7 +80,7 @@ export class ProductListComponent implements OnInit {
   ];
 
   constructor(
-    private ProductServiceTest: ProductService,
+    private productService: ProductService,
     private toastr: ToastrService,
     private router: Router
   ) {}
@@ -98,6 +99,7 @@ export class ProductListComponent implements OnInit {
         this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
         break;
       case 'DELETE':
+        this.productService.delete(evt.entityID);
         this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
           positionClass: 'toast-bottom-right'
         });
