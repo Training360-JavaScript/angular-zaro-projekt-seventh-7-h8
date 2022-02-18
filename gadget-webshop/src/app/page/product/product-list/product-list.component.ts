@@ -134,6 +134,7 @@ export class ProductListComponent implements OnInit {
       this.toastr.success('Product successfully deleted.', 'Done', {
         positionClass: 'toast-bottom-right'
       });
+      this.refreshProduct$.next(true);
     })
   }
 
