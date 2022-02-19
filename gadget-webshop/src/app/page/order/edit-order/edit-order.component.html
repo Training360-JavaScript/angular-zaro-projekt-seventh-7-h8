@@ -1,1 +1,69 @@
-<p>edit-order works!</p>
+<div class="row" *ngIf="order">
+    <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-stretch">
+      <div class="card">
+        <div class="card-header card-header-icon"
+          [ngClass]="{'card-header-rose': !this.order.productID, 'card-header-success': this.order.productID}">
+          <div class="card-icon">
+            <i class="material-icons">category</i>
+          </div>
+          <h4 class="card-title">1. Product</h4>
+        </div>
+        <div class="card-body position-relative pb-5">
+          <app-product-selector (productSelected)="onProductSelected($event)" *ngIf="!order.productID">
+          </app-product-selector>
+          <app-product-mini-display [product]="order.product" [canChangeProduct]="canChangeDetails" (resetProduct)="onResetProduct()" *ngIf="order.productID">
+          </app-product-mini-display>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-stretch">
+      <div class="card">
+        <div class="card-header card-header-icon"
+          [ngClass]="{'card-header-rose': !this.order.customerID, 'card-header-success': this.order.customerID}">
+          <div class="card-icon">
+            <i class="material-icons">people</i>
+          </div>
+          <h4 class="card-title">2. customer</h4>
+        </div>
+        <div class="card-body position-relative pb-5">
+          <app-customer-selector (customerSelected)="onCustomerSelected($event)" *ngIf="!order.customerID">
+          </app-customer-selector>
+          <app-customer-mini-display [customer]="order.customer" [canChangeCustomer]="canChangeDetails" (resetCustomer)="onResetCustomer()"
+            *ngIf="order.customerID"></app-customer-mini-display>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 d-flex align-items-stretch">
+      <div class="card">
+        <div class="card-header card-header-icon"
+          [ngClass]="{'card-header-rose': !this.order.productID || !this.order.customerID || !this.order.amount, 'card-header-success': this.order.productID && this.order.customerID && this.order.amount}">
+          <div class="card-icon">
+            <i class="material-icons">add_shopping_cart</i>
+          </div>
+          <h4 class="card-title">3. place order</h4>
+        </div>
+        <div class="card-body position-relative pb-5">
+          <mat-form-field class="mat-ff-full-width" appearance="standard"
+            *ngIf="this.order.productID && this.order.customerID">
+            <mat-label>Enter amount</mat-label>
+            <input name="orderAmount" matInput type="number" min="1" placeholder="Enter amount"
+              [(ngModel)]="order.amount" [readonly]="!canChangeDetails" (change)="onChangeAmount()">
+          </mat-form-field>
+          <mat-form-field class="mat-ff-full-width" appearance="outline"
+            *ngIf="this.order.productID && this.order.customerID">
+            <mat-label>price (€)</mat-label>
+            <input name="orderPrice" matInput type="number" min="1" readonly [(ngModel)]="price">
+          </mat-form-field>
+          <mat-form-field class="mat-ff-full-width" appearance="standard" *ngIf="this.order.productID && this.order.customerID">
+            <mat-label>Order status</mat-label>
+            <mat-select name="status" [(ngModel)]="order.status" [disabled]="order.id === 0">
+              <mat-option *ngFor="let status of statusList" value="{{status[0]}}">{{status[1]}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button class="btn btn-success button-bottom-right"
+            *ngIf="this.order.productID && this.order.customerID && this.order.amount" (click)="onSave()">{{order.id === 0 ? 'Place order' : 'Update order'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>

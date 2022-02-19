@@ -22,6 +22,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   @Input() actionButtons!: ButtonDefinition[];
   @Input() title!: string;
   @Input() subTitle!: string;
+  @Input() enableNewButton: boolean = true;
 
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 

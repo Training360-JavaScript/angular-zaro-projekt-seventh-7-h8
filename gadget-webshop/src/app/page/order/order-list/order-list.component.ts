@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { Alignment } from 'src/app/model/alignment';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Order } from 'src/app/model/order';
+import { Status } from 'src/app/model/status';
+import { BillService } from 'src/app/service/bill.service';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -18,7 +20,9 @@ export class OrderListComponent implements OnInit {
 
   private routeBase: string = 'orderlist';
 
-  order$: Observable<Order[]> = this.orderService.getAll();
+  order$?: Observable<Order[]>;
+  refreshProduct$ = new BehaviorSubject<boolean>(true);
+
 
   public columnDefinition: ColumnDefinition[] = [
     new ColumnDefinition({
@@ -75,11 +79,14 @@ export class OrderListComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
+    private billService: BillService,
     private toastr: ToastrService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.order$ = this.refreshProduct$.pipe(switchMap(_ => this.orderService.getAll()));
+  }
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {
     switch(evt.eventID) {
@@ -93,16 +100,49 @@ export class OrderListComponent implements OnInit {
         this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
         break;
       case 'DELETE':
-        this.orderService.delete(evt.entityID);
-        this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
-          positionClass: 'toast-bottom-right'
-        });
+        this.onDeleteOrder(evt.entityID);
         break;
       default:
         this.toastr.warning(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Unknown event received', {
           positionClass: 'toast-bottom-right'
         });
     }
+  }
+
+  onDeleteOrder(id: number): void {
+    this.orderService.get(id).forEach(item => {
+      if (item.status === Status.shipped || item.status === Status.paid) {
+        this.toastr.error('Sorry, you can\'t delete a shipped or paid order. Please change status first.', 'Error', {
+          positionClass: 'toast-bottom-right'
+        });
+      } else {
+        this.deleteOrderAndAssociatedInvoices(item);
+      }
+    })
+  }
+
+  deleteOrderAndAssociatedInvoices(order: Order): void {
+    this.billService.getBillByOrderId(order.id).forEach(bill => {
+      if (!Array.isArray(bill) || bill.length === 0) {
+        this.toastr.warning(`No associated invoices found.`, 'Warning', {
+          positionClass: 'toast-bottom-right'
+        });
+      } else {
+        bill.forEach(billData => {
+          this.billService.delete(billData.id).forEach(_ => {
+            this.toastr.success(`Invoice with ID ${billData.id} successfully deleted.`, 'Done', {
+              positionClass: 'toast-bottom-right'
+            });
+          });
+        });
+      }
+    });
+    this.orderService.delete(order.id).forEach(_ => {
+      this.toastr.success(`Order with ID ${order.id} successfully deleted.`, 'Done', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.refreshProduct$.next(true);
+    });
   }
 
 }
