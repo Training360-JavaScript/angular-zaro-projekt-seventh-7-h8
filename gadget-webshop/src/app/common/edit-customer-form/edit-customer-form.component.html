@@ -1,0 +1,70 @@
+{{ customer | json }}
+
+<form #customerForm="ngForm" (ngSubmit)="onSaveNewCustomer(customer)">
+  <h3>{{customer.id===0 ? 'Create new' : 'Update'}} customer</h3>
+
+  <input type="hidden" class="form-control" id="id" name="id"
+      [(ngModel)]="customer.id" required>
+
+  <div class="form-group">
+    <label for="firstName">Customer first name</label>
+    <input type="text" class="form-control" id="firstName" placeholder="Enter firstname" name="firstName"
+      [(ngModel)]="customer.firstName" required>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Customer lastname</label>
+    <input type="text" class="form-control" id="lastName" placeholder="Enter lastname" name="lastName"
+      [(ngModel)]="customer.lastName" required>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Customer email address</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email address" name="email"
+      [(ngModel)]="customer.email" required>
+  </div>
+
+  <div class="form-group">
+    <label for="address.zip">Customer ZIP</label>
+    <input type="number" class="form-control" id="address.zip" placeholder="Enter ZIP" name="address.zip"
+      [(ngModel)]="customer.address.zip" required>
+  </div>
+
+  <div class="form-group">
+    <label for="address.street">Customer address street</label>
+    <input type="text" class="form-control" id="address.street" placeholder="Enter street" name="address.street"
+      [(ngModel)]="customer.address.street" required>
+  </div>
+
+  <div class="form-group">
+    <label for="active">Customer active</label>
+    <input type="boulean" class="form-control" id="active" placeholder={{customer.active}} name="active"
+      [(ngModel)]="customer.active" required>
+  </div>
+
+<!-- {
+  -+"id": 2,
+  -+"firstName": "Waylon",
+  -+"lastName": "Leavens",
+  -+"email": "wleavens1@mapy.cz",
+  -+ "active": true,
+  ?? "address.id": 0,
+  -+ "address.zip": 55839,
+   --"address.country": "",
+  -- "address.city": "",
+  +"address.street":
+  "Lakewood Gardens Drive",
+  "address.notes": ""
+
+  <div class="form-group">
+    <label for="address.notes">Customer address description</label>
+    <textarea id="address.notes" class="form-control" name="address.notes" placeholder="Enter product description" [(ngModel)]="customer.address.notes" >
+    </textarea>
+  </div>
+} -->
+
+  <button type="submit" class="btn btn-primary" (click)="onSaveNewCustomer(customer)">Save {{customer.id===0 ? 'New' : 'Update'}} customer</button>
+
+  <button type="button" class="btn btn-warning pull-right" (click)="onCloseWithOutSeving()">close without saving</button>
+
+</form>
