@@ -16,7 +16,7 @@ export class EditCustomerFormComponent implements OnInit {
   @Input() address!: Address;
 
   @Output() closeWithoutSaving: EventEmitter<void> = new EventEmitter();
-  @Output() saveNewCostumer: EventEmitter<Customer> = new EventEmitter();
+  @Output() saveNewCustomer: EventEmitter<Customer> = new EventEmitter();
 
   constructor(
     private customerService: CustomerService,
@@ -31,18 +31,17 @@ export class EditCustomerFormComponent implements OnInit {
 
   onCloseWithoutSaving(): void {
     this.closeWithoutSaving.emit();
-    this.router.navigate([`/customerlist`]);
   }
 
   onSaveNewCustomer(customer: Customer): void {
     customer.address = `${customer['address.zip']} ${customer['address.street']}`;
     if (customer.id === 0) {
       this.customerService.create(customer).forEach(response => {
-        this.onSuccess('created', customer);
+        this.onSuccess('created', response);
        });
     } else {
       this.customerService.update(customer).forEach(response => {
-        this.onSuccess('updated', customer);
+        this.onSuccess('updated', response);
        });
     }
   }
@@ -52,6 +51,6 @@ export class EditCustomerFormComponent implements OnInit {
       'this is a message',
       { positionClass: 'toast-bottom-right' }
     );
-    this.saveNewCostumer.emit(customer);
+    this.saveNewCustomer.emit(customer);
   }
 }

@@ -110,11 +110,18 @@ export class ProductListComponent implements OnInit {
       case 'DELETE':
        this.onDeleteProduct(evt);
         break;
+      case 'NEWORDER':
+        this.onCreateOrderForProduct(evt.entityID);
+        break;
       default:
         this.toastr.warning(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Unknown event received', {
           positionClass: 'toast-bottom-right'
         });
     }
+  }
+
+  onCreateOrderForProduct(productId: number): void {
+    this.router.navigate(['/orderlist/edit', 0], { queryParams: { product: productId } });
   }
 
   onDeleteProduct(evt: CustomButtonEvent):void {
