@@ -1,0 +1,7 @@
+<ul *ngIf="product">
+  <li><strong>ID: </strong>{{product.id}}</li>
+  <li><strong>Name: </strong>{{product.name}}</li>
+  <li><strong>Category: </strong>{{product['category.name']}}</li>
+  <li><strong>Price: </strong>{{product.price}}€</li>
+</ul>
+<button mat-raised-button class="btn btn-danger btn-sm button-bottom-right" (click)="onResetProduct()" *ngIf="canChangeProduct">change product</button>
