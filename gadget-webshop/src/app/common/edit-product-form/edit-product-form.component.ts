@@ -33,12 +33,19 @@ export class EditProductFormComponent implements OnInit {
   onSaveNewProduct(product: Product): void {
     let action = '';
     if (product.id === 0) {
-      this.productService.create(product).subscribe();
+      this.productService.create(product).subscribe(()=>{
+        this.showToastr(action, product);
+      });
       action = 'created';
     } else {
-      this.productService.update(product).subscribe();
+      this.productService.update(product).subscribe(()=>{
+        this.showToastr(action, product);
+      });
       action = 'updated';
     }
+  }
+
+  private showToastr(action: string, product: Product) {
     this.toastr.success(`Product ${action}.`, 'Success', {
       positionClass: 'toast-bottom-right'
     });

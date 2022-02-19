@@ -19,8 +19,8 @@ export class ProductService extends BaseNetworkService<Product> {
     this.endpoint = 'product';
   }
 
-  private getCategoryByProduct(productId: number) {
-    return this.categoryService.get(productId);
+  private getCategoryByCatID(catID: number) {
+    return this.categoryService.get(catID);
   }
 
   override getAll(): Observable<Product[]> {
@@ -43,7 +43,7 @@ export class ProductService extends BaseNetworkService<Product> {
     return super.get(id).pipe(
       switchMap(productData => {
         if (productData === null) return of(productData) as unknown as Observable<Product>;
-        return this.getCategoryByProduct(productData?.id).pipe(
+        return this.getCategoryByCatID(productData?.catID).pipe(
           map(category => {
             if (category) productData.category = category;
             return this.flattenResponse(productData);
