@@ -14,5 +14,5 @@
   <button mat-raised-button class="btn btn-primary btn-sm button-bottom-right" *ngIf="selectedCustomer" (click)="onReturnSelectedCustomer()">select customer</button>
 </ng-container>
 <ng-container *ngIf="isCreateMode">
-  <app-edit-customer-form [customer]="newCustomer" (closeWithoutSaving)="onCloseNewDialogWithoutSaving" (saveNewCustomer)="onNewCustomerCreated($event)"></app-edit-customer-form>
+  <app-edit-customer-form [customer]="newCustomer" (closeWithoutSaving)="onCloseNewDialogWithoutSaving()" (saveNewCustomer)="onNewCustomerCreated($event)"></app-edit-customer-form>
 </ng-container>
