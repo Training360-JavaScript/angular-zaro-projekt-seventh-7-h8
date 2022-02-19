@@ -48,10 +48,17 @@ export class EditOrderComponent implements OnInit {
         this.canChangeDetails = true;
       } else {
         this.orderService.get(id).forEach(orderData => {
-          this.order = this.removeArtificalPartsFromOrder(orderData);
-          this.fillProductPart();
-          this.fillCustomerPart();
-          this.canChangeDetails = this.order.status === Status.new;
+          if (orderData.status === Status.shipped) {
+            this.toastr.error('Sorry, you can\'t edit shipped order.', 'Error', {
+              positionClass: 'toast-bottom-right'
+            });
+            this.router.navigate([`/orderlist`]);
+          } else {
+            this.order = this.removeArtificalPartsFromOrder(orderData);
+            this.fillProductPart();
+            this.fillCustomerPart();
+            this.canChangeDetails = this.order.status === Status.new;
+          }
         });
       }
     });
@@ -154,19 +161,20 @@ export class EditOrderComponent implements OnInit {
 
         //get all bills, that associated with this order. (Hopefully exactly one)
         this.billService.getBillByOrderId(updatedEntity.id).forEach(bills => {
-          if (!Array.isArray(bills)) {
+          if (!Array.isArray(bills) || bills.length === 0) {
             this.toastr.warning('Can\'t find associatd invoice. Please check your database structure.', 'Warning', {
               positionClass: 'toast-bottom-right'
             });
+            this.router.navigate([`/orderlist`]);
           } else if (bills.length > 1) {
             this.toastr.warning('More than one invocice found, can\'t update invoice. Please check your database structure.', 'Warning', {
               positionClass: 'toast-bottom-right'
             });
+            this.router.navigate([`/orderlist`]);
           } else {
             this.handleBillUpdate(bills[0]);
           }
         });
-
       } else {
         this.toastr.warning(`Something happened while updating product.`, 'Warning', {
           positionClass: 'toast-bottom-right'
