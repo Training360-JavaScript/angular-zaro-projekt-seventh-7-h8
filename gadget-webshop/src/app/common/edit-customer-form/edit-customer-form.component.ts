@@ -50,9 +50,8 @@ export class EditCustomerFormComponent implements OnInit {
   onSuccess(actionTemp: string, customer: Customer): void {
     this.toastr.success(`customer ${actionTemp}`,
       'this is a message',
-      { positionClass: 'toast-buttom-right' }
+      { positionClass: 'toast-bottom-right' }
     );
-    /* <this.saveNewCostumer.emit(customer);
-    this.router.navigate(['/customerlist']);> */
+    this.saveNewCostumer.emit(customer);
   }
 }

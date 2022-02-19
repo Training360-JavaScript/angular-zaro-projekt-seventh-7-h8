@@ -41,4 +41,8 @@ export class EditCustomerComponent implements OnInit {
     })
   }
 
+  onafterSave(): void {
+    this.router.navigate(['/customerlist'])
+  }
+
 }
