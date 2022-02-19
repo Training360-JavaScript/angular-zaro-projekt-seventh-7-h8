@@ -6,6 +6,7 @@ import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { ListColumnSelectorComponent } from '../list-column-selector/list-column-selector.component';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
 
 @Component({
   selector: 'app-base-list',
@@ -29,14 +30,30 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   sortKey: string = 'id';
   direction: string = 'A...Z';
 
-  public pageIndex:number = 1;
+  public pageIndex:number = 0;
   public pageSize: number = 10;
 
+  storedColumnDefinitionData$ = this.localStorageService.columnDefinitonData$;
+
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private localStorageService: LocalStorageService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.localStorageService.getColumnVisibility(this.title);
+    this.storedColumnDefinitionData$.subscribe(columnsReceived => {
+      if (!columnsReceived || columnsReceived[0] === '(empty)') {
+        this.columnDefinition.forEach(column => {
+          column.visible = true;
+        });
+      } else {
+        this.columnDefinition.forEach(column => {
+          column.visible = columnsReceived.includes(column.column);
+        });
+      }
+    });
+  }
 
   onClickSort(data: string): void {
     console.log(`onClickSort, data = ${data}`);
@@ -89,9 +106,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
     const dialogRef = this.dialog.open(ListColumnSelectorComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       data => {
-        this.columnDefinition.forEach(column => {
-          column.visible = data.includes(column.column);
-        });
+        this.localStorageService.setColumnVisibility(this.title, data);
       }
     );
   }
