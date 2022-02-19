@@ -1,6 +1,6 @@
 {{ customer | json }}
 
-<form #customerForm="ngForm" (ngSubmit)="onSaveNewCustomer(customer)">
+<form #customerForm="ngForm" (ngSubmit)="onSaveNewCustomer(customer)" *ngIf="customer">
   <h3>{{customer.id===0 ? 'Create new' : 'Update'}} customer</h3>
 
   <input type="hidden" class="form-control" id="id" name="id"
@@ -27,20 +27,25 @@
   <div class="form-group">
     <label for="address.zip">Customer ZIP</label>
     <input type="number" class="form-control" id="address.zip" placeholder="Enter ZIP" name="address.zip"
-      [(ngModel)]="customer.address.zip" required>
+      [(ngModel)]="customer['address.zip']" required>
   </div>
 
   <div class="form-group">
     <label for="address.street">Customer address street</label>
     <input type="text" class="form-control" id="address.street" placeholder="Enter street" name="address.street"
-      [(ngModel)]="customer.address.street" required>
+      [(ngModel)]="customer['address.street']" required>
   </div>
 
-  <div class="form-group">
-    <label for="active">Customer active</label>
-    <input type="boulean" class="form-control" id="active" placeholder={{customer.active}} name="active"
-      [(ngModel)]="customer.active" required>
+  <div class="form-check mb-4">
+    <label class="form-check-label" for="newactive">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="customer.active" name="active" id="newactive">
+          Active customer?
+          <span class="form-check-sign">
+            <span class="check"></span>
+          </span>
+      </label>
   </div>
+
 
 <!-- {
   -+"id": 2,
@@ -63,8 +68,8 @@
   </div>
 } -->
 
-  <button type="submit" class="btn btn-primary" (click)="onSaveNewCustomer(customer)">Save {{customer.id===0 ? 'New' : 'Update'}} customer</button>
+  <button type="submit" class="btn btn-primary">Save {{customer.id===0 ? 'New' : 'Update'}} customer</button>
 
-  <button type="button" class="btn btn-warning pull-right" (click)="onCloseWithOutSeving()">close without saving</button>
+  <button type="button" class="btn btn-warning pull-right" (click)="onCloseWithoutSaving()">close without saving</button>
 
 </form>

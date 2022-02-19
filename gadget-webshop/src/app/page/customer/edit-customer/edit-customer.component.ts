@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -13,12 +14,14 @@ export class EditCustomerComponent implements OnInit {
 
   customer!: Customer;
   id: Observable<number> = this.activatedRoute.params.pipe(
-    map(params => params['id'])
+    map(params => parseInt(params['id']))
   );
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +32,8 @@ export class EditCustomerComponent implements OnInit {
       } else {
         this.customerService.get(id).subscribe( customer => {
           if(!customer) {
-            customer = new Customer();
+            this.toastr.warning('Maybe, it\'s deleted','Can\'t find such customer',{ positionClass: 'toast-bottom-right'})
+            this.router.navigate(['customerlist']);
           }
           this.customer = customer;
         })

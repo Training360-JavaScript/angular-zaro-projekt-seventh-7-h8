@@ -29,27 +29,30 @@ export class EditCustomerFormComponent implements OnInit {
   }
 
 
-  onCloseWithOutSeving(): void {
+  onCloseWithoutSaving(): void {
     this.closeWithoutSaving.emit();
     this.router.navigate([`/customerlist`]);
   }
 
-  onSaveNewCustomer(customer: Customer):void {
-    let actionTemp;
-    if(customer.id === 0) {
-      this.customerService.create(customer);
-      actionTemp= 'create'
+  onSaveNewCustomer(customer: Customer): void {
+    customer.address = `${customer['address.zip']} ${customer['address.street']}`;
+    if (customer.id === 0) {
+      this.customerService.create(customer).forEach(response => {
+        this.onSuccess('created', customer);
+       });
     } else {
-      this.customerService.update(customer);
-      actionTemp = 'update'
+      this.customerService.update(customer).forEach(response => {
+        this.onSuccess('updated', customer);
+       });
     }
-    this.toastr.success(`customer ${actionTemp}`,
-      `this is a message`,
-      {positionClass: `toast-buttom-right`}
-      );
-      this.saveNewCostumer.emit(customer);
-      this.router.navigate(['/customerlist']);
-      console.log(customer)
   }
 
+  onSuccess(actionTemp: string, customer: Customer): void {
+    this.toastr.success(`customer ${actionTemp}`,
+      'this is a message',
+      { positionClass: 'toast-buttom-right' }
+    );
+    /* <this.saveNewCostumer.emit(customer);
+    this.router.navigate(['/customerlist']);> */
+  }
 }
