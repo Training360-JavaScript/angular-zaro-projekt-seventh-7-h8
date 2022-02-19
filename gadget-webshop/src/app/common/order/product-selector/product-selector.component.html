@@ -1,0 +1,8 @@
+<mat-form-field class="mat-ff-full-width" appearance="standard">
+  <mat-label>Please select product</mat-label>
+  <mat-select [(ngModel)]="selectedProduct">
+    <mat-option value="0">Select product</mat-option>
+    <mat-option *ngFor="let product of productList | async | activeFilter" value="{{product.id}}">{{product.name}} ({{product.price}}€)</mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-raised-button class="btn btn-primary btn-sm button-bottom-right" *ngIf="selectedProduct && selectedProduct != 0" (click)="onReturnSelectedProduct()">select product</button>

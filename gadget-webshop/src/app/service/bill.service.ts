@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { Bill } from '../model/bill';
 import { Order } from '../model/order';
 import { BaseNetworkService } from './base-network.service';
@@ -23,6 +23,12 @@ export class BillService extends BaseNetworkService<Bill>{
     return this.orderService.get(id);
   }
 
+  getBillByOrderId(orderID: number): Observable<Bill[]> {
+    return super.getAll().pipe(
+      map(bills => bills.filter(bill => bill.orderID === orderID))
+    );
+  }
+
   override getAll(): Observable<Bill[]> {
     const allBills$ = super.getAll();
     const allOrders$ = this.orderService.getAll();
@@ -42,7 +48,8 @@ export class BillService extends BaseNetworkService<Bill>{
   override get(id: number): Observable<Bill> {
     return super.get(id).pipe(
       switchMap(BillData => {
-        return this.getOrderByBillId(BillData.id).pipe(
+        if (BillData === null) return of(BillData) as unknown as Observable<Bill>;
+        return this.getOrderByBillId(BillData.orderID).pipe(
           map(order => {
             BillData.order = order;
             return this.flattenResponse(BillData);

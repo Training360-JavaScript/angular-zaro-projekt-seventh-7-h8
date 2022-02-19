@@ -1,8 +1,8 @@
 <app-base-list
     [entities]="order$ | async"
     [columnDefinition]="columnDefinition"
+    [actionButtons]="actionButtons"
     [title]="'Orders'"
-    [subTitle]="'here you can manage all of your orders'"
-    [routeBase]="'orderlist'"
+    [subTitle]="'here you can manage all of your orders '"
     (customButtonClicked)="onCustomButtonClicked($event)"
     ></app-base-list>

@@ -19,10 +19,10 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Input() entities: GenericEntity[] | null = [];
   @Input() columnDefinition: ColumnDefinition[] = [];
-  @Input() extraButtons: ButtonDefinition[] = [];
+  @Input() actionButtons!: ButtonDefinition[];
   @Input() title!: string;
   @Input() subTitle!: string;
-  @Input() routeBase: string = '';
+  @Input() enableNewButton: boolean = true;
 
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
@@ -52,20 +52,11 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   }
 
   onCreate(){
-    this.router.navigate([`/${this.routeBase}/edit`, 0]);
-  }
-
-  onGoToDetailPage(entitiy: GenericEntity){
-    //TODO navigate to detail page
-  }
-
-  onEdit(entity:GenericEntity){
-    const entityid: number = entity.id;
-    this.router.navigate([`/${this.routeBase}/edit`, entityid]);
-  }
-
-  onDelete(entity:GenericEntity){
-    //TODO call service
+    const eventData: CustomButtonEvent = {
+      eventID: 'CREATE',
+      entityID: 0
+    };
+    this.customButtonClicked.emit(eventData);
   }
 
   onCustomButtonClicked(icomingEventID: string, entity: GenericEntity): void {
