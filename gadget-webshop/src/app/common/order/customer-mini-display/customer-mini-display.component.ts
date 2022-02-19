@@ -9,6 +9,8 @@ import { Customer } from 'src/app/model/customer';
 export class CustomerMiniDisplayComponent implements OnInit {
 
   @Input() customer!: Customer;
+  @Input() canChangeCustomer: boolean = true;
+
   @Output() resetCustomer: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }

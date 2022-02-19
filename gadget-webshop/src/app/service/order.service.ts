@@ -53,7 +53,7 @@ export class OrderService extends BaseNetworkService<Order> {
     return super.get(id).pipe(
       switchMap(OrderData => {
         if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
-        return this.getCustomerByOrder(OrderData.id).pipe(
+        return this.getCustomerByOrder(OrderData.customerID).pipe(
           map(cust => {
             OrderData.customer = cust;
             return OrderData;
@@ -62,7 +62,7 @@ export class OrderService extends BaseNetworkService<Order> {
       }),
       switchMap(OrderData => {
         if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
-        return this.getProductByOrder(OrderData.id).pipe(
+        return this.getProductByOrder(OrderData.productID).pipe(
           map(prod => {
             OrderData.product = prod;
             return this.flattenResponse(OrderData);

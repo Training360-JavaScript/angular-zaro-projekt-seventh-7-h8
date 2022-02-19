@@ -23,6 +23,12 @@ export class BillService extends BaseNetworkService<Bill>{
     return this.orderService.get(id);
   }
 
+  getBillByOrderId(orderID: number): Observable<Bill[]> {
+    return super.getAll().pipe(
+      map(bills => bills.filter(bill => bill.orderID === orderID))
+    );
+  }
+
   override getAll(): Observable<Bill[]> {
     const allBills$ = super.getAll();
     const allOrders$ = this.orderService.getAll();
@@ -43,7 +49,7 @@ export class BillService extends BaseNetworkService<Bill>{
     return super.get(id).pipe(
       switchMap(BillData => {
         if (BillData === null) return of(BillData) as unknown as Observable<Bill>;
-        return this.getOrderByBillId(BillData.id).pipe(
+        return this.getOrderByBillId(BillData.orderID).pipe(
           map(order => {
             BillData.order = order;
             return this.flattenResponse(BillData);

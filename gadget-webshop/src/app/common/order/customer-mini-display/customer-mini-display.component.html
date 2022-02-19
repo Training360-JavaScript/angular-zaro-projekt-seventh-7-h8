@@ -8,4 +8,4 @@
   <li><strong>City: </strong>{{customer['address.city']}}</li>
   <li><strong>Street: </strong>{{customer['address.street']}}</li>
 </ul>
-<button mat-raised-button class="btn btn-danger btn-sm button-bottom-right" (click)="onResetCustomer()">change customer</button>
+<button mat-raised-button class="btn btn-danger btn-sm button-bottom-right" (click)="onResetCustomer()" *ngIf="canChangeCustomer">change customer</button>

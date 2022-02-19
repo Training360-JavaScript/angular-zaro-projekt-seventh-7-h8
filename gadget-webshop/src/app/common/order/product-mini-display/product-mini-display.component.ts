@@ -9,6 +9,7 @@ import { Product } from 'src/app/model/product';
 export class ProductMiniDisplayComponent implements OnInit {
 
   @Input() product!: Product;
+  @Input() canChangeProduct: boolean = true;
   @Output() resetProduct: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }

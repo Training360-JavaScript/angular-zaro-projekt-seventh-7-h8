@@ -23,10 +23,13 @@ export class EditOrderComponent implements OnInit {
     map(params => parseInt(params['id']))
   );
 
-  public order: Order = new Order();
+  public order!: Order;
   public price: number = 0;
+  public canChangeDetails: boolean = true;
 
+  public statusList = Object.entries(Status);
   private bill: Bill = new Bill();
+
 
   constructor(
     private router: Router,
@@ -40,9 +43,27 @@ export class EditOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.id.subscribe((id) => {
-      console.log(id);
-      console.log(this.order);
+      if (!id || id === 0) {
+        this.order = new Order();
+        this.canChangeDetails = true;
+      } else {
+        this.orderService.get(id).forEach(orderData => {
+          this.order = this.removeArtificalPartsFromOrder(orderData);
+          this.fillProductPart();
+          this.fillCustomerPart();
+          this.canChangeDetails = this.order.status === Status.new;
+        });
+      }
     });
+  }
+
+  removeArtificalPartsFromOrder(orderData: Order): Order {
+    for (const [key, value] of Object.entries(orderData)) {
+      if (key.includes('.') || typeof value === 'object') {
+        delete orderData[key];
+      }
+    }
+    return orderData;
   }
 
   onProductSelected(productId: number): void {
@@ -93,13 +114,16 @@ export class EditOrderComponent implements OnInit {
   onSave(): void {
     if (this.order.id === 0) {
       this.onStoreNewOrder();
+    } else {
+      this.onStoreModifiedOrder();
     }
   }
 
   onStoreNewOrder(): void {
-    this.order.status = Status.new;
+    this.order.status = Status.new; //just to make sure :)
+    this.order.customerID = +this.order.customerID;
+    this.order.productID = +this.order.productID;
     this.orderService.create(this.order).forEach(newOrder => {
-      console.log(newOrder);
       this.toastr.success(`Order with ID ${newOrder.id} crated.`, 'Success', {
         positionClass: 'toast-bottom-right'
       });
@@ -109,12 +133,56 @@ export class EditOrderComponent implements OnInit {
       this.bill.orderID = newOrder.id;
       this.bill.amount = this.price;
       this.billService.create(this.bill).forEach(newInvoice => {
-        this.toastr.success(`Invoice with ID ${newInvoice.id} crated.`, 'Success', {
+        this.toastr.success(`Invoice with ID ${newInvoice.id} created.`, 'Success', {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate([`/orderList`]);
+        this.router.navigate([`/orderlist`]);
       });
 
+    });
+  }
+
+  onStoreModifiedOrder(): void {
+    this.order.customerID = +this.order.customerID;
+    this.order.productID = +this.order.productID;
+    this.orderService.update(this.order).forEach(updatedEntity => {
+      console.log(updatedEntity);
+      if (updatedEntity.id) {
+        this.toastr.success(`Order with ID ${updatedEntity.id} updated.`, 'Success', {
+          positionClass: 'toast-bottom-right'
+        });
+
+        //get all bills, that associated with this order. (Hopefully exactly one)
+        this.billService.getBillByOrderId(updatedEntity.id).forEach(bills => {
+          if (!Array.isArray(bills)) {
+            this.toastr.warning('Can\'t find associatd invoice. Please check your database structure.', 'Warning', {
+              positionClass: 'toast-bottom-right'
+            });
+          } else if (bills.length > 1) {
+            this.toastr.warning('More than one invocice found, can\'t update invoice. Please check your database structure.', 'Warning', {
+              positionClass: 'toast-bottom-right'
+            });
+          } else {
+            this.handleBillUpdate(bills[0]);
+          }
+        });
+
+      } else {
+        this.toastr.warning(`Something happened while updating product.`, 'Warning', {
+          positionClass: 'toast-bottom-right'
+        });
+      }
+    });
+  }
+
+  handleBillUpdate(bill: Bill):void {
+    bill.status = this.order.status;
+    bill.amount = this.price;
+    this.billService.update(bill).forEach(newInvoice => {
+      this.toastr.success(`Invoice with ID ${newInvoice.id} updated.`, 'Success', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.router.navigate([`/orderlist`]);
     });
   }
 
