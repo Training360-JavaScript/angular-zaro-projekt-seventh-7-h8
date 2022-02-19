@@ -66,12 +66,10 @@ export class EditOrderComponent implements OnInit {
   }
 
   handleInitialValues(): void {
-    this.activatedRoute.queryParams.subscribe(
-      params => {
+    this.activatedRoute.queryParams.subscribe(params => {
         for (const [key, value] of Object.entries(params)) {
-          if (key === 'product') {
-            this.loadProductFromQueryString(value);
-          }
+          if (key === 'product') this.loadProductFromQueryString(value);
+          if (key === 'customer') this.loadCustomerFromQueryString(value);
         }
       }
     );
@@ -87,7 +85,18 @@ export class EditOrderComponent implements OnInit {
         this.order.product = product;
       }
     });
+  }
 
+  loadCustomerFromQueryString(customerID: string): void {
+    const nCustomerId:number = +customerID;
+    if (isNaN(nCustomerId)) return;
+
+    this.customerService.get(nCustomerId).forEach(customer => {
+      if (customer) {
+        this.order.customerID = nCustomerId;
+        this.order.customer = customer;
+      }
+    });
   }
 
   removeArtificalPartsFromOrder(orderData: Order): Order {
