@@ -46,6 +46,7 @@ export class EditOrderComponent implements OnInit {
       if (!id || id === 0) {
         this.order = new Order();
         this.canChangeDetails = true;
+        this.handleInitialValues();
       } else {
         this.orderService.get(id).forEach(orderData => {
           if (orderData.status === Status.shipped) {
@@ -62,6 +63,31 @@ export class EditOrderComponent implements OnInit {
         });
       }
     });
+  }
+
+  handleInitialValues(): void {
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        for (const [key, value] of Object.entries(params)) {
+          if (key === 'product') {
+            this.loadProductFromQueryString(value);
+          }
+        }
+      }
+    );
+  }
+
+  loadProductFromQueryString(productID: string): void {
+    const nProductId:number = +productID;
+    if (isNaN(nProductId)) return;
+
+    this.productService.get(nProductId).forEach(product => {
+      if (product) {
+        this.order.productID = nProductId;
+        this.order.product = product;
+      }
+    });
+
   }
 
   removeArtificalPartsFromOrder(orderData: Order): Order {
