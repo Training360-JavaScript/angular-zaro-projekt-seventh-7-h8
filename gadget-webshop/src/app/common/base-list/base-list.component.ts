@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter, Pipe } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { ListColumnSelectorComponent } from '../list-column-selector/list-column-selector.component';
 
 @Component({
   selector: 'app-base-list',
@@ -32,7 +33,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   public pageSize: number = 10;
 
   constructor(
-    private router: Router
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void { }
@@ -78,6 +79,21 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
       this.pageIndex = event.pageIndex;
       this.pageSize = event.pageSize;
     }
+  }
+
+  onOpenColumnSelector(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.columnDefinition;
+    const dialogRef = this.dialog.open(ListColumnSelectorComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => {
+        this.columnDefinition.forEach(column => {
+          column.visible = data.includes(column.column);
+        });
+      }
+    );
   }
 
 }

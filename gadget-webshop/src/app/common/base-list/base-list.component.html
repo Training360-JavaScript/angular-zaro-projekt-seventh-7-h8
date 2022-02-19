@@ -1,13 +1,16 @@
-<div class="col-md-3 col-sm-4 col-xs-12">
+<div class="col-md-3 col-sm-4 col-xs-12 d-flex offset-md-9">
   <div class="form-group">
     <span class="fa fa-search form-control-icn"></span>
     <input
       type="text"
       [(ngModel)]="phrase"
       class="form-control"
-      placeholder="Filter products..."
+      placeholder="Filter data..."
     />
   </div>
+  <button mat-mini-fab color="primary" aria-label="Select columns" (click)="onOpenColumnSelector()">
+    <mat-icon>menu</mat-icon>
+  </button>
 </div>
 
 <div class="card">
@@ -19,9 +22,10 @@
   <div class="card-content table-full-width table-responsive" *ngIf="entities">
     <table class="table table-hover table-condensed">
       <thead class="text-danger" style="position: sticky;top: 0">
-        <th class="table-header"
+        <ng-container *ngFor="let column of columnDefinition">
+          <th class="table-header"
           (click)="onClickSort(column.column)"
-          *ngFor="let column of columnDefinition"
+          *ngIf="column.visible"
           [ngClass]="{'text-right': column.alignment === 'right',
           'text-center': column.alignment === 'center'}">
           {{column.title}}&nbsp;<i *ngIf="sortKey===column.column"
@@ -29,6 +33,7 @@
           [ngClass]="{'fa-sort-amount-desc': direction === 'Z...A', 'fa-sort-amount-asc': direction === 'A...Z' }"
           aria-hidden="true"></i>
         </th>
+        </ng-container>
         <th>
           &nbsp;
           <button (click)="onCreate()" *ngIf="enableNewButton" class="btn btn-success btn-sm pull-right">CREATE</button>
@@ -37,8 +42,8 @@
       <tbody>
 
         <tr *ngFor="let entity of entities  | filter: phrase | sort:sortKey : direction | paginateBaseList:pageIndex:pageSize">
-
-          <td *ngFor="let column of columnDefinition"
+          <ng-container *ngFor="let column of columnDefinition">
+            <td  *ngIf="column.visible"
             [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
             <ng-container *ngIf="isBooleanColumn(entity[column.column])">
               <i class="fa" [ngClass]="{'fa-check-circle': entity[column.column],
@@ -50,6 +55,7 @@
               {{entity[column.column]}}
             </ng-container>
           </td>
+          </ng-container>
           <td class="text-right">
             <span class="dropup" *ngIf="actionButtons">
               <button href="#" class="dropdown-toggle btn btn-sm btn-secondary btn-round" data-toggle="dropdown">Actions<b class="caret"></b></button>
