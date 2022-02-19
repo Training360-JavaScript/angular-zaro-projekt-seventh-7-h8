@@ -1,9 +1,11 @@
+import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Product } from 'src/app/model/product';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/model/category';
 
 @Component({
   selector: 'app-edit-product',
@@ -13,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditProductComponent implements OnInit {
 
   product!: Product;
+  category!:Category[];
 
   id: Observable<number> = this.activatedRoute.params.pipe(
     map(params => parseInt(params['id']))
@@ -21,7 +24,8 @@ export class EditProductComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private toastr: ToastrService,
-    private router:Router) { }
+    private router:Router,
+    private categoryService:CategoryService) { }
 
   ngOnInit(): void {
     this.id.subscribe((id)=> {
@@ -38,5 +42,8 @@ export class EditProductComponent implements OnInit {
         });
       }
     });
+    this.categoryService.getAll().subscribe((categories)=>{
+      this.category=categories;
+    })
   }
 }

@@ -66,11 +66,6 @@ export class BillListComponent implements OnInit {
       eventId: 'DETAILS',
     },
     {
-      title: 'Edit',
-      icon: 'fa-pencil text-primary',
-      eventId: 'EDIT',
-    },
-    {
       title: 'Remove',
       icon: ' fa-trash text-danger',
       eventId: 'DELETE',
