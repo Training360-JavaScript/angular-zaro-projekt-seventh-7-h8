@@ -31,7 +31,6 @@ export class EditCustomerFormComponent implements OnInit {
 
   onCloseWithoutSaving(): void {
     this.closeWithoutSaving.emit();
-    this.router.navigate([`/customerlist`]);
   }
 
   onSaveNewCustomer(customer: Customer): void {
