@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, Pipe } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
@@ -13,10 +14,6 @@ import { Entity } from 'src/app/model/entity';
 
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
-  dataTemp: any = 'id';
-  sortKey: string = 'id';
-  direction: string = 'A...Z';
-
   @Input() entities: GenericEntity[] | null = [];
   @Input() columnDefinition: ColumnDefinition[] = [];
   @Input() actionButtons!: ButtonDefinition[];
@@ -27,6 +24,12 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
   phrase: string = "";
+  dataTemp: any = 'id';
+  sortKey: string = 'id';
+  direction: string = 'A...Z';
+
+  public pageIndex:number = 1;
+  public pageSize: number = 10;
 
   constructor(
     private router: Router
@@ -65,6 +68,16 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
       entityID: entity.id
     };
     this.customButtonClicked.emit(eventData);
+  }
+
+  handlePaginate(event?:PageEvent){
+    if(!event) {
+      this.pageIndex = 1;
+      this.pageSize = 10;
+    } else {
+      this.pageIndex = event.pageIndex;
+      this.pageSize = event.pageSize;
+    }
   }
 
 }
