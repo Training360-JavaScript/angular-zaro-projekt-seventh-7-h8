@@ -13,7 +13,9 @@ export class CustomerSelectorComponent implements OnInit {
   @Output() customerSelected: EventEmitter<number> =  new EventEmitter();
 
   public selectedCustomer?: number;
+  public isCreateMode: boolean = false;
   public customerList: Observable<Customer[]> = this.customerService.getAll();
+  public newCustomer: Customer = new Customer();
 
   constructor(
     private customerService: CustomerService
@@ -24,6 +26,20 @@ export class CustomerSelectorComponent implements OnInit {
 
   onReturnSelectedCustomer():void {
     this.customerSelected.emit(this.selectedCustomer || 0);
+  }
+
+  onInitAddCustomer(): void {
+    this.isCreateMode = true;
+  }
+
+  onCloseNewDialogWithoutSaving(): void {
+    this.isCreateMode = false;
+    this.newCustomer = new Customer();
+  }
+
+  onNewCustomerCreated(customer: Customer): void {
+    this.isCreateMode = false;
+    this.customerSelected.emit(customer.id);
   }
 
 }

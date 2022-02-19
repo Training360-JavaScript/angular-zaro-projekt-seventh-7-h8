@@ -1,8 +1,18 @@
-<mat-form-field class="mat-ff-full-width" appearance="standard">
-  <mat-label>Please select customer</mat-label>
-  <mat-select [(ngModel)]="selectedCustomer">
-    <mat-option value="0">Select product</mat-option>
-    <mat-option *ngFor="let customer of customerList | async | activeFilter" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<button mat-raised-button class="btn btn-primary btn-sm button-bottom-right" *ngIf="selectedCustomer" (click)="onReturnSelectedCustomer()">select customer</button>
+
+<ng-container *ngIf="!isCreateMode">
+  <mat-form-field class="mat-ff-full-width" appearance="standard">
+    <mat-label>Please select customer</mat-label>
+    <mat-select [(ngModel)]="selectedCustomer">
+      <mat-option value="">Select customer</mat-option>
+      <mat-option *ngFor="let customer of customerList | async | activeFilter" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p class="pt-2 pb-2 text-center"  *ngIf="!selectedCustomer || selectedCustomer === 0">- or -</p>
+  <div class="d-flex justify-content-center" *ngIf="!selectedCustomer || selectedCustomer === 0">
+    <button mat-raised-button class="btn btn-info btn-sm text-center" (click)="onInitAddCustomer()">add new customer</button>
+  </div>
+  <button mat-raised-button class="btn btn-primary btn-sm button-bottom-right" *ngIf="selectedCustomer" (click)="onReturnSelectedCustomer()">select customer</button>
+</ng-container>
+<ng-container *ngIf="isCreateMode">
+  <app-edit-customer-form [customer]="newCustomer" (closeWithoutSaving)="onCloseNewDialogWithoutSaving" (saveNewCustomer)="onNewCustomerCreated($event)"></app-edit-customer-form>
+</ng-container>
