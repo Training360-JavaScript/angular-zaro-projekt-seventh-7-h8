@@ -36,6 +36,10 @@ export class ProductListComponent implements OnInit {
       column: 'name',
     }),
     new ColumnDefinition({
+      title: 'Type',
+      column: 'type',
+    }),
+    new ColumnDefinition({
       title: 'Category',
       column: 'category.name',
       alignment: Alignment.center,
