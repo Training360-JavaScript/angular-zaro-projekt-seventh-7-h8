@@ -5,7 +5,7 @@ export class Customer extends Entity{
     firstName: string = '';
     lastName: string = '';
     email: string = '';
-    address: Address = new Address();
+    address: Address | string = new Address();
     active: boolean = true;
 
 
