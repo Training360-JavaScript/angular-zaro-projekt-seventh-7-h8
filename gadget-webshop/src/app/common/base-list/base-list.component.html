@@ -31,7 +31,7 @@
         </th>
         <th>
           &nbsp;
-          <button (click)="onCreate()" class="btn btn-success btn-sm pull-right">CREATE</button>
+          <button (click)="onCreate()" *ngIf="enableNewButton" class="btn btn-success btn-sm pull-right">CREATE</button>
         </th>
       </thead>
       <tbody>
