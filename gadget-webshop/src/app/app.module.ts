@@ -4,6 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatRippleModule} from '@angular/material/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
+
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +33,8 @@ import { ViewOrderComponent } from './page/order/view-order/view-order.component
 
 import { FilterPipe } from './pipe/filter.pipe';
 import { SortPipe } from './pipe/sort.pipe';
+import { ActiveFilterPipe } from './pipe/active-filter.pipe';
+import { ProductMiniDisplayComponent } from './common/order/product-mini-display/product-mini-display.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +55,9 @@ import { SortPipe } from './pipe/sort.pipe';
     SortPipe,
     ViewOrderComponent,
     EditProductFormComponent,
-    ProductSelectorComponent
+    ProductSelectorComponent,
+    ActiveFilterPipe,
+    ProductMiniDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +65,12 @@ import { SortPipe } from './pipe/sort.pipe';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
     ToastrModule.forRoot()
   ],
   providers: [],
