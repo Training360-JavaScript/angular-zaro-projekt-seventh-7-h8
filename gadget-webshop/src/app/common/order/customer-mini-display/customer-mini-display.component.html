@@ -1,0 +1,11 @@
+<ul *ngIf="customer">
+  <li><strong>ID: </strong>{{customer.id}}</li>
+  <li><strong>First name: </strong>{{customer.firstName}}</li>
+  <li><strong>Last name: </strong>{{customer.lastName}}</li>
+  <li><strong>E-mail: </strong>{{customer.email}}</li>
+  <li><strong>Zip: </strong>{{customer['address.zip']}}</li>
+  <li><strong>Country: </strong>{{customer['address.country']}}</li>
+  <li><strong>City: </strong>{{customer['address.city']}}</li>
+  <li><strong>Street: </strong>{{customer['address.street']}}</li>
+</ul>
+<button mat-raised-button class="btn btn-danger btn-sm button-bottom-right" (click)="onResetCustomer()">change customer</button>

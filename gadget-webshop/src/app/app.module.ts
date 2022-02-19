@@ -35,6 +35,8 @@ import { FilterPipe } from './pipe/filter.pipe';
 import { SortPipe } from './pipe/sort.pipe';
 import { ActiveFilterPipe } from './pipe/active-filter.pipe';
 import { ProductMiniDisplayComponent } from './common/order/product-mini-display/product-mini-display.component';
+import { CustomerSelectorComponent } from './common/order/customer-selector/customer-selector.component';
+import { CustomerMiniDisplayComponent } from './common/order/customer-mini-display/customer-mini-display.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { ProductMiniDisplayComponent } from './common/order/product-mini-display
     EditProductFormComponent,
     ProductSelectorComponent,
     ActiveFilterPipe,
-    ProductMiniDisplayComponent
+    ProductMiniDisplayComponent,
+    CustomerSelectorComponent,
+    CustomerMiniDisplayComponent
   ],
   imports: [
     BrowserModule,
