@@ -12,7 +12,7 @@ import { EditProductComponent } from './page/product/edit-product/edit-product.c
 import { ViewOrderComponent } from './page/order/view-order/view-order.component';
 import { EditCategoryComponent } from './page/category/edit-category/edit-category.component';
 import { CategoryListComponent } from './page/category/category-list/category-list.component';
-
+import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
 const routes: Routes = [
 
   {
@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'customerlist/edit/:id',
     component: EditCustomerComponent
+  },
+  {
+    path: 'customerlist/details/:id',
+    component: CustomerDetailsComponent
   },
   {
     path: 'orderlist',

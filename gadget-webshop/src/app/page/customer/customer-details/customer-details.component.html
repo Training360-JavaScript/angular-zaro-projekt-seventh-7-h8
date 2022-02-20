@@ -1,0 +1,58 @@
+<ng-container *ngIf="customer">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons"></i>
+          </div>
+          <h4 class="card-title">Customer details</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>ID: </strong>{{customer.id}}</li>
+            <li class="list-group-item"><strong>Name: </strong>{{customer.firstName}} {{customer.lastName}}</li>
+            <li class="list-group-item"><strong>Email: </strong>{{customer.email}}</li>
+            <li class="list-group-item"><strong>Active: </strong>{{customer.active}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons"></i>
+          </div>
+          <h4 class="card-title">Address info</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>ZIP: </strong>{{customer['address.zip']}}</li>
+            <li class="list-group-item"><strong>Country: </strong>{{customer['address.country']}}</li>
+            <li class="list-group-item"><strong>City: </strong>{{customer['address.city']}}</li>
+            <li class="list-group-item"><strong>Street: </strong>{{customer['address.street']}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="allOrders && allOrders.length > 0">
+    <div class="col">
+      <app-base-list
+        [entities]="allOrders"
+        [columnDefinition]="columnDefinition"
+        [actionButtons]="actionButtons"
+        [title]="'Customers\'s orders'"
+        [subTitle]="'Here you can see all of the current customers orders'"
+        [enableNewButton]="false"
+        ></app-base-list>
+    </div>
+  </div>
+  <div class="row" *ngIf="allOrders && allOrders.length === 0">
+    <div class="col">
+      <div class="alert alert-info">No orders for this customer.</div>
+    </div>
+  </div>
+</ng-container>
+

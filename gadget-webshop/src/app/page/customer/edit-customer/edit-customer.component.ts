@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from 'src/app/service/customer.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -21,7 +22,8 @@ export class EditCustomerComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private toastr: ToastrService,
-    private router:Router
+    private router:Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,8 @@ export class EditCustomerComponent implements OnInit {
           this.customer = customer;
         })
       }
-    })
+    });
+    this.titleCommunicator.setTitle('Customer maintenance');
   }
 
   onafterSave(): void {

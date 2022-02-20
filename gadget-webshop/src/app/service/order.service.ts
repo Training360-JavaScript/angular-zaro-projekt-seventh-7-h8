@@ -79,7 +79,7 @@ export class OrderService extends BaseNetworkService<Order> {
   }
 
   getOrdersByCustomerId(customerId: number): Observable<Order[]> {
-    return super.getAll().pipe(
+    return this.getAll().pipe(
       map(orders => orders.filter(order => order.customerID === customerId))
     );
   }

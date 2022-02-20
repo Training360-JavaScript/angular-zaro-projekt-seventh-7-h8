@@ -9,7 +9,7 @@ import * as Chartist from 'chartist';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 import { Bill } from 'src/app/model/bill';
-
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,12 +23,15 @@ export class HomeComponent implements OnInit {
 
   public testOutput: string = '';
 
+
+
   constructor(
     private CategoryServiceTest: CategoryService,
     private ProductServiceTest: ProductService,
     private CustomerServiceTest: CustomerService,
     private OrderServiceTest: OrderService,
     private BillServiceTest: BillService,
+    private titleCommunicator: TitleCommunicatiorService
   ) { }
 
 
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.CustomerServiceTest.getAll().forEach(customers => this.allClients = customers);
     this.ProductServiceTest.getAll().forEach(products => this.allProducts = products);
     this.BillServiceTest.getAll().forEach(bills => this.allBills = bills);
+    this.titleCommunicator.setTitle('Home');
 
     this.initFirstChart();
   }
@@ -113,7 +117,7 @@ export class HomeComponent implements OnInit {
       this.ProductServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
     }
     getOneCustomerTest(): void {
-      this.CustomerServiceTest.get(1).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
+      this.CustomerServiceTest.get(2).forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
     }
     getAllCustomerTest(): void {
       this.CustomerServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
@@ -130,6 +134,30 @@ export class HomeComponent implements OnInit {
     getAllBillTest(): void {
       this.BillServiceTest.getAll().forEach(response => {this.testOutput = JSON.stringify(response, null, '\t')});
     }
+
+    //For historical purposes: Used to generate fake data (but real) to address fields.
+    /* getAddr() {
+      this.CustomerServiceTest.getAddr().forEach(addr => {
+        this.CustomerServiceTest.getAll().forEach(cust => {
+          cust.forEach(aktCustomer => {
+            const newAddr = new Address();
+            const address:any = addr.addresses[Math.floor(Math.random()*addr.addresses.length)];
+            newAddr.zip = +address.postalCode;
+            newAddr.city = address.city;
+            newAddr.country = address.state;
+            newAddr.street = address.address1;
+            aktCustomer.address = JSON.stringify(newAddr);
+            for (const [key, value] of Object.entries(aktCustomer)) {
+              if (key.includes('.')) {
+                delete aktCustomer[key];
+              }
+            }
+            console.log(aktCustomer);
+            this.CustomerServiceTest.update(aktCustomer).forEach(r => console.log(r));
+          });
+        });
+      });
+    } */
 
 
 }
