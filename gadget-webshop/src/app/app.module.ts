@@ -51,7 +51,7 @@ import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
 import { CustomerStatsComponent } from './page/home/cards/customer-stats/customer-stats.component';
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
-
+import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
 import { ChartDisplayComponent } from './common/chart-display/chart-display.component';
 
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
@@ -89,6 +89,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     CustomerStatsComponent,
     ProductStatsComponent,
     BillStatsComponent,
+    CustomerDetailsComponent,
     ChartDisplayComponent
   ],
   imports: [
