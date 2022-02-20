@@ -1,13 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Product } from '../model/product';
+import { CountReporterService } from '../service/count-reporter.service';
 
 @Pipe({
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
-  transform<T extends {[key: string]: any}>(value: T[]|null, phrase: string, activeValue: boolean, featuredValue: boolean, paginateCount: any): T[]|null {
+  constructor(
+    private countCommunicator: CountReporterService
+  ) { }
+
+  transform<T extends {[key: string]: any}>(value: T[]|null, phrase: string, activeValue: boolean, featuredValue: boolean, listTitle: string|null): T[]|null {
+    const reportTitle = listTitle || '';
     if (!value) {
-      paginateCount.cnt = 0;
+      this.countCommunicator.reportCount(reportTitle, 0);
       return value;
     }
 
@@ -37,7 +43,7 @@ export class FilterPipe implements PipeTransform {
         return false;
       }
     });
-    //paginateCount.cnt = ret.length;
+    this.countCommunicator.reportCount(reportTitle, ret.length);
     return ret;
   }
 }

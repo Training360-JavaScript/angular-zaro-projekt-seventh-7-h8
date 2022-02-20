@@ -56,6 +56,30 @@
   </div>
 
   <div class="form-group">
+    <label for="address.street">Country</label>
+    <div [hidden]="addressCountry.valid || addressCountry.pristine" class="error-feedback">
+      Please enter State. (Two letters, uppercase!)
+    </div>
+    <input type="text" class="form-control" id="address.country" placeholder="Enter Country" name="address.country"
+      [(ngModel)]="customer['address.country']"
+      required
+      #addressCountry="ngModel"
+      pattern="[A-Z]{2}">
+  </div>
+
+  <div class="form-group">
+    <label for="address.street">Customer address City</label>
+    <div [hidden]="addressCity.valid || addressCity.pristine" class="error-feedback">
+      Please enter valid city name.
+    </div>
+    <input type="text" class="form-control" id="address.city" placeholder="Enter street" name="address.city"
+      [(ngModel)]="customer['address.city']"
+      required
+      #addressCity="ngModel"
+      pattern="[a-zA-Z0-9\s]{4,}">
+  </div>
+
+  <div class="form-group">
     <label for="address.street">Customer address street</label>
     <div [hidden]="addressStreet.valid || addressStreet.pristine" class="error-feedback">
       Please enter address.
@@ -64,7 +88,7 @@
       [(ngModel)]="customer['address.street']"
       required
       #addressStreet="ngModel"
-      pattern="[a-zA-Z0-9\.]{4,}">
+      pattern="[a-zA-Z0-9\s]{4,}">
   </div>
 
   <div class="form-check mb-4">

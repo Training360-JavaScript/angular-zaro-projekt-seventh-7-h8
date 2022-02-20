@@ -31,14 +31,6 @@ export class CustomerDetailsComponent implements OnInit {
       column: 'id',
     }),
     new ColumnDefinition({
-      title: 'Client Firstname',
-      column: 'customer.firstName',
-    }),
-    new ColumnDefinition({
-      title: 'Client Lastname',
-      column: 'customer.lastName',
-    }),
-    new ColumnDefinition({
       title: 'Product',
       column: 'product.name',
     }),
