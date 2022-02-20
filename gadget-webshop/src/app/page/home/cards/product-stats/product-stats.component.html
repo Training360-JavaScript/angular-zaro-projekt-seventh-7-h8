@@ -1,0 +1,40 @@
+<div class="card card-stats">
+  <div class="card-header card-header-primary card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons">category</i>
+    </div>
+    <p class="card-category">Active products</p>
+    <h3 class="card-title">{{activeProducts}}/{{allProducts}}</h3>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-hover">
+      <caption>new products</caption>
+      <thead class="text-warning">
+        <th>ID</th>
+        <th>Name</th>
+        <th class="text-right">Price</th>
+        <th>&nbsp;</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of displayProducts">
+          <td>{{product.id}}</td>
+          <td>{{product.name}}</td>
+          <td class="text-right">{{product.price}}€</td>
+          <td>
+            <a routerLink="/orderlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
+              <span class="material-icons">
+                info
+              </span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer justify-content-end">
+    <div class="stats">
+      <i class="material-icons text-primary">link</i>
+      <a routerLink="/customerlist">Manage users</a>
+    </div>
+  </div>
+</div>

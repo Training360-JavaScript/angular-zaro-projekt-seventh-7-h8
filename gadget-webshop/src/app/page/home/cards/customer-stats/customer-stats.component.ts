@@ -17,7 +17,6 @@ export class CustomerStatsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.customers);
     this.allCustomers = this.customers.length;
     this.activeCustomer = this.customers.filter(customer => customer.active).length;
     this.displayClients = this.customers.sort(({id: a}, {id: b}) => b-a).slice(0, 5);
