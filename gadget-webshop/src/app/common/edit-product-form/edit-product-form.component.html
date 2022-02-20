@@ -1,4 +1,4 @@
-<form #newForm="ngForm" (submit)="onSaveNewProduct(product)" *ngIf="product">
+<form #newForm="ngForm" (submit)="onSaveNewProduct(product)" *ngIf="product && categories">
   <div class="form-group">
       <label for="newname">Product name</label>
       <input type="text" class="form-control" id="newname" placeholder="Enter product name" name="name"

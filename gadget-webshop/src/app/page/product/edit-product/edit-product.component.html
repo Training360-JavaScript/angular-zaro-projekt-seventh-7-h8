@@ -7,7 +7,8 @@
   <div class="card-body">
     <app-edit-product-form
       [product]="product" [categories]="category"
-      (saveNewProduct)="onSaveButtonClicked($event)">
+      (saveNewProduct)="onSaveButtonClicked($event)"
+      (closeWithoutSaving)="onBackButtonClicked()">
     </app-edit-product-form>
   </div>
 </div>

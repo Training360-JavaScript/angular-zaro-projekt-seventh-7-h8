@@ -48,6 +48,10 @@ export class EditProductComponent implements OnInit {
     })
   }
 
+  onBackButtonClicked(): void {
+    this.router.navigate([`/productlist`]);
+  }
+
   onSaveButtonClicked(evt: CustomButtonEvent) {
     this.toastr.success(`Product ${evt.eventID} with id: ${evt.entityID}`, 'Success', {
       positionClass: 'toast-bottom-right'
