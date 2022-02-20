@@ -41,7 +41,7 @@
       </thead>
       <tbody>
 
-        <tr *ngFor="let entity of entities  | filter: phrase | sort:sortKey : direction | paginateBaseList:pageIndex:pageSize">
+        <tr [] *ngFor="let entity of entities  | filter: phrase | sort:sortKey : direction | paginateBaseList:pageIndex:pageSize:sortKey:direction">
           <ng-container *ngFor="let column of columnDefinition">
             <td  *ngIf="column.visible"
             [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
