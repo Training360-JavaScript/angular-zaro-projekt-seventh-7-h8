@@ -9,6 +9,7 @@ import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -85,20 +86,20 @@ export class CustomerListComponent implements OnInit {
     private customerService: CustomerService,
     private orderService: OrderService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) {}
 
   ngOnInit(): void {
     this.customers$ = this.refreshCustomer$.pipe(switchMap(_ => this.customerService.getAll()));
+    this.titleCommunicator.setTitle('Customer list');
   }
 
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {
     switch(evt.eventID) {
       case 'DETAILS':
-        this.toastr.success(`Got event ${evt.eventID} for entity ${evt.eventID}`, 'This is a message', {
-          positionClass: 'toast-bottom-right'
-        });
+        this.router.navigate([`/${this.routeBase}/details`, evt.entityID]);
         break;
       case 'EDIT':
       case 'CREATE':

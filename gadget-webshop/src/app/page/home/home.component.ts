@@ -9,6 +9,7 @@ import * as Chartist from 'chartist';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 import { Bill } from 'src/app/model/bill';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
     private CustomerServiceTest: CustomerService,
     private OrderServiceTest: OrderService,
     private BillServiceTest: BillService,
+    private titleCommunicator: TitleCommunicatiorService
   ) { }
 
 
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.CustomerServiceTest.getAll().forEach(customers => this.allClients = customers);
     this.ProductServiceTest.getAll().forEach(products => this.allProducts = products);
     this.BillServiceTest.getAll().forEach(bills => this.allBills = bills);
+    this.titleCommunicator.setTitle('Home');
 
     this.initFirstChart();
   }

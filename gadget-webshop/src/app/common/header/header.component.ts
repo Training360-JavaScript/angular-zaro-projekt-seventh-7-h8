@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,14 @@ export class HeaderComponent implements OnInit {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
+  private titleChanged$ = this.titleCommunicator.titleCommunicator$ ;
+
+  public pageTitle: string = '';
 
   constructor(
     private element: ElementRef,
-    private router: Router
+    private router: Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) {
     this.sidebarVisible = false;
   }
@@ -29,6 +35,9 @@ export class HeaderComponent implements OnInit {
             $layer.remove();
             this.mobile_menu_visible = 0;
         }
+    });
+    this.titleChanged$.subscribe(newTitle => {
+      this.pageTitle = newTitle;
     });
   }
 

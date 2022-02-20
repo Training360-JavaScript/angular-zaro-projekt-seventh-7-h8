@@ -10,6 +10,7 @@ import { Order } from 'src/app/model/order';
 import { Status } from 'src/app/model/status';
 import { BillService } from 'src/app/service/bill.service';
 import { OrderService } from 'src/app/service/order.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-order-list',
@@ -81,11 +82,13 @@ export class OrderListComponent implements OnInit {
     private orderService: OrderService,
     private billService: BillService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) {}
 
   ngOnInit(): void {
     this.order$ = this.refreshProduct$.pipe(switchMap(_ => this.orderService.getAll()));
+    this.titleCommunicator.setTitle('Order list');
   }
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {

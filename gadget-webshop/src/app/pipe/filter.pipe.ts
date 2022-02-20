@@ -5,12 +5,23 @@ import { Product } from '../model/product';
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: any[], phrase: string, paginateCount: any): any[] {
+  transform<T extends {[key: string]: any}>(value: T[]|null, phrase: string, activeValue: boolean, featuredValue: boolean, paginateCount: any): T[]|null {
     if (!value) {
       paginateCount.cnt = 0;
       return value;
     }
-    const ret = value.filter((entity) => {
+
+    let filteredValue: T[] = value;
+
+    if (value[0].hasOwnProperty('active')) {
+      filteredValue = value.filter(val => val['active'] === activeValue);
+    }
+
+    if (value[0].hasOwnProperty('featured')) {
+      filteredValue = filteredValue.filter(val => val['featured'] === featuredValue);
+    }
+
+    const ret = filteredValue.filter((entity) => {
       let numberPhrase = parseInt(phrase);
       if (!isNaN(numberPhrase)) {
         for (const [key, value] of Object.entries(entity)) {
@@ -26,7 +37,7 @@ export class FilterPipe implements PipeTransform {
         return false;
       }
     });
-    paginateCount.cnt = ret.length;
+    //paginateCount.cnt = ret.length;
     return ret;
   }
 }

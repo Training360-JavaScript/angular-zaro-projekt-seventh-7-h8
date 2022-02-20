@@ -38,6 +38,7 @@ export class BaseNetworkService<GenericEntity extends Entity> {
   }
 
   flattenResponse(entity: GenericEntity, prefix: string = ''): GenericEntity {
+    if (!entity) return entity;
     for (const [key, value] of Object.entries(entity)) {
       if (typeof value === 'object') {
         entity = {
