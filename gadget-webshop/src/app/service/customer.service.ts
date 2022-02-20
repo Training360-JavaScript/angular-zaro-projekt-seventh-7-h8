@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { Address } from '../model/address';
 import { Customer } from '../model/customer';
 import { BaseNetworkService } from './base-network.service';
@@ -18,6 +18,7 @@ export class CustomerService extends BaseNetworkService<Customer> {
   }
 
   createAddress(customer: Customer): Customer {
+    if (!customer) return customer;
     if (typeof customer.address === 'string') {
       const addressParts = (customer.address as unknown as string).split(' ');
       const zip = addressParts.shift();
