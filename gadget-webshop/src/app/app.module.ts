@@ -46,13 +46,9 @@ import { EditCustomerFormComponent } from './common/edit-customer-form/edit-cust
 import { PaginateBaseListPipe } from './pipe/paginate-base-list.pipe';
 import { ListColumnSelectorComponent } from './common/list-column-selector/list-column-selector.component';
 import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
-<<<<<<< HEAD
-import { CustomerCardComponent } from './common/customer-card/customer-card.component';
-=======
 import { CustomerStatsComponent } from './page/home/cards/customer-stats/customer-stats.component';
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
->>>>>>> main
 
 @NgModule({
   declarations: [
@@ -83,13 +79,9 @@ import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.comp
     ListColumnSelectorComponent,
     ActiveFilterPipe,
     FeaturedFilterPipe,
-<<<<<<< HEAD
-    CustomerCardComponent
-=======
     CustomerStatsComponent,
     ProductStatsComponent,
     BillStatsComponent
->>>>>>> main
   ],
   imports: [
     BrowserModule,
