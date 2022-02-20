@@ -48,6 +48,7 @@ import { ListColumnSelectorComponent } from './common/list-column-selector/list-
 import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
 import { CustomerStatsComponent } from './page/home/cards/customer-stats/customer-stats.component';
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
+import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ProductStatsComponent } from './page/home/cards/product-stats/product-s
     ActiveFilterPipe,
     FeaturedFilterPipe,
     CustomerStatsComponent,
-    ProductStatsComponent
+    ProductStatsComponent,
+    BillStatsComponent
   ],
   imports: [
     BrowserModule,

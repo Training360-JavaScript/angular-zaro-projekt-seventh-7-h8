@@ -1,14 +1,14 @@
 <div class="card card-stats">
-  <div class="card-header card-header-primary card-header-icon">
+  <div class="card-header card-header-danger card-header-icon">
     <div class="card-icon">
-      <i class="material-icons">category</i>
+      <i class="material-icons">receipt</i>
     </div>
-    <p class="card-category">Active products</p>
-    <h3 class="card-title">{{activeProducts}}/{{allProducts}}</h3>
+    <p class="card-category">Invoices</p>
+    <h3 class="card-title">{{newBills}}/{{allBills}} <span>unpaid</span></h3>
   </div>
   <div class="card-body table-responsive">
     <table class="table table-hover">
-      <caption>new products</caption>
+      <caption>last unpaid invoices</caption>
       <thead class="text-warning">
         <th>ID</th>
         <th>Name</th>
@@ -16,12 +16,12 @@
         <th>&nbsp;</th>
       </thead>
       <tbody>
-        <tr *ngFor="let product of displayProducts">
-          <td>{{product.id}}</td>
-          <td>{{product.name}}</td>
-          <td class="text-right">{{product.price}}€</td>
+        <tr *ngFor="let bill of displayBills">
+          <td>{{bill.id}}</td>
+          <td>{{bill['order.customer.firstName']}} {{bill['order.customer.lastName']}}</td>
+          <td class="text-right">{{bill.amount}}€</td>
           <td>
-            <a routerLink="/productlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
+            <a routerLink="/billlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
               <span class="material-icons">
                 info
               </span>
@@ -34,7 +34,7 @@
   <div class="card-footer justify-content-end">
     <div class="stats">
       <i class="material-icons text-primary">link</i>
-      <a routerLink="/productlist">Manage products</a>
+      <a routerLink="/bill-list">Manage bills</a>
     </div>
   </div>
 </div>

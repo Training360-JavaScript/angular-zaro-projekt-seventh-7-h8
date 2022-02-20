@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/service/product.service';
 import * as Chartist from 'chartist';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
+import { Bill } from 'src/app/model/bill';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   public allClients!: Customer[];
   public allProducts!: Product[];
+  public allBills!: Bill[];
 
   public testOutput: string = '';
 
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
     //get all data for cards at once...
     this.CustomerServiceTest.getAll().forEach(customers => this.allClients = customers);
     this.ProductServiceTest.getAll().forEach(products => this.allProducts = products);
+    this.BillServiceTest.getAll().forEach(bills => this.allBills = bills);
 
     this.initFirstChart();
   }
