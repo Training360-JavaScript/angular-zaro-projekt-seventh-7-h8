@@ -14,7 +14,7 @@ import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 export class EditProductFormComponent implements OnInit {
 
   @Input() product!: Product;
-  @Input() categories: Category[] | undefined;
+  @Input() categories!: Category[]|null;
 
   @Output() closeWithoutSaving: EventEmitter<void> = new EventEmitter();
   @Output() saveNewProduct: EventEmitter<CustomButtonEvent> = new EventEmitter();
@@ -27,16 +27,15 @@ export class EditProductFormComponent implements OnInit {
 
   onCloseWithOutSaving(): void {
     this.closeWithoutSaving.emit();
-    this.router.navigate([`/productlist`]);
   }
 
   onSaveNewProduct(product: Product): void {
     let eventData: CustomButtonEvent;
     if (product.id === 0) {
-      this.productService.create(product).subscribe(()=>{
+      this.productService.create(product).subscribe((createdPrduct)=>{
         eventData = {
           eventID: 'created',
-          entityID: 0
+          entityID: createdPrduct.id
         };
         this.saveNewProduct.emit(eventData);
       });

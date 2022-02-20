@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { Alignment } from 'src/app/model/alignment';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from 'src/app/service/customer.service';
+import { OrderService } from 'src/app/service/order.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,7 +19,8 @@ export class CustomerListComponent implements OnInit {
 
   private routeBase: string = 'customerlist';
 
-  customers$: Observable<Customer[]> = this.customerService.getAll()
+  customers$?: Observable<Customer[]>;
+  refreshCustomer$ = new BehaviorSubject<boolean>(true);
 
   public columnDefinition: ColumnDefinition[] = [
     new ColumnDefinition({
@@ -81,11 +83,14 @@ export class CustomerListComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
+    private orderService: OrderService,
     private toastr: ToastrService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.customers$ = this.refreshCustomer$.pipe(switchMap(_ => this.customerService.getAll()));
+  }
 
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {
@@ -100,10 +105,7 @@ export class CustomerListComponent implements OnInit {
         this.router.navigate([`/${this.routeBase}/edit`, evt.entityID]);
         break;
       case 'DELETE':
-        this.customerService.delete(evt.entityID);
-        this.toastr.error(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Here we should delete this record', {
-          positionClass: 'toast-bottom-right'
-        });
+        this.onDeleteCustomer(evt);
         break;
       case 'NEWORDER':
           this.onCreateOrderForCustomer(evt.entityID);
@@ -117,6 +119,30 @@ export class CustomerListComponent implements OnInit {
 
   onCreateOrderForCustomer(customerId: number): void {
     this.router.navigate(['/orderlist/edit', 0], { queryParams: { customer: customerId } });
+  }
+
+  onDeleteCustomer(evt: CustomButtonEvent):void {
+    //Warning: first we shold check if there is any Order with this product...
+    this.orderService.getOrdersByCustomerId(evt.entityID).forEach(orders => {
+      if (Array.isArray(orders) && orders.length > 0) {
+        console.log(orders);
+        this.toastr.warning('You cannot delete this customer because he / she is part of one or more order. Please delete them first.', 'Can\'t delete customer.', {
+          positionClass: 'toast-bottom-right'
+        });
+      } else {
+        this.doDeleteCustomer(evt.entityID);
+      }
+    });
+  }
+  doDeleteCustomer(productID: number):void {
+    this.customerService.delete(productID).forEach(_ => {
+      //The response looks like this: {success: true, removed: '232'}
+      //TODO: Create a message model, assign it to delete method return type, check and handle success message here.
+      this.toastr.success('Customer successfully deleted.', 'Done', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.refreshCustomer$.next(true);
+    })
   }
 
 }
