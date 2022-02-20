@@ -1,1 +1,4 @@
-<app-edit-product-form [product]="product" [categories]="category"></app-edit-product-form>
+<app-edit-product-form
+  [product]="product" [categories]="category"
+  (saveNewProduct)="onSaveButtonClicked($event)">
+</app-edit-product-form>
