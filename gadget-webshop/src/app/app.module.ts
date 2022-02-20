@@ -45,6 +45,7 @@ import { CustomerMiniDisplayComponent } from './common/order/customer-mini-displ
 import { EditCustomerFormComponent } from './common/edit-customer-form/edit-customer-form.component';
 import { PaginateBaseListPipe } from './pipe/paginate-base-list.pipe';
 import { ListColumnSelectorComponent } from './common/list-column-selector/list-column-selector.component';
+import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,9 @@ import { ListColumnSelectorComponent } from './common/list-column-selector/list-
     CustomerSelectorComponent,
     CustomerMiniDisplayComponent,
     PaginateBaseListPipe,
-    ListColumnSelectorComponent
+    ListColumnSelectorComponent,
+    ActiveFilterPipe,
+    FeaturedFilterPipe
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@ export class EditProductFormComponent implements OnInit {
   @Input() categories: Category[] | undefined;
 
   @Output() closeWithoutSaving: EventEmitter<void> = new EventEmitter();
-  @Output() saveNewProduct: EventEmitter<Product> = new EventEmitter();
+  @Output() saveNewProduct: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
   constructor(private productService: ProductService,
     private router: Router,
@@ -31,25 +31,23 @@ export class EditProductFormComponent implements OnInit {
   }
 
   onSaveNewProduct(product: Product): void {
-    let action = '';
+    let eventData: CustomButtonEvent;
     if (product.id === 0) {
       this.productService.create(product).subscribe(()=>{
-        this.showToastr(action, product);
+        eventData = {
+          eventID: 'created',
+          entityID: 0
+        };
+        this.saveNewProduct.emit(eventData);
       });
-      action = 'created';
     } else {
       this.productService.update(product).subscribe(()=>{
-        this.showToastr(action, product);
+        eventData = {
+          eventID: 'updated',
+          entityID: product.id
+        };
+        this.saveNewProduct.emit(eventData);
       });
-      action = 'updated';
     }
-  }
-
-  private showToastr(action: string, product: Product) {
-    this.toastr.success(`Product ${action}.`, 'Success', {
-      positionClass: 'toast-bottom-right'
-    });
-    this.saveNewProduct.emit(product);
-    this.router.navigate([`/productlist`]);
   }
 }

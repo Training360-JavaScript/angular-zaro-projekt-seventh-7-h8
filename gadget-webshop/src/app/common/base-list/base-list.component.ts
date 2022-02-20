@@ -25,6 +25,8 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
+  activeValue: boolean = false;
+  featuredValue: boolean = false;
   phrase: string = "";
   dataTemp: any = 'id';
   sortKey: string = 'id';
