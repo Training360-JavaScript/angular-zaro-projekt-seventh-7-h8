@@ -1,0 +1,72 @@
+<form #newForm="ngForm" (submit)="onSaveNewProduct(product)" *ngIf="product && categories">
+  <div class="form-group">
+      <label for="newname">Product name</label>
+      <input type="text" class="form-control" id="newname" placeholder="Enter product name" name="name"
+          [(ngModel)]="product.name" required #name=ngModel>
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="newtype">Product type</label>
+    <input type="text" class="form-control" id="newtype" placeholder="Enter product type" name="type"
+        [(ngModel)]="product.type" required #type="ngModel">
+    <div [hidden]="type.valid || type.pristine" class="alert alert-danger">
+      Type is required
+    </div>
+  </div>
+
+  <div class="form-group">
+      <label for="newCategory">Category</label>
+      <select id="newCategory" name="category" class="form-control" [(ngModel)]="product.catID" required #category="ngModel">
+        <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+      </select>
+      <div [hidden]="category.valid || category.pristine" class="alert alert-danger">
+        Category is required
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label for="newdescription">Product description</label>
+      <textarea id="newdescription"
+          placeholder="Enter product description. You can use HTML tags. Sorry, no WYSWYG now." class="form-control"
+          name="description" [(ngModel)]="product.description" required #description="ngModel"></textarea>
+      <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+        Description is required
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label for="newprice">Product price</label>
+      <input type="number" class="form-control" id="newprice" placeholder="Regular price" name="price"
+          [(ngModel)]="product.price" required #price="ngModel">
+      <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+        Price is required
+      </div>
+  </div>
+
+  <div class="form-check">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="product.featured" name="featured" id="newfeatured">
+      Featured product?
+      <span class="form-check-sign">
+        <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="form-check mb-4">
+    <label class="form-check-label" for="newactive">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="product.active" name="active" id="newactive">
+          Active product?
+          <span class="form-check-sign">
+            <span class="check"></span>
+          </span>
+      </label>
+  </div>
+
+  <button type="submit" [disabled]="!newForm.form.valid" class="btn btn-primary">Save {{product.id===0 ? 'new' : ''}} product</button>
+
+  <button type="button" class="btn btn-warning pull-right" (click)="onCloseWithOutSaving()">close without saving</button>
+</form>

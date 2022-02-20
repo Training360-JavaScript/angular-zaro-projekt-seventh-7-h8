@@ -1,1 +1,14 @@
-<p>edit-product works!</p>
+
+<div class="card">
+  <div class="card-header card-header-danger">
+    <h4 class="card-title" *ngIf="product">{{product.id===0 ? 'Create new' : 'Update'}} product</h4>
+  </div>
+
+  <div class="card-body">
+    <app-edit-product-form
+      [product]="product" [categories]="category"
+      (saveNewProduct)="onSaveButtonClicked($event)"
+      (closeWithoutSaving)="onBackButtonClicked()">
+    </app-edit-product-form>
+  </div>
+</div>

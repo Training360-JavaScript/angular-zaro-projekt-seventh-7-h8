@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortPipe implements PipeTransform {
 
-  transform(list: any[], key: string, sortDirection: string = 'A...Z'): any[] {
+  transform(list: any[]|null, key: string, sortDirection: string = 'A...Z'): any[]|null {
     // console.log(`sortPIPE, key = ${key}, sortDirection = ${sortDirection}, list = ${JSON.stringify(list)}`)
       if (!Array.isArray(list) || !key) return list;
       if (!['A...Z', 'Z...A'].includes(sortDirection)) return list;

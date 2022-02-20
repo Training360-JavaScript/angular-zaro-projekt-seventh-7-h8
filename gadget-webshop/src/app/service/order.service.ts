@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, Observable, map, forkJoin } from 'rxjs';
+import { switchMap, Observable, map, forkJoin, of } from 'rxjs';
 import { Customer } from '../model/customer';
 import { Order } from '../model/order';
 import { Product } from '../model/product';
@@ -37,11 +37,12 @@ export class OrderService extends BaseNetworkService<Order> {
 
     return forkJoin([allOrder$, allCustomer$, allProduct$]).pipe(
       map(responses => {
-        responses[0].forEach(order => {
+        responses[0].forEach((order, id) => {
           const customer = responses[1].find(customer => customer.id === order.customerID) || new Customer();
           const product = responses[2].find(product => product.id === order.productID) || new Product();
           order.customer = customer;
           order.product = product;
+          responses[0][id] = this.flattenResponse(order);
         })
         return responses[0];
       })
@@ -51,7 +52,8 @@ export class OrderService extends BaseNetworkService<Order> {
   override get(id: number): Observable<Order> {
     return super.get(id).pipe(
       switchMap(OrderData => {
-        return this.getCustomerByOrder(OrderData.id).pipe(
+        if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
+        return this.getCustomerByOrder(OrderData.customerID).pipe(
           map(cust => {
             OrderData.customer = cust;
             return OrderData;
@@ -59,13 +61,26 @@ export class OrderService extends BaseNetworkService<Order> {
         )
       }),
       switchMap(OrderData => {
-        return this.getProductByOrder(OrderData.id).pipe(
+        if (OrderData === null) return of(OrderData) as unknown as Observable<Order>;
+        return this.getProductByOrder(OrderData.productID).pipe(
           map(prod => {
             OrderData.product = prod;
-            return OrderData;
+            return this.flattenResponse(OrderData);
           })
         )
       })
+    );
+  }
+
+  getOrdersByProductId(productId: number): Observable<Order[]> {
+    return super.getAll().pipe(
+      map(orders => orders.filter(order => order.productID === productId))
+    );
+  }
+
+  getOrdersByCustomerId(customerId: number): Observable<Order[]> {
+    return super.getAll().pipe(
+      map(orders => orders.filter(order => order.customerID === customerId))
     );
   }
 

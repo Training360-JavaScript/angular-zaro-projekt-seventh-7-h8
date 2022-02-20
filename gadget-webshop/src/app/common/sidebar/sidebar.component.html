@@ -1,4 +1,3 @@
-<div class="sidebar" data-color="purple" data-background-color="white">
   <div class="logo">
     <a routerLink="/" class="simple-text logo-mini">
       Webshop
@@ -6,26 +5,26 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item active  ">
-        <a class="nav-link" href="#0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
           <i class="material-icons">dashboard</i>
           <p>Dashboard</p>
         </a>
       </li>
       <!-- your sidebar here -->
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/productlist">
           <i class="fa fa-product-hunt" aria-hidden="true"></i>
           Product list
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/customerlist">
           <i class="fa fa-users" aria-hidden="true"></i>
           Customer list
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/orderlist">
           <i class="fa fa-first-order" aria-hidden="true"></i>
           Order list
@@ -45,4 +44,3 @@
       </li>
     </ul>
   </div>
-</div>

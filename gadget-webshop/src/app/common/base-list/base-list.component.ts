@@ -1,9 +1,12 @@
 import { Component, Input, OnInit, Output, EventEmitter, Pipe } from '@angular/core';
-import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { Entity } from 'src/app/model/entity';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { ListColumnSelectorComponent } from '../list-column-selector/list-column-selector.component';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
 
 @Component({
   selector: 'app-base-list',
@@ -13,27 +16,47 @@ import { Entity } from 'src/app/model/entity';
 
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
+  @Input() entities: GenericEntity[] | null = [];
+  @Input() columnDefinition: ColumnDefinition[] = [];
+  @Input() actionButtons!: ButtonDefinition[];
+  @Input() title!: string;
+  @Input() subTitle!: string;
+  @Input() enableNewButton: boolean = true;
+
+  @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
+
+  activeValue: boolean = true;
+  featuredValue: boolean = true;
+  phrase: string = "";
   dataTemp: any = 'id';
   sortKey: string = 'id';
   direction: string = 'A...Z';
 
-  @Input() entities: GenericEntity[] | null = [];
-  @Input() columnDefinition: ColumnDefinition[] = [];
-  @Input() filterPipe:string = "";
-  @Input() extraButtons: ButtonDefinition[] = [];
-  @Input() title!: string;
-  @Input() subTitle!: string;
-  @Input() routeBase: string = '';
+  public pageIndex:number = 0;
+  public pageSize: number = 10;
+  public paginateCount = {cnt: 0};
 
-  @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
-
-  phrase: string = "";
+  storedColumnDefinitionData$ = this.localStorageService.columnDefinitonData$;
 
   constructor(
-    private router: Router
+    private dialog: MatDialog,
+    private localStorageService: LocalStorageService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.localStorageService.getColumnVisibility(this.title);
+    this.storedColumnDefinitionData$.subscribe(columnsReceived => {
+      if (!columnsReceived || columnsReceived[0] === '(empty)') {
+        this.columnDefinition.forEach(column => {
+          column.visible = true;
+        });
+      } else {
+        this.columnDefinition.forEach(column => {
+          column.visible = columnsReceived.includes(column.column);
+        });
+      }
+    });
+  }
 
   onClickSort(data: string): void {
     console.log(`onClickSort, data = ${data}`);
@@ -53,20 +76,11 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
   }
 
   onCreate(){
-    //TODO navigate to edit page with id=0 parameter
-  }
-
-  onGoToDetailPage(entitiy: GenericEntity){
-    //TODO navigate to detail page
-  }
-
-  onEdit(entity:GenericEntity){
-    const entityid: number = entity.id;
-    this.router.navigate([`/${this.routeBase}/edit`, entityid]);
-  }
-
-  onDelete(entity:GenericEntity){
-    //TODO call service
+    const eventData: CustomButtonEvent = {
+      eventID: 'CREATE',
+      entityID: 0
+    };
+    this.customButtonClicked.emit(eventData);
   }
 
   onCustomButtonClicked(icomingEventID: string, entity: GenericEntity): void {
@@ -75,6 +89,29 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
       entityID: entity.id
     };
     this.customButtonClicked.emit(eventData);
+  }
+
+  handlePaginate(event?:PageEvent){
+    if(!event) {
+      this.pageIndex = 1;
+      this.pageSize = 10;
+    } else {
+      this.pageIndex = event.pageIndex;
+      this.pageSize = event.pageSize;
+    }
+  }
+
+  onOpenColumnSelector(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.columnDefinition;
+    const dialogRef = this.dialog.open(ListColumnSelectorComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => {
+        this.localStorageService.setColumnVisibility(this.title, data);
+      }
+    );
   }
 
 }

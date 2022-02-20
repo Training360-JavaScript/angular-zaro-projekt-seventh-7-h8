@@ -1,2 +1,35 @@
-<app-products></app-products>
-
+<!-- teszt-->
+<div class="row">
+  <div class="col">
+    <button mat-raised-button class="btn btn-default" (click)="getAllCategoryTest()">Category (all)</button>
+    <button mat-raised-button class="btn btn-default" (click)="getOneCategoryTest()">Category (one)</button>
+    <button mat-raised-button class="btn btn-primary" (click)="getAllProductTest()">Product (all)</button>
+    <button mat-raised-button class="btn btn-primary" (click)="getOneProductTest()">Product (one)</button>
+    <button mat-raised-button class="btn btn-info" (click)="getAllCustomerTest()">Customer (all)</button>
+    <button mat-raised-button class="btn btn-info" (click)="getOneCustomerTest()">Customer (one)</button>
+    <button mat-raised-button class="btn btn-success" (click)="getAllOrderTest()">Order (all)</button>
+    <button mat-raised-button class="btn btn-success" (click)="getOneOrderTest()">Order (one)</button>
+    <button mat-raised-button class="btn btn-warning" (click)="getAllBillTest()">Bill (all)</button>
+    <button mat-raised-button class="btn btn-warning" (click)="getOneBillTest()">Bill (one)</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <!-- első chart innen-->
+    <div class="card card-chart">
+      <div class="card-header card-header-warning">
+        <div class="ct-chart" id="websiteViewsChart"></div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Email Subscriptions</h4>
+        <p class="card-category">Last Campaign Performance</p>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons">access_time</i> campaign sent 2 days ago
+        </div>
+      </div>
+    </div>
+    <!-- első chart eddig-->
+  </div>
+</div>

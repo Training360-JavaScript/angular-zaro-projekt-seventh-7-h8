@@ -32,14 +32,14 @@ export class CustomerService extends BaseNetworkService<Customer> {
   override getAll(): Observable<Customer[]> {
     return super.getAll().pipe(
       map(customerList => {
-        return customerList.map(customer => this.createAddress(customer));
+        return customerList.map(customer => this.flattenResponse(this.createAddress(customer)));
       }),
     );
   }
 
   override get(id: number): Observable<Customer> {
     return super.get(id).pipe(
-      map(customer => this.createAddress(customer) )
+      map(customer => this.flattenResponse(this.createAddress(customer)) )
     );
   }
 

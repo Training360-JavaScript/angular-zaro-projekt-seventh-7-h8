@@ -18,3 +18,13 @@
   pointer-events: none;
   color: #aaa;
 }
+
+.table-header {
+  cursor: pointer;
+}
+
+th {
+  i {
+    display: inline;
+  }
+}
