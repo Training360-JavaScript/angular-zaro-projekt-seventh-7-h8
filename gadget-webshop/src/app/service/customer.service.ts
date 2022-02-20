@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 import { Address } from '../model/address';
 import { Customer } from '../model/customer';
 import { BaseNetworkService } from './base-network.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,15 +17,14 @@ export class CustomerService extends BaseNetworkService<Customer> {
   }
 
   createAddress(customer: Customer): Customer {
-    if (typeof customer.address === 'string') {
-      const addressParts = (customer.address as unknown as string).split(' ');
-      const zip = addressParts.shift();
-      const street = addressParts.join(' ');
-      customer.address = new Address();
-      customer.address.zip = parseInt(zip || '');
-      customer.address.street = street;
-    }
-    return customer;
+    if (!customer) return customer;
+      try {
+        customer.address = JSON.parse(`${customer.address}`);
+      } catch (e) {
+        customer.address = new Address();
+      }
+
+      return customer;
   }
 
   override getAll(): Observable<Customer[]> {

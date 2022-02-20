@@ -12,6 +12,7 @@ import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/service/order.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-products',
@@ -89,11 +90,13 @@ export class ProductListComponent implements OnInit {
     private productService: ProductService,
     private orderService: OrderService, //we need orderservice tho check weather if a product is a part of an order or not
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) {}
 
   ngOnInit(): void {
     this.products$ = this.refreshProduct$.pipe(switchMap(_ => this.productService.getAll()));
+    this.titleCommunicator.setTitle('Product list');
   }
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {

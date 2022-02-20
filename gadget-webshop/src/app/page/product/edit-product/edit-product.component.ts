@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 import { Product } from 'src/app/model/product';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/model/category';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -26,7 +27,8 @@ export class EditProductComponent implements OnInit {
     private productService: ProductService,
     private toastr: ToastrService,
     private router:Router,
-    private categoryService:CategoryService) { }
+    private categoryService:CategoryService,
+    private titleCommunicator: TitleCommunicatiorService) { }
 
   ngOnInit(): void {
     this.id.subscribe((id)=> {
@@ -45,7 +47,8 @@ export class EditProductComponent implements OnInit {
     });
     this.categoryService.getAll().subscribe((categories)=>{
       this.category=categories;
-    })
+    });
+    this.titleCommunicator.setTitle('Product maintenance')
   }
 
   onBackButtonClicked(): void {

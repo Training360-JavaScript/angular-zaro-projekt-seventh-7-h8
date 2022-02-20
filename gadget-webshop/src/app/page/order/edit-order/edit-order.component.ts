@@ -11,6 +11,7 @@ import { BillService } from 'src/app/service/bill.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-edit-order',
@@ -38,7 +39,8 @@ export class EditOrderComponent implements OnInit {
     private customerService: CustomerService,
     private orderService: OrderService,
     private billService: BillService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private titleCommunicator: TitleCommunicatiorService
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class EditOrderComponent implements OnInit {
         });
       }
     });
+    this.titleCommunicator.setTitle('Order maintenance');
   }
 
   handleInitialValues(): void {

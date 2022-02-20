@@ -34,7 +34,15 @@ export class EditCustomerFormComponent implements OnInit {
   }
 
   onSaveNewCustomer(customer: Customer): void {
-    customer.address = `${customer['address.zip']} ${customer['address.street']}`;
+    //customer.address = `${customer['address.zip']} ${customer['address.street']}`;
+    const newAddress = new Address();
+    newAddress.zip = customer['address.zip'];
+    newAddress.country = customer['address.country'];
+    newAddress.city = customer['address.city'];
+    newAddress.street = customer['address.street'];
+
+    customer.address = JSON.stringify(newAddress);
+
     if (customer.id === 0) {
       this.customerService.create(customer).forEach(response => {
         this.onSuccess('created', response);

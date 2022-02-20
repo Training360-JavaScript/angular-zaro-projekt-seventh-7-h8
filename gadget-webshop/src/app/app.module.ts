@@ -3,17 +3,19 @@ import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatRippleModule} from '@angular/material/core';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatIconModule} from "@angular/material/icon";
-import {MatListModule} from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { ToastrModule } from 'ngx-toastr';
@@ -49,7 +51,11 @@ import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
 import { CustomerStatsComponent } from './page/home/cards/customer-stats/customer-stats.component';
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
+
 import { ChartDisplayComponent } from './common/chart-display/chart-display.component';
+
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -101,9 +107,12 @@ import { ChartDisplayComponent } from './common/chart-display/chart-display.comp
     MatDialogModule,
     MatIconModule,
     MatListModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
