@@ -96,9 +96,7 @@ export class CustomerListComponent implements OnInit {
   onCustomButtonClicked(evt: CustomButtonEvent):void {
     switch(evt.eventID) {
       case 'DETAILS':
-        this.toastr.success(`Got event ${evt.eventID} for entity ${evt.eventID}`, 'This is a message', {
-          positionClass: 'toast-bottom-right'
-        });
+        this.router.navigate([`/${this.routeBase}/details`, evt.entityID]);
         break;
       case 'EDIT':
       case 'CREATE':

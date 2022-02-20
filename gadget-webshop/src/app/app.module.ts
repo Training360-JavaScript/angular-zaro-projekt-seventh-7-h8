@@ -49,6 +49,7 @@ import { FeaturedFilterPipe } from './pipe/featured-filter.pipe';
 import { CustomerStatsComponent } from './page/home/cards/customer-stats/customer-stats.component';
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
+import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.comp
     FeaturedFilterPipe,
     CustomerStatsComponent,
     ProductStatsComponent,
-    BillStatsComponent
+    BillStatsComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     BrowserModule,

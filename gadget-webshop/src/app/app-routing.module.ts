@@ -10,6 +10,7 @@ import { EditOrderComponent } from './page/order/edit-order/edit-order.component
 import { ProductListComponent } from './page/product/product-list/product-list.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 import { ViewOrderComponent } from './page/order/view-order/view-order.component';
+import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
 
 const routes: Routes = [
 
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'customerlist/edit/:id',
     component: EditCustomerComponent
+  },
+  {
+    path: 'customerlist/details/:id',
+    component: CustomerDetailsComponent
   },
   {
     path: 'orderlist',
