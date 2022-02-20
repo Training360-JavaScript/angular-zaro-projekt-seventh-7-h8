@@ -40,10 +40,19 @@ export class CustomerListComponent implements OnInit {
       title: 'Email',
       column: 'email',
     }),
-
     new ColumnDefinition({
       title: 'ZIP',
       column: 'address.zip',
+      sortable: false
+    }),
+    new ColumnDefinition({
+      title: 'Country',
+      column: 'address.country',
+      sortable: false
+    }),
+    new ColumnDefinition({
+      title: 'City',
+      column: 'address.city',
       sortable: false
     }),
     new ColumnDefinition({
