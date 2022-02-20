@@ -26,6 +26,8 @@ import { EditProductComponent } from './page/product/edit-product/edit-product.c
 import { FormsModule } from '@angular/forms';
 import { SortPipe } from './pipe/sort.pipe';
 import { ViewOrderComponent } from './page/order/view-order/view-order.component';
+import { EditCategoryComponent } from './page/category/edit-category/edit-category.component';
+import { CategoryListComponent } from './page/category/category-list/category-list.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ViewOrderComponent } from './page/order/view-order/view-order.component
     EditProductComponent,
     FilterPipe,
     SortPipe,
-    ViewOrderComponent
+    ViewOrderComponent,
+    EditCategoryComponent,
+    CategoryListComponent
   ],
   imports: [
     BrowserModule,

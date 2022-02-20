@@ -10,6 +10,8 @@ import { EditOrderComponent } from './page/order/edit-order/edit-order.component
 import { ProductListComponent } from './page/product/product-list/product-list.component';
 import { EditProductComponent } from './page/product/edit-product/edit-product.component';
 import { ViewOrderComponent } from './page/order/view-order/view-order.component';
+import { EditCategoryComponent } from './page/category/edit-category/edit-category.component';
+import { CategoryListComponent } from './page/category/category-list/category-list.component';
 
 const routes: Routes = [
 
@@ -52,6 +54,14 @@ const routes: Routes = [
   {
     path: 'productlist/edit/:id',
     component: EditProductComponent
+  },
+  {
+    path: 'categorylist',
+    component: CategoryListComponent
+  },
+  {
+    path: 'categorylist/edit/:id',
+    component: EditCategoryComponent
   },
   {
     path: '**',
