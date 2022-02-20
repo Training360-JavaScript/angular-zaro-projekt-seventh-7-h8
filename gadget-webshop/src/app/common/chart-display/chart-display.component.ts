@@ -13,6 +13,8 @@ config: any = {
     options: {},
     plugins: []
   }
+  chartistData: string = "chartist.barData";
+  chartistChartType: string = "Bar";
 
 
   constructor() { }
