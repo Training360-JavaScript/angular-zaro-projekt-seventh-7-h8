@@ -6,10 +6,10 @@ import { Entity } from '../model/entity';
 })
 export class PaginateBaseListPipe implements PipeTransform {
 
-  transform<T extends Entity>(value: T[]|null, ...args: number[]): T[]|null {
+  transform<T extends Entity>(value: T[]|null, ...args: any[]): T[]|null {
     if (!value) return value;
-    let page:number = args[0];
-    let perPage:number = args[1];
+    let page:number = +args[0];
+    let perPage:number = +args[1];
     return value.slice(perPage * page, perPage * (page + 1));
   }
 }

@@ -32,6 +32,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   public pageIndex:number = 0;
   public pageSize: number = 10;
+  public paginateCount = {cnt: 0};
 
   storedColumnDefinitionData$ = this.localStorageService.columnDefinitonData$;
 
