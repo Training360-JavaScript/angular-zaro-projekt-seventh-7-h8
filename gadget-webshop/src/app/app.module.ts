@@ -10,6 +10,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from '@angular/material/list';
+
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -38,6 +43,8 @@ import { ProductMiniDisplayComponent } from './common/order/product-mini-display
 import { CustomerSelectorComponent } from './common/order/customer-selector/customer-selector.component';
 import { CustomerMiniDisplayComponent } from './common/order/customer-mini-display/customer-mini-display.component';
 import { EditCustomerFormComponent } from './common/edit-customer-form/edit-customer-form.component';
+import { PaginateBaseListPipe } from './pipe/paginate-base-list.pipe';
+import { ListColumnSelectorComponent } from './common/list-column-selector/list-column-selector.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +70,9 @@ import { EditCustomerFormComponent } from './common/edit-customer-form/edit-cust
     ActiveFilterPipe,
     ProductMiniDisplayComponent,
     CustomerSelectorComponent,
-    CustomerMiniDisplayComponent
+    CustomerMiniDisplayComponent,
+    PaginateBaseListPipe,
+    ListColumnSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +86,10 @@ import { EditCustomerFormComponent } from './common/edit-customer-form/edit-cust
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatIconModule,
+    MatListModule,
     ToastrModule.forRoot()
   ],
   providers: [],

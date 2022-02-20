@@ -5,8 +5,12 @@ import { Product } from '../model/product';
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: any[], phrase: string): any[] {
-    return value.filter((entity) => {
+  transform(value: any[], phrase: string, paginateCount: any): any[] {
+    if (!value) {
+      paginateCount.cnt = 0;
+      return value;
+    }
+    const ret = value.filter((entity) => {
       let numberPhrase = parseInt(phrase);
       if (!isNaN(numberPhrase)) {
         for (const [key, value] of Object.entries(entity)) {
@@ -22,5 +26,7 @@ export class FilterPipe implements PipeTransform {
         return false;
       }
     });
+    paginateCount.cnt = ret.length;
+    return ret;
   }
 }

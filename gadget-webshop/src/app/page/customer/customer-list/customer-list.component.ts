@@ -71,6 +71,11 @@ export class CustomerListComponent implements OnInit {
       title: 'Remove',
       icon: ' fa-trash text-danger',
       eventId: 'DELETE',
+    },
+    {
+      title: 'Place order',
+      icon: 'fa-cart-plus',
+      eventId: 'NEWORDER',
     }
   ];
 
@@ -100,10 +105,18 @@ export class CustomerListComponent implements OnInit {
           positionClass: 'toast-bottom-right'
         });
         break;
+      case 'NEWORDER':
+          this.onCreateOrderForCustomer(evt.entityID);
+          break;
       default:
         this.toastr.warning(`Got event ${evt.eventID} for entity ${evt.entityID}`, 'Unknown event received', {
           positionClass: 'toast-bottom-right'
         });
     }
   }
+
+  onCreateOrderForCustomer(customerId: number): void {
+    this.router.navigate(['/orderlist/edit', 0], { queryParams: { customer: customerId } });
+  }
+
 }
