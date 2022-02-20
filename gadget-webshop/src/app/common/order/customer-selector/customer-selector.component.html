@@ -4,7 +4,7 @@
     <mat-label>Please select customer</mat-label>
     <mat-select [(ngModel)]="selectedCustomer">
       <mat-option value="">Select customer</mat-option>
-      <mat-option *ngFor="let customer of customerList | async | activeFilter" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
+      <mat-option *ngFor="let customer of customerList | async | activeFilter:true" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
     </mat-select>
   </mat-form-field>
   <p class="pt-2 pb-2 text-center"  *ngIf="!selectedCustomer || selectedCustomer === 0">- or -</p>
