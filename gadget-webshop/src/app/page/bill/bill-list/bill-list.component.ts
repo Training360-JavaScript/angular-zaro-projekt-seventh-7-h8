@@ -60,18 +60,7 @@ export class BillListComponent implements OnInit {
     }),
   ];
 
-  public actionButtons: ButtonDefinition[] = [
-    {
-      title: 'Details',
-      icon: 'fa-info-circle text-info',
-      eventId: 'DETAILS',
-    },
-    {
-      title: 'Remove',
-      icon: ' fa-trash text-danger',
-      eventId: 'DELETE',
-    }
-  ];
+  public actionButtons: ButtonDefinition[] = [];
 
   constructor(
     private billService: BillService,
