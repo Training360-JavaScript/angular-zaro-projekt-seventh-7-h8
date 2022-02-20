@@ -1,0 +1,40 @@
+<div class="card card-stats">
+  <div class="card-header card-header-danger card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons">receipt</i>
+    </div>
+    <p class="card-category">Invoices</p>
+    <h3 class="card-title">{{newBills}}/{{allBills}} <span>unpaid</span></h3>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-hover">
+      <caption>last unpaid invoices</caption>
+      <thead class="text-warning">
+        <th>ID</th>
+        <th>Name</th>
+        <th class="text-right">Price</th>
+        <th>&nbsp;</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bill of displayBills">
+          <td>{{bill.id}}</td>
+          <td>{{bill['order.customer.firstName']}} {{bill['order.customer.lastName']}}</td>
+          <td class="text-right">{{bill.amount}}€</td>
+          <td>
+            <a routerLink="/billlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
+              <span class="material-icons">
+                info
+              </span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer justify-content-end">
+    <div class="stats">
+      <i class="material-icons text-primary">link</i>
+      <a routerLink="/bill-list">Manage bills</a>
+    </div>
+  </div>
+</div>
