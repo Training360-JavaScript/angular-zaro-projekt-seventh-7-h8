@@ -1,6 +1,19 @@
-<div class="col-2 text-right">
+<!-- <div class="col-2 text-right">
   <button (click)="onCreate()" class="btn btn-success mb-3">CREATE</button>
+</div> -->
+
+<div class="col-md-3 col-sm-4 col-xs-12">
+  <div class="form-group">
+    <span class="fa fa-search form-control-icn"></span>
+    <input
+      type="text"
+      [(ngModel)]="phrase"
+      class="form-control"
+      placeholder="Filter products..."
+    />
+  </div>
 </div>
+
 <div class="card">
   <div class="card-header card-header-danger">
     <h4 class="card-title" *ngIf="title">{{title}}</h4>
@@ -9,40 +22,66 @@
 
   <div class="card-content table-full-width table-responsive" *ngIf="entities">
     <table class="table table-hover table-condensed">
-      <thead class="text-danger"  style="position: sticky;top: 0">
+      <thead class="text-danger" style="position: sticky;top: 0">
         <!-- <th *ngFor="let entity of entities[0] | keys">{{ entity }}</th> -->
-        <th *ngFor="let column of columnDefinition"
-          [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">{{column.title}}</th>
-        <th>&nbsp;</th>
+        <th style="cursor: pointer"
+          (click)="onClickSort(column.column)"
+          *ngFor="let column of columnDefinition"
+          [ngClass]="{'text-right': column.alignment === 'right',
+          'text-center': column.alignment === 'center'}">
+          {{column.title}}
+          <ng-container *ngIf="sortKey==column.column">
+            <i *ngIf="direction == 'Z...A'" class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+            <i *ngIf="direction == 'A...Z'" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+          </ng-container>
+        </th>
+        <th>
+          &nbsp;
+          <button (click)="onCreate()" class="btn btn-success btn-sm pull-right">CREATE</button>
+        </th>
       </thead>
       <tbody>
-        <tr *ngFor="let entity of entities">
+
+        <tr *ngFor="let entity of entities | sort:sortKey : direction | filter: phrase">
+
           <!-- <td *ngFor="let propertyKey of entity | keys">
             {{ entity[propertyKey] }}
           </td> -->
-          <td *ngFor="let column of columnDefinition" 
-              [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
-              <ng-container *ngIf=" !column.subcolumn ? isBooleanColumn(entity[column.column]) :  isBooleanColumn(entity[column.column][column.subcolumn])">
-                <i class="fa fa-check-circle text-success" *ngIf="!column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn]"></i>
-                <i class="fa fa-ban text-danger" *ngIf="!column.subcolumn ? !entity[column.column] : !entity[column.column][column.subcolumn]"></i>
-              </ng-container>
-              <ng-container *ngIf=" !column.subcolumn ? !isBooleanColumn(entity[column.column]) :  !isBooleanColumn(entity[column.column][column.subcolumn])">
-                {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
-              </ng-container>
+          <td *ngFor="let column of columnDefinition"
+            [ngClass]="{'text-right': column.alignment === 'right', 'text-center': column.alignment === 'center'}">
+            <ng-container
+              *ngIf=" !column.subcolumn ? isBooleanColumn(entity[column.column]) :  isBooleanColumn(entity[column.column][column.subcolumn])">
+              <i class="fa fa-check-circle text-success"
+                *ngIf="!column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn]"></i>
+              <i class="fa fa-ban text-danger"
+                *ngIf="!column.subcolumn ? !entity[column.column] : !entity[column.column][column.subcolumn]"></i>
+            </ng-container>
+            <ng-container
+              *ngIf=" !column.subcolumn ? !isBooleanColumn(entity[column.column]) :  !isBooleanColumn(entity[column.column][column.subcolumn])">
+              {{ !column.subcolumn ? entity[column.column] : entity[column.column][column.subcolumn] }}
+            </ng-container>
           </td>
           <td class="text-right">
 
             <span class="dropup">
-              <button href="#" class="dropdown-toggle btn btn-sm btn-secondary btn-round" data-toggle="dropdown">Actions <b class="caret"></b></button>
+              <button href="#" class="dropdown-toggle btn btn-sm btn-secondary btn-round" data-toggle="dropdown">Actions
+                <b class="caret"></b></button>
               <ul class="dropdown-menu dropdown-primary dropdown-menu-right">
-                  <li class="dropdown-header">Select an action</li>
-                  <li><a (click)="onGoToDetailPage(entity)" [routerLink]=""><i class="fa fa-info-circle text-info" aria-hidden="true"></i>&nbsp;Details</a></li>
-                  <li><a (click)="onEdit(entity)" [routerLink]=""><i class="fa fa-pencil text-primary" aria-hidden="true"></i>&nbsp;Edit</a></li>
-                  <li><a (click)="onDelete(entity)" [routerLink]=""><i class="fa fa-trash text-danger" aria-hidden="true"></i>&nbsp;Remove</a></li>
-                  <li class="divider"></li>
-                  <li *ngFor="let button of extraButtons"><a [routerLink]="" (click)="onCustomButtonClicked(button.eventId, entity)"><ng-container *ngIf="button.icon"><i class="fa {{button.icon}}" aria-hidden="true"></i>&nbsp;</ng-container>{{button.title}}</a></li>
+                <li class="dropdown-header">Select an action</li>
+                <li><a (click)="onGoToDetailPage(entity)" [routerLink]=""><i class="fa fa-info-circle text-info"
+                      aria-hidden="true"></i>&nbsp;Details</a></li>
+                <li><a (click)="onEdit(entity)" [routerLink]=""><i class="fa fa-pencil text-primary"
+                      aria-hidden="true"></i>&nbsp;Edit</a></li>
+                <li><a (click)="onDelete(entity)" [routerLink]=""><i class="fa fa-trash text-danger"
+                      aria-hidden="true"></i>&nbsp;Remove</a></li>
+                <li class="divider"></li>
+                <li *ngFor="let button of extraButtons"><a [routerLink]=""
+                    (click)="onCustomButtonClicked(button.eventId, entity)">
+                    <ng-container *ngIf="button.icon"><i class="fa {{button.icon}}" aria-hidden="true"></i>&nbsp;
+                    </ng-container>{{button.title}}
+                  </a></li>
               </ul>
-          </span>
+            </span>
             <!-- <div class="btn-group">
               <button (click)="onGoToDetailPage(entity)" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
               <button (click)="onEdit(entity)" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>

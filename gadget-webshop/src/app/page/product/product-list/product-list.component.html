@@ -1,7 +1,8 @@
 
-<app-base-list 
+<app-base-list
     [entities]="products$ | async"
     [columnDefinition]="columnDefinition"
+    [filterPipe]="'productFilter'"
     [extraButtons]="extraButtons"
     [title]="'Product list'"
     [subTitle]="'here you can manage all of your products'"

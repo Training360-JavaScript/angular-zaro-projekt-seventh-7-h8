@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Pipe } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
@@ -13,8 +13,13 @@ import { Entity } from 'src/app/model/entity';
 
 export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
-  @Input() entities:GenericEntity[] | null =[];
+  dataTemp: any = 'id';
+  sortKey: string = 'id';
+  direction: string = 'A...Z';
+
+  @Input() entities: GenericEntity[] | null = [];
   @Input() columnDefinition: ColumnDefinition[] = [];
+  @Input() filterPipe:string = "";
   @Input() extraButtons: ButtonDefinition[] = [];
   @Input() title!: string;
   @Input() subTitle!: string;
@@ -22,11 +27,26 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   @Output() customButtonClicked: EventEmitter<CustomButtonEvent> = new EventEmitter();
 
+  phrase: string = "";
+
   constructor(
-    private router: Router 
+    private router: Router
   ) { }
 
   ngOnInit(): void { }
+
+  onClickSort(data: string): void {
+    console.log(`onClickSort, data = ${data}`);
+    if (this.dataTemp != data) {
+      this.dataTemp = data;
+      this.sortKey = data
+      this.direction = "A...Z";
+    } else {
+      this.dataTemp = null;
+      this.sortKey = data
+      this.direction = "Z...A";
+    }
+  }
 
   isBooleanColumn(entity: any) {
     return typeof entity === 'boolean';
@@ -42,7 +62,7 @@ export class BaseListComponent<GenericEntity extends Entity> implements OnInit {
 
   onEdit(entity:GenericEntity){
     const entityid: number = entity.id;
-    this.router.navigate([`/${this.routeBase}`, entityid]);
+    this.router.navigate([`/${this.routeBase}/edit`, entityid]);
   }
 
   onDelete(entity:GenericEntity){

@@ -1,3 +1,4 @@
+import { FilterPipe } from './../../../pipe/filter.pipe';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { BillService } from 'src/app/service/bill.service';
@@ -21,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductListComponent implements OnInit {
 
   products$:Observable<Product[]>= this.ProductServiceTest.getAll();
-  
+
   public testOutput: string = '';
 
   public columnDefinition: ColumnDefinition[] = [
@@ -37,7 +38,8 @@ export class ProductListComponent implements OnInit {
       title: 'Category',
       column: 'category',
       subcolumn: 'name',
-      alignment: Alignment.center
+      alignment: Alignment.center,
+      sortable: false
     }),
     new ColumnDefinition({
       title: 'Price',
@@ -82,7 +84,6 @@ export class ProductListComponent implements OnInit {
         positionClass: 'toast-bottom-right'
       });
     })
-
   }
 
   //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.

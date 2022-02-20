@@ -5,14 +5,16 @@ export class ColumnDefinition {
     title: string = '';
     column: string = '';
     subcolumn?: string = '';
-    alignment?: Alignment; 
-    
+    alignment?: Alignment;
+    sortable?: boolean;
+
     constructor(properties?: ColumnDefinition) {
         if (properties) {
             this.title = properties.title || '';
             this.column = properties.column || '';
             this.subcolumn = properties.subcolumn || '';
             this.alignment = properties.alignment ? properties.alignment : this.alignment;
+            this.sortable = typeof properties.sortable === 'boolean' ? properties.sortable : true;
         }
     }
 }
