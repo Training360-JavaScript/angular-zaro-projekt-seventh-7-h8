@@ -6,6 +6,7 @@ import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
 
 import * as Chartist from 'chartist';
+import { Customer } from 'src/app/model/customer';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,8 @@ import * as Chartist from 'chartist';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  public allClients!: Customer[];
 
   public testOutput: string = '';
 
@@ -27,6 +30,11 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    //get all data for cards at once...
+    this.CustomerServiceTest.getAll().forEach(customers => {
+      this.allClients = customers;
+      console.log(customers);
+    });
     this.initFirstChart();
   }
 

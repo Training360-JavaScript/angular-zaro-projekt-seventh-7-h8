@@ -13,6 +13,13 @@
     <button mat-raised-button class="btn btn-warning" (click)="getOneBillTest()">Bill (one)</button>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <app-customer-stats [customers]="allClients" *ngIf="allClients"></app-customer-stats>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-4">
     <!-- első chart innen-->
