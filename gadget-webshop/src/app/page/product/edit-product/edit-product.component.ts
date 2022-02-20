@@ -1,3 +1,4 @@
+import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
 import { Component, OnInit } from '@angular/core';
@@ -45,5 +46,13 @@ export class EditProductComponent implements OnInit {
     this.categoryService.getAll().subscribe((categories)=>{
       this.category=categories;
     })
+  }
+
+  onSaveButtonClicked(evt: CustomButtonEvent) {
+    this.toastr.success(`Product ${evt.eventID} with id: ${evt.entityID}`, 'Success', {
+      positionClass: 'toast-bottom-right'
+    });
+
+    this.router.navigate([`/productlist`]);
   }
 }

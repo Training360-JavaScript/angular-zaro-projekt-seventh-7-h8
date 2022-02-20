@@ -4,7 +4,7 @@
     <mat-label>Please select customer</mat-label>
     <mat-select [(ngModel)]="selectedCustomer">
       <mat-option value="">Select customer</mat-option>
-      <mat-option *ngFor="let customer of customerList | async | activeFilter" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
+      <mat-option *ngFor="let customer of customerList | async | activeFilter:true" value="{{customer.id}}">{{customer.firstName}} {{customer.lastName}}</mat-option>
     </mat-select>
   </mat-form-field>
   <p class="pt-2 pb-2 text-center"  *ngIf="!selectedCustomer || selectedCustomer === 0">- or -</p>
@@ -14,5 +14,5 @@
   <button mat-raised-button class="btn btn-primary btn-sm button-bottom-right" *ngIf="selectedCustomer" (click)="onReturnSelectedCustomer()">select customer</button>
 </ng-container>
 <ng-container *ngIf="isCreateMode">
-  <app-edit-customer-form [customer]="newCustomer" (closeWithoutSaving)="onCloseNewDialogWithoutSaving" (saveNewCustomer)="onNewCustomerCreated($event)"></app-edit-customer-form>
+  <app-edit-customer-form [customer]="newCustomer" (closeWithoutSaving)="onCloseNewDialogWithoutSaving()" (saveNewCustomer)="onNewCustomerCreated($event)"></app-edit-customer-form>
 </ng-container>

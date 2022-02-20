@@ -7,6 +7,7 @@ export class ColumnDefinition {
     subcolumn?: string = '';
     alignment?: Alignment;
     sortable?: boolean;
+    visible?: boolean;
 
     constructor(properties?: ColumnDefinition) {
         if (properties) {
@@ -15,6 +16,7 @@ export class ColumnDefinition {
             this.subcolumn = properties.subcolumn || '';
             this.alignment = properties.alignment ? properties.alignment : this.alignment;
             this.sortable = typeof properties.sortable === 'boolean' ? properties.sortable : true;
+            this.visible = typeof properties.visible === 'boolean' ? properties.visible : true;
         }
     }
 }
