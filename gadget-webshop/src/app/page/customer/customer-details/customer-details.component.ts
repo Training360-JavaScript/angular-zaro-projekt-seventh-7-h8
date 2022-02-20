@@ -9,6 +9,7 @@ import { Customer } from 'src/app/model/customer';
 import { Order } from 'src/app/model/order';
 import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-customer-details',
@@ -65,7 +66,8 @@ export class CustomerDetailsComponent implements OnInit {
     private customerService: CustomerService,
     private orderService: OrderService,
     private router:Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private titleCommunicator: TitleCommunicatiorService
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +88,7 @@ export class CustomerDetailsComponent implements OnInit {
         }
       });
     });
+    this.titleCommunicator.setTitle('Customer details');
   }
 
 }

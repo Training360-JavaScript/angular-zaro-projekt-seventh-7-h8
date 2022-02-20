@@ -8,6 +8,7 @@ import { ButtonDefinition } from 'src/app/model/button-definition';
 import { ColumnDefinition } from 'src/app/model/column-definition';
 import { CustomButtonEvent } from 'src/app/model/custom-button-event';
 import { BillService } from 'src/app/service/bill.service';
+import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
 
 @Component({
   selector: 'app-bill-list',
@@ -75,10 +76,13 @@ export class BillListComponent implements OnInit {
   constructor(
     private billService: BillService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private titleCommunicator: TitleCommunicatiorService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.titleCommunicator.setTitle('Invoice list');
+  }
 
   onCustomButtonClicked(evt: CustomButtonEvent):void {
     switch(evt.eventID) {
