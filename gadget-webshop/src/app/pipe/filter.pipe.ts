@@ -37,7 +37,7 @@ export class FilterPipe implements PipeTransform {
         return false;
       }
     });
-    paginateCount.cnt = ret.length;
+    //paginateCount.cnt = ret.length;
     return ret;
   }
 }
