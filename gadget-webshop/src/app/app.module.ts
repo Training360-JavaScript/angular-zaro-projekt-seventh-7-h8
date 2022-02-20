@@ -17,6 +17,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -105,6 +107,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    GoogleMapsModule,
     ToastrModule.forRoot()
   ],
   providers: [
