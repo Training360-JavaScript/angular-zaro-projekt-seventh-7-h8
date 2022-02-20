@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "angular": "^1.8.2",
+    "angular-chartist.js": "^5.0.0-beta.1",
     "arrive": "^2.4.1",
     "bootstrap": "^4.5.2",
     "bootstrap-material-design": "^4.1.3",
