@@ -12,7 +12,7 @@ export class CustomerStatsComponent implements OnInit {
 
   public allCustomers: number = 0;
   public activeCustomer: number = 0;
-  public displayCients: Customer[] = [];
+  public displayClients: Customer[] = [];
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class CustomerStatsComponent implements OnInit {
     console.log(this.customers);
     this.allCustomers = this.customers.length;
     this.activeCustomer = this.customers.filter(customer => customer.active).length;
-    this.displayCients = this.customers.sort(({id: a}, {id: b}) => a-b).slice(0, 5);
+    this.displayClients = this.customers.sort(({id: a}, {id: b}) => a-b).slice(0, 5);
   }
 
 }
