@@ -19,7 +19,7 @@
 
 <div class="row">
   <div class="col-4">
-    <app-chart-display [allProducts]="allProducts" ></app-chart-display>
+    <app-chart-display [allProducts]="allProducts" [allBills]="allBills" [allClients]="allClients"  *ngIf="allProducts && allBills && allClients" ></app-chart-display>
   </div>
 </div>
 

@@ -23,69 +23,97 @@ export class ChartDisplayComponent implements OnInit {
   chartistChartType: string = "Bar";
   */
 
-  /* @Input() products: Product[] = [];
-  @Input() allProducts: Product[] = [];
-  @Input() allBills: Product[] = []; */
 
   @Input() allClients: Customer[] = [];
   @Input() allProducts: Product[] = [];
   @Input() allBills: Bill[] = [];
 
-  /* public allClients!: Customer[];
-  public allProducts!: Product[];
-  public allBills!: Bill[]; */
+  sortClients: Customer[] = [];
+  sortProducts: Product[] = [];
+  sortBills: Bill[] = [];
 
-  testOutput: any = this.allProducts
-  // .pipe(new SortPipe('id', 'A...Z')) ;
+  clientsChart: any = {
+    labels: [] = [],
+    series: [] = []
+  };
+
+  productsChart: any = {
+    labels: [] = [],
+    series: [] = []
+  };
+
+  billsChart: any = {
+    labels: [] = [],
+    series: [] = []
+  };
+
+  testOutput: any = '';
+
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.initFirstChart();
+    // this.sortProducts = this.sorter(this.allProducts, 'price');
+    this.chartObjectCreator(this.sorter(this.allProducts, 'price'), "catID", 'price' );
+    console.log(this.productsChart);
+    this.initFirstChart(this.productsChart);
   }
 
-  startAnimationForBarChart(chart: any){
+  chartObjectCreator(array: any[], labelsKey: string, seriesKey: string): void {
+    this.productsChart.labels = array.map((item) => item[labelsKey].toString());
+    this.productsChart.series = [ array.map((item) => item[seriesKey]) ];
+    // console.log(this.exempleViewsChart.labels);
+    // console.log(this.exempleViewsChart.series);
+    // console.log(this.productsChart.labels);
+
+  }
+
+  sorter(array: any[], sortedKey: string = 'id'): any {
+    const sortedArray = array.sort(({ [sortedKey]: a }, { [sortedKey]: b }) => b - a).slice(0, 5);
+    return sortedArray
+  }
+
+  startAnimationForBarChart(chart: any) {
     let seq2: any, delays2: any, durations2: any;
 
     seq2 = 0;
     delays2 = 80;
     durations2 = 500;
-    chart.on('draw', function(data: any) {
-      if(data.type === 'bar'){
-          seq2++;
-          data.element.animate({
-            opacity: {
-              begin: seq2 * delays2,
-              dur: durations2,
-              from: 0,
-              to: 1,
-              easing: 'ease'
-            }
-          });
+    chart.on('draw', function (data: any) {
+      if (data.type === 'bar') {
+        seq2++;
+        data.element.animate({
+          opacity: {
+            begin: seq2 * delays2,
+            dur: durations2,
+            from: 0,
+            to: 1,
+            easing: 'ease'
+          }
+        });
       }
     });
 
     seq2 = 0;
-};
+  };
 
-datawebsiteViewsChart: any = {
-  labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-  series: [
-    [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+  exempleViewsChart: any = {
+    labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+    series: [
+      [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+    ]
+  };
 
-  ]
-};
-
-  initFirstChart(): void {
-    const datawebsiteViewsChart = this.datawebsiteViewsChart;
+  initFirstChart(datawebsiteViewsChart: any = {}): void {
+    console.log(datawebsiteViewsChart.series);
     const optionswebsiteViewsChart = {
-        axisX: {
-            showGrid: false
-        },
-        low: 0,
-        high: 1000,
-        chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
+      axisX: {
+        showGrid: false
+      },
+      low: 0,
+      high: 1000,
+      chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
     };
     const responsiveOptions: any[] = [
       ['screen and (max-width: 640px)', {
@@ -97,7 +125,7 @@ datawebsiteViewsChart: any = {
         }
       }]
     ];
-    const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+    const websiteViewsChart = new Chartist.Bar('#viewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);

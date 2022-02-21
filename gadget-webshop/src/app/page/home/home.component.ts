@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   public allBills!: Bill[];
   public allOrders!: Order[];
 
+
   public testOutput: string = '';
 
 
