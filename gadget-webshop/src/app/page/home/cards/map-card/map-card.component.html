@@ -5,7 +5,7 @@
   </div>
   <div class="card-body">
     <google-map height="800px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)">
-
+      <map-heatmap-layer [data]="heatmapData" [options]="heatmapOptions"></map-heatmap-layer>
       <map-marker #markerRef="mapMarker"
       *ngFor="let marker of dataArr" (mapClick)="openInfoWindow(markerRef, marker)" [position]="marker.coordinates" [options]="markerOptions"></map-marker>
       <map-info-window [innerText]="infoContent"></map-info-window>
