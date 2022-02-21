@@ -19,8 +19,8 @@ export class MapCardComponent implements OnInit {
   public markerOptions: google.maps.MarkerOptions = {draggable: false};
   public zoom = 3;
   public infoContent:string = '';
-
-
+  public heatmapData: google.maps.LatLngLiteral[] = [];
+  public heatmapOptions = {radius: 25};
 
 
   constructor(
@@ -43,6 +43,7 @@ export class MapCardComponent implements OnInit {
           dataItem.coordinates.lat = +resp.lat;
           dataItem.coordinates.lng = +resp.lng;
           this.dataArr.push(dataItem);
+          this.heatmapData.push({lat: dataItem.coordinates.lat, lng: dataItem.coordinates.lng});
         }
       });
     });
