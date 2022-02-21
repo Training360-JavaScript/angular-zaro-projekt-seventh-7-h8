@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header card-header-primary">
+      <h4 class="card-title">Orders by location</h4>
+      <p class="card-category">Click on the markers to see order count</p>
+  </div>
+  <div class="card-body">
+    <google-map height="800px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)">
+
+      <map-marker #markerRef="mapMarker"
+      *ngFor="let marker of dataArr" (mapClick)="openInfoWindow(markerRef, marker)" [position]="marker.coordinates" [options]="markerOptions"></map-marker>
+      <map-info-window [innerText]="infoContent"></map-info-window>
+    </google-map>
+  </div>
+</div>

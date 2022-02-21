@@ -10,6 +10,7 @@ import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 import { Bill } from 'src/app/model/bill';
 import { TitleCommunicatiorService } from 'src/app/service/title-communicatior.service';
+import { Order } from 'src/app/model/order';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   public allClients!: Customer[];
   public allProducts!: Product[];
   public allBills!: Bill[];
+  public allOrders!: Order[];
 
   public testOutput: string = '';
 
@@ -41,6 +43,8 @@ export class HomeComponent implements OnInit {
     this.CustomerServiceTest.getAll().forEach(customers => this.allClients = customers);
     this.ProductServiceTest.getAll().forEach(products => this.allProducts = products);
     this.BillServiceTest.getAll().forEach(bills => this.allBills = bills);
+    this.OrderServiceTest.getAll().forEach(orders => this.allOrders = orders);
+
     this.titleCommunicator.setTitle('Home');
 
     this.initFirstChart();
