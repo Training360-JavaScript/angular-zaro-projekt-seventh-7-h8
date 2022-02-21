@@ -35,7 +35,8 @@ export class ChartDisplayComponent implements OnInit {
   public allProducts!: Product[];
   public allBills!: Bill[]; */
 
-  public testOutput: any = this.allProducts.pipe(new SortPipe('id', 'A...Z')) ;
+  testOutput: any = this.allProducts
+  // .pipe(new SortPipe('id', 'A...Z')) ;
 
 
   constructor() { }
