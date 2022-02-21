@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Bill } from 'src/app/model/bill';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 
 import * as Chartist from 'chartist';
+import { SortPipe } from 'src/app/pipe/sort.pipe';
 
 @Component({
   selector: 'app-chart-display',
@@ -22,11 +23,19 @@ export class ChartDisplayComponent implements OnInit {
   chartistChartType: string = "Bar";
   */
 
-  public allClients!: Customer[];
-  public allProducts!: Product[];
-  public allBills!: Bill[];
+  /* @Input() products: Product[] = [];
+  @Input() allProducts: Product[] = [];
+  @Input() allBills: Product[] = []; */
 
-  public testOutput: string = '';
+  @Input() allClients: Customer[] = [];
+  @Input() allProducts: Product[] = [];
+  @Input() allBills: Bill[] = [];
+
+  /* public allClients!: Customer[];
+  public allProducts!: Product[];
+  public allBills!: Bill[]; */
+
+  public testOutput: any = this.allProducts.pipe(new SortPipe('id', 'A...Z')) ;
 
 
   constructor() { }
@@ -94,3 +103,7 @@ datawebsiteViewsChart: any = {
   }
 
 }
+function sort(arg0: string, arg1: string): any {
+  throw new Error('Function not implemented.');
+}
+

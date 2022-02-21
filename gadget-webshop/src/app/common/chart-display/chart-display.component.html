@@ -1,15 +1,17 @@
 <p>chart-display works!</p>
     <!-- első chart innen-->
     <div class="card card-chart">
+
       <div class="card-header card-header-warning">
         // this.chart('svg')
         <div class="ct-chart"
         chartist-data="chartist.barData"
         chartist-chart-type="Bar"
         id="websiteViewsChart">
-        </div>
       </div>
-      <div class="card-body">
+    </div>
+    <div class="card-body">
+        {{ allProducts | json }}
         <h4 class="card-title">Email Subscriptions</h4>
         <p class="card-category">Last Campaign Performance</p>
       </div>
@@ -20,3 +22,16 @@
       </div>
     </div>
     <!-- első chart eddig-->
+    <tr *ngFor="let product of allProducts
+    ">
+      <td>{{product.id}}</td>
+      <td>{{product.name}}</td>
+      <td class="text-right">{{product.price}}€</td>
+      <td>
+        <a routerLink="/productlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
+          <span class="material-icons">
+            info
+          </span>
+        </a>
+      </td>
+    </tr>
