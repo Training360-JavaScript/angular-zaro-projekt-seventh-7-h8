@@ -63,12 +63,12 @@ export class ProductListComponent implements OnInit {
     }),
   ];
 
+/*   {
+    title: 'Details',
+    icon: 'fa-info-circle text-info',
+    eventId: 'DETAILS',
+  }, */
   public actionButtons: ButtonDefinition[] = [
-    {
-      title: 'Details',
-      icon: 'fa-info-circle text-info',
-      eventId: 'DETAILS',
-    },
     {
       title: 'Edit',
       icon: 'fa-pencil text-primary',

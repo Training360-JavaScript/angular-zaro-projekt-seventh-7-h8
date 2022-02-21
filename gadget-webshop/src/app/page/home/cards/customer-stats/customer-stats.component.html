@@ -21,7 +21,7 @@
                 <td>{{customer.id}}</td>
                 <td>{{customer.firstName}} {{customer.lastName}}</td>
                 <td>
-                  <a routerLink="/orderlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
+                  <a [routerLink]="['/customerlist/details', customer.id]" mat-mini-fab disabled aria-label="Place new order">
                     <span class="material-icons">
                       manage_accounts
                       </span>

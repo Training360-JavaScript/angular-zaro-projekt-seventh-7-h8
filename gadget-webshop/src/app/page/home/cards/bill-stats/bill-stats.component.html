@@ -12,21 +12,13 @@
       <thead class="text-warning">
         <th>ID</th>
         <th>Name</th>
-        <th class="text-right">Price</th>
-        <th>&nbsp;</th>
+        <th class="text-right">Amount</th>
       </thead>
       <tbody>
         <tr *ngFor="let bill of displayBills">
           <td>{{bill.id}}</td>
           <td>{{bill['order.customer.firstName']}} {{bill['order.customer.lastName']}}</td>
           <td class="text-right">{{bill.amount}}€</td>
-          <td>
-            <a routerLink="/billlist/edit/0" mat-mini-fab disabled aria-label="Place new order">
-              <span class="material-icons">
-                info
-              </span>
-            </a>
-          </td>
         </tr>
       </tbody>
     </table>
