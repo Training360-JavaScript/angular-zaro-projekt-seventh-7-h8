@@ -17,6 +17,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -55,6 +57,7 @@ import { CustomerDetailsComponent } from './page/customer/customer-details/custo
 import { ChartDisplayComponent } from './common/chart-display/chart-display.component';
 
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { MapCardComponent } from './page/home/cards/map-card/map-card.component';
 
 
 @NgModule({
@@ -90,7 +93,8 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     ProductStatsComponent,
     BillStatsComponent,
     CustomerDetailsComponent,
-    ChartDisplayComponent
+    ChartDisplayComponent,
+    MapCardComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +113,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    GoogleMapsModule,
     ToastrModule.forRoot()
   ],
   providers: [
