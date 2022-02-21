@@ -55,6 +55,7 @@ import { ProductStatsComponent } from './page/home/cards/product-stats/product-s
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
 import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { MapCardComponent } from './page/home/cards/map-card/map-card.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     CustomerStatsComponent,
     ProductStatsComponent,
     BillStatsComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    MapCardComponent
   ],
   imports: [
     BrowserModule,
