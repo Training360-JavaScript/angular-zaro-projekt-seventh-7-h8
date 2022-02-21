@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
 
   public allClients!: Customer[];
   public allProducts!: Product[];
-  public allBills!: Bill[];
   public allOrders!: Order[];
+  public allBills!: Bill[];
 
 
   public testOutput: string = '';

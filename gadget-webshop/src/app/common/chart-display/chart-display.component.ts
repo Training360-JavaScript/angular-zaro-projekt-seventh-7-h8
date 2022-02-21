@@ -4,7 +4,7 @@ import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 
 import * as Chartist from 'chartist';
-import { SortPipe } from 'src/app/pipe/sort.pipe';
+import { Order } from 'src/app/model/order';
 
 @Component({
   selector: 'app-chart-display',
@@ -27,46 +27,60 @@ export class ChartDisplayComponent implements OnInit {
   @Input() allClients: Customer[] = [];
   @Input() allProducts: Product[] = [];
   @Input() allBills: Bill[] = [];
+  @Input() allOrders: Order[] = [];
 
-  sortClients: Customer[] = [];
-  sortProducts: Product[] = [];
-  sortBills: Bill[] = [];
-
-  clientsChart: any = {
+  chartExemple: any = {
     labels: [] = [],
     series: [] = []
   };
 
-  productsChart: any = {
-    labels: [] = [],
-    series: [] = []
-  };
-
-  billsChart: any = {
-    labels: [] = [],
-    series: [] = []
-  };
-
-  testOutput: any = '';
-
+  chartsArray: any = []; //[ allOrders, productsChart, billsChart ]
+  chartTitle: string[] = [ 'allOrders', 'productsChart', 'billsChart' ]
+  chartTitleNow: string = '';
+  testOutput: any = [];
 
 
   constructor() { }
 
   ngOnInit(): void {
-    // this.sortProducts = this.sorter(this.allProducts, 'price');
-    this.chartObjectCreator(this.sorter(this.allProducts, 'price'), "catID", 'price' );
-    console.log(this.productsChart);
-    this.initFirstChart(this.productsChart);
+    // this.chartObjectCreator(array: any[], sortingKey: string, seriesKey: string, labelsKey: string)
+    this.chartsArray[0] = this.chartObjectCreator(this.allOrders, 'product.price', 'product.price', "product.category.name");
+    this.chartsArray[1] = this.chartObjectCreator(this.allProducts, 'price', 'price', "catID");
+    this.chartsArray[2] = this.chartObjectCreator(this.allBills, "order.product.price", "order.product.price", "order.product.category.name");
+
+    this.chartTitleNow = this.chartTitle[0]
+    this.initFirstChart(this.chartsArray[0], 30);
+
+    this.chartsStarter();
+    // console.log('onInint start:  initFirstChart', this.chartsArray[0]);
   }
 
-  chartObjectCreator(array: any[], labelsKey: string, seriesKey: string): void {
-    this.productsChart.labels = array.map((item) => item[labelsKey].toString());
-    this.productsChart.series = [ array.map((item) => item[seriesKey]) ];
-    // console.log(this.exempleViewsChart.labels);
-    // console.log(this.exempleViewsChart.series);
-    // console.log(this.productsChart.labels);
+  i: number = 0;
 
+  chartsStarter(): void {
+    setTimeout(() => {
+      this.i += 1;
+      if (this.i <= 2) {
+        // console.log('initFirstChart', this.i, this.chartsArray[this.i]);
+        this.chartTitleNow = this.chartTitle[this.i]
+        this.initFirstChart(this.chartsArray[this.i], 30);
+        this.chartsStarter();
+      } else {
+        this.i = 0
+        // console.log('ELSEinitFirstChart', this.i, this.chartsArray[this.i]);
+        this.chartTitleNow = this.chartTitle[this.i]
+        this.initFirstChart(this.chartsArray[this.i], 30);
+        this.chartsStarter();
+      }
+    }, 4500);
+  }
+
+  chartObjectCreator(array: any[], sortingKey: string, seriesKey: string, labelsKey: string): any {
+    let sortedArray: any[] = this.sorter(array, sortingKey)
+    let obj: any = {}
+    obj.labels = sortedArray.map((item) => item[labelsKey].toString());
+    obj.series = [sortedArray.map((item) => item[seriesKey])];
+    return obj
   }
 
   sorter(array: any[], sortedKey: string = 'id'): any {
@@ -77,9 +91,9 @@ export class ChartDisplayComponent implements OnInit {
   startAnimationForBarChart(chart: any) {
     let seq2: any, delays2: any, durations2: any;
 
-    seq2 = 0;
+    seq2 = 100;
     delays2 = 80;
-    durations2 = 500;
+    durations2 = 3000;
     chart.on('draw', function (data: any) {
       if (data.type === 'bar') {
         seq2++;
@@ -105,22 +119,21 @@ export class ChartDisplayComponent implements OnInit {
     ]
   };
 
-  initFirstChart(datawebsiteViewsChart: any = {}): void {
-    console.log(datawebsiteViewsChart.series);
+  initFirstChart(datawebsiteViewsChart: any = {}, plusValue: number = 0): void {
     const optionswebsiteViewsChart = {
       axisX: {
-        showGrid: false
+        showGrid: true
       },
       low: 0,
-      high: 1000,
+      high: datawebsiteViewsChart.series[0][0] + plusValue,
       chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
     };
     const responsiveOptions: any[] = [
-      ['screen and (max-width: 640px)', {
+      ['screen and (max-width: 12000x)', {
         seriesBarDistance: 5,
         axisX: {
           labelInterpolationFnc: function (value: any) {
-            return value[0];
+            return value[1];
           }
         }
       }]
