@@ -13,6 +13,27 @@ import { Order } from 'src/app/model/order';
 })
 export class ChartDisplayComponent implements OnInit {
   /*
+  config = {
+  type: 'line',
+  data: data,
+  options: {
+    animations: {
+      tension: {
+        duration: 1000,
+        easing: 'linear',
+        from: 1,
+        to: 0,
+        loop: true
+      }
+    },
+    scales: {
+      y: { // defining min and max so hiding the dataset does not change scale range
+        min: 0,
+        max: 100
+      }
+    }
+  }
+};
   config: any = {
     type: 'line',
     data: {},
@@ -93,7 +114,7 @@ export class ChartDisplayComponent implements OnInit {
 
     seq2 = 100;
     delays2 = 80;
-    durations2 = 3000;
+    durations2 = 2700;
     chart.on('draw', function (data: any) {
       if (data.type === 'bar') {
         seq2++;
@@ -121,6 +142,7 @@ export class ChartDisplayComponent implements OnInit {
 
   initFirstChart(datawebsiteViewsChart: any = {}, plusValue: number = 0): void {
     const optionswebsiteViewsChart = {
+      type: 'line',
       axisX: {
         showGrid: true
       },
@@ -133,13 +155,13 @@ export class ChartDisplayComponent implements OnInit {
         seriesBarDistance: 5,
         axisX: {
           labelInterpolationFnc: function (value: any) {
-            return value[1];
+            return value[0];
           }
         }
       }]
     ];
     const websiteViewsChart = new Chartist.Bar('#viewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
+    console.log(websiteViewsChart);
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
   }
