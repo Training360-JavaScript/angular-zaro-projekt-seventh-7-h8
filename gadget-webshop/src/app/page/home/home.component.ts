@@ -5,7 +5,6 @@ import { CustomerService } from 'src/app/service/customer.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product.service';
 
-import * as Chartist from 'chartist';
 import { Customer } from 'src/app/model/customer';
 import { Product } from 'src/app/model/product';
 import { Bill } from 'src/app/model/bill';
@@ -20,8 +19,9 @@ export class HomeComponent implements OnInit {
 
   public allClients!: Customer[];
   public allProducts!: Product[];
-  public allBills!: Bill[];
   public allOrders!: Order[];
+  public allBills!: Bill[];
+
 
   public testOutput: string = '';
 
@@ -46,65 +46,6 @@ export class HomeComponent implements OnInit {
     this.OrderServiceTest.getAll().forEach(orders => this.allOrders = orders);
 
     this.titleCommunicator.setTitle('Home');
-
-    this.initFirstChart();
-  }
-
-
-  startAnimationForBarChart(chart: any){
-    let seq2: any, delays2: any, durations2: any;
-
-    seq2 = 0;
-    delays2 = 80;
-    durations2 = 500;
-    chart.on('draw', function(data: any) {
-      if(data.type === 'bar'){
-          seq2++;
-          data.element.animate({
-            opacity: {
-              begin: seq2 * delays2,
-              dur: durations2,
-              from: 0,
-              to: 1,
-              easing: 'ease'
-            }
-          });
-      }
-    });
-
-    seq2 = 0;
-};
-
-  initFirstChart(): void {
-    const datawebsiteViewsChart = {
-      labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-      series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-      ]
-    };
-    const optionswebsiteViewsChart = {
-        axisX: {
-            showGrid: false
-        },
-        low: 0,
-        high: 1000,
-        chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-    };
-    const responsiveOptions: any[] = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value: any) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-    const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-    //start animation for the Emails Subscription Chart
-    this.startAnimationForBarChart(websiteViewsChart);
   }
 
     //Ezek tesztek, törölhetőek majd a megfelelő importokkal együtt.

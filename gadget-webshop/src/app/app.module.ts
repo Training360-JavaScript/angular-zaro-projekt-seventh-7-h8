@@ -54,8 +54,11 @@ import { CustomerStatsComponent } from './page/home/cards/customer-stats/custome
 import { ProductStatsComponent } from './page/home/cards/product-stats/product-stats.component';
 import { BillStatsComponent } from './page/home/cards/bill-stats/bill-stats.component';
 import { CustomerDetailsComponent } from './page/customer/customer-details/customer-details.component';
+import { ChartDisplayComponent } from './common/chart-display/chart-display.component';
+
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { MapCardComponent } from './page/home/cards/map-card/map-card.component';
+
 
 @NgModule({
   declarations: [
@@ -90,6 +93,7 @@ import { MapCardComponent } from './page/home/cards/map-card/map-card.component'
     ProductStatsComponent,
     BillStatsComponent,
     CustomerDetailsComponent,
+    ChartDisplayComponent,
     MapCardComponent
   ],
   imports: [
