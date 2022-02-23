@@ -73,7 +73,6 @@ export class ChartDisplayComponent implements OnInit {
     this.initFirstChart(this.chartsArray[0], 30);
 
     this.chartsStarter();
-    // console.log('onInint start:  initFirstChart', this.chartsArray[0]);
   }
 
   i: number = 0;
@@ -82,25 +81,23 @@ export class ChartDisplayComponent implements OnInit {
     setTimeout(() => {
       this.i += 1;
       if (this.i <= 2) {
-        // console.log('initFirstChart', this.i, this.chartsArray[this.i]);
-        this.chartTitleNow = this.chartTitle[this.i]
+        this.chartTitleNow = this.chartTitle[this.i];
         this.initFirstChart(this.chartsArray[this.i], 30);
         this.chartsStarter();
       } else {
-        this.i = 0
-        // console.log('ELSEinitFirstChart', this.i, this.chartsArray[this.i]);
-        this.chartTitleNow = this.chartTitle[this.i]
+        this.i = 0;
+        this.chartTitleNow = this.chartTitle[this.i];
         this.initFirstChart(this.chartsArray[this.i], 30);
         this.chartsStarter();
       }
     }, 4500);
   }
 
-  chartObjectCreator(array: any[], sortingKey: string, seriesKey: string, labelsKey: string): any {
+  chartObjectCreator(array: any[], sortingKey: string, seriesKey?: string, labelsKey?: string): any {
     let sortedArray: any[] = this.sorter(array, sortingKey)
     let obj: any = {}
-    obj.labels = sortedArray.map((item) => item[labelsKey].toString());
-    obj.series = [sortedArray.map((item) => item[seriesKey])];
+    if(labelsKey) obj.labels = sortedArray.map((item) => item[labelsKey].toString());
+    if(seriesKey) obj.series = [sortedArray.map((item) => item[seriesKey])];
     return obj
   }
 
@@ -161,7 +158,6 @@ export class ChartDisplayComponent implements OnInit {
       }]
     ];
     const websiteViewsChart = new Chartist.Bar('#viewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-    console.log(websiteViewsChart);
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
   }
